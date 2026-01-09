@@ -54,7 +54,6 @@ export const NAV_LINKS = [
   { label: 'Services', href: '/services' },
   { label: 'Roofing', href: '/insurance-claims' },
   { label: 'Water Damage', href: '/water-damage' },
-  { label: 'Request Inspection', href: '/request-inspection' },
   { label: 'Service Areas', href: '/service-areas' },
   { label: 'Team', href: '/the-team' },
   { label: 'Contact', href: '/contact' },
