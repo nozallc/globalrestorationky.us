@@ -1,0 +1,104 @@
+---
+import Layout from '@layouts/Layout.astro';
+import QuickFacts from '../../components/QuickFacts.astro';
+import { SITE } from '../../lib/site';
+const title = 'Gutter & Siding Repair Storm Restoration Richmond KY';
+const description = 'Emergency gutter and siding repair, storm restoration, and water damage cleanup in Richmond, KY. Fast response, insurance documentation, and local expertise.';
+const city = 'Richmond';
+---
+
+<Layout title={title} description={description} canonical={`${SITE.url}/location/richmond`}>
+  <!-- Page Header Band -->
+  <section class="relative bg-gradient-to-b from-slate-50 to-white border-b border-slate-200">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <div class="mb-8">
+        <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
+          <span class="h-2 w-2 rounded-full bg-global-red"></span>
+          24/7 Emergency Service • Local Experts
+        </div>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-global-blue mb-6">Richmond Restoration Experts</h1>
+      <p class="max-w-2xl text-lg text-slate-700 leading-relaxed mb-8">
+        Emergency gutter and siding repair, storm restoration, and water damage cleanup in Richmond, KY. Fast response, insurance documentation, and local expertise.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="/request-inspection" class="inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95 transition-opacity shadow-btn">
+          Request a Free Inspection
+        </a>
+        <a href={`tel:${SITE.tel}`} class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition-colors">
+          Call {SITE.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Facts Section -->
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div class="text-xs font-semibold uppercase tracking-wider text-global-blue">Service</div>
+        <div class="mt-1 text-sm font-medium text-slate-900">Storm Damage Repair</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div class="text-xs font-semibold uppercase tracking-wider text-global-blue">Location</div>
+        <div class="mt-1 text-sm font-medium text-slate-900">Richmond & Central KY</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div class="text-xs font-semibold uppercase tracking-wider text-global-blue">Response Time</div>
+        <div class="mt-1 text-sm font-medium text-slate-900">60 Minutes or Less</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div class="text-xs font-semibold uppercase tracking-wider text-global-blue">Documentation</div>
+        <div class="mt-1 text-sm font-medium text-slate-900">Insurance-Ready Reports</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-card">
+        <div class="text-xs font-semibold uppercase tracking-wider text-global-blue">Credentials</div>
+        <div class="mt-1 text-sm font-medium text-slate-900">Licensed & Insured</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mb-10">
+      <h2 class="text-3xl font-bold text-slate-900 mb-2">Richmond Emergency Restoration FAQ</h2>
+      <div class="h-1 w-16 bg-global-red rounded-full"></div>
+    </div>
+    <dl class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl shadow-card bg-white p-6 border border-slate-200 transition-all duration-200 hover:shadow-hover hover:scale-[1.02]">
+        <dt class="font-semibold text-slate-900 text-base">How fast can you respond to water damage in Richmond?</dt>
+        <dd class="mt-3 text-slate-600">We offer 24/7 emergency response and aim to be on-site within 60 minutes for water emergencies in Richmond, KY. Rapid response prevents mold and structural damage.</dd>
+      </div>
+      <div class="rounded-xl shadow-card bg-white p-6 border border-slate-200 transition-all duration-200 hover:shadow-hover hover:scale-[1.02]">
+        <dt class="font-semibold text-slate-900 text-base">Do you handle insurance paperwork for storm repairs?</dt>
+        <dd class="mt-3 text-slate-600">Yes, we document all damage and provide insurance-ready reports and photos to help your claim succeed. We coordinate directly with your adjuster.</dd>
+      </div>
+      <div class="rounded-xl shadow-card bg-white p-6 border border-slate-200 transition-all duration-200 hover:shadow-hover hover:scale-[1.02]">
+        <dt class="font-semibold text-slate-900 text-base">What types of storm damage do you repair?</dt>
+        <dd class="mt-3 text-slate-600">We repair roofs, gutters, siding, and provide water mitigation for all types of storm and wind damage in Richmond and the surrounding area.</dd>
+      </div>
+      <div class="rounded-xl shadow-card bg-white p-6 border border-slate-200 transition-all duration-200 hover:shadow-hover hover:scale-[1.02]">
+        <dt class="font-semibold text-slate-900 text-base">Are you licensed and bonded in Richmond?</dt>
+        <dd class="mt-3 text-slate-600">Yes. We're fully licensed, bonded, and insured with all required certifications to work in Richmond and Central Kentucky.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="mx-auto max-w-6xl px-4 py-12 border-t border-slate-200">
+    <div class="rounded-2xl bg-gradient-to-r from-global-blue to-slate-900 p-10 text-center shadow-hover">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Storm Damage in Richmond?</h2>
+      <p class="text-slate-100 max-w-2xl mx-auto mb-6">
+        Get immediate help with gutter repair, siding replacement, water damage, and insurance claims. Our team is standing by 24/7.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/request-inspection" class="inline-flex items-center justify-center rounded-lg bg-global-red px-6 py-3 text-sm font-semibold text-white hover:opacity-95 transition-opacity shadow-btn">
+          Request a Free Inspection
+        </a>
+        <a href={`tel:${SITE.tel}`} class="inline-flex items-center justify-center rounded-lg border border-white px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors">
+          Call {SITE.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

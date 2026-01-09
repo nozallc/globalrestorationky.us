@@ -1,0 +1,48 @@
+---
+import { SITE } from '../lib/site';
+import FooterServiceAreas from './FooterServiceAreas.astro';
+---
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <!-- Company Info Column -->
+      <div class="footer-column">
+        <img src="/assets/NAME & LOGO BANNER.png" alt={SITE.name} class="footer-logo" loading="lazy" width="280" height="80" />
+        <p class="footer-description">
+          Insurance claim roofing + 24/7 water damage restoration across Central Kentucky.
+        </p>
+        <div class="footer-contact">
+          <div><a href={`tel:${SITE.tel}`}>{SITE.phone}</a></div>
+          <div><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
+          <div>{SITE.addressLine}</div>
+        </div>
+      </div>
+
+      <!-- Service Areas Column -->
+      <div class="footer-column">
+        <FooterServiceAreas />
+      </div>
+
+      <!-- CTA Column -->
+      <div class="footer-column">
+        <div class="footer-section-title">Get Help Fast</div>
+        <p class="footer-description">
+          If you have storm damage, leaks, or flooding, start with a documented inspection.
+        </p>
+        <div class="footer-cta-group">
+          <a class="footer-cta" href="/request-inspection">
+            Request a Free Inspection
+          </a>
+          <a class="footer-secondary-btn" href={`tel:${SITE.tel}`}>
+            Call {SITE.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+    </div>
+  </div>
+</footer>

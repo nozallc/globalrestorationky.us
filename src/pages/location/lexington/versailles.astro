@@ -1,0 +1,51 @@
+
+---
+import Layout from '@layouts/Layout.astro';
+import QuickFacts from '../../../components/QuickFacts.astro';
+import { SITE } from '../../../lib/site';
+import { generateBreadcrumbSchema } from '../../../lib/schema';
+
+const title = 'Versailles KY Storm Damage Restoration & Roofing';
+const description = 'Versailles, KY storm damage restoration, roofing, and water mitigation. 24/7 emergency response, insurance claim help, and local expertise.';
+
+const breadcrumbs = generateBreadcrumbSchema([
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Service Areas', url: `${SITE.url}/service-areas` },
+  { name: 'Lexington Hub', url: `${SITE.url}/location/lexington` },
+  { name: 'Versailles', url: `${SITE.url}/location/lexington/versailles` }
+]);
+---
+
+<Layout title={title} description={description} canonical={`${SITE.url}/location/lexington/versailles`}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="text-4xl font-black text-global-blue">{title}</h1>
+    <QuickFacts city="Versailles" />
+    <p class="mt-3 max-w-2xl text-base text-slate-700">
+      For storm damage restoration, roofing, and water mitigation in Versailles, KY, trust our local team for fast response and insurance claim support.
+    </p>
+    <section class="mt-6" aria-label="Services in Versailles">
+      <h2 class="text-xl font-bold mb-2">Services in Versailles</h2>
+      <ul class="list-disc pl-6 text-base text-slate-800">
+        <li>Emergency water extraction & drying</li>
+        <li>Storm damage roof tarping & leak mitigation</li>
+        <li>Roof repair / replacement support</li>
+        <li>Siding & gutter storm restoration</li>
+        <li>Insurance documentation support</li>
+      </ul>
+    </section>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a href="/request-inspection" class="inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95">
+        Request a Free Inspection
+      </a>
+      <a href={`tel:${SITE.tel}`} class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-white">
+        Call {SITE.phone}
+      </a>
+    </div>
+    <div class="mt-8">
+      <a href="/location/lexington/index" class="text-global-blue hover:underline">Back to Lexington Hub</a>
+      <span class="mx-2">|</span>
+      <a href="/service-areas" class="text-global-blue hover:underline">All Service Areas</a>
+    </div>
+  </section>
+</Layout>

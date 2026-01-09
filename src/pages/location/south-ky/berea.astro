@@ -1,0 +1,41 @@
+
+---
+import Layout from '@layouts/Layout.astro';
+import QuickFacts from '../../../components/QuickFacts.astro';
+import { SITE } from '../../../lib/site';
+const title = 'Berea KY Storm & Water Restoration I-75 South Corridor';
+const description = 'Berea, KY connects Richmond to the I-75 South corridor for urgent storm damage, water mitigation, and insurance claim restoration. Fast response for Berea and surrounding areas.';
+---
+
+<Layout title={title} description={description} canonical={`${SITE.url}/location/south-ky/berea`}>
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="text-4xl font-black text-global-blue">{title}</h1>
+    <QuickFacts city="Berea" />
+    <p class="mt-3 max-w-2xl text-base text-slate-700">
+      Berea, KY connects Richmond to the I-75 South corridor for urgent storm damage, water mitigation, and insurance claim restoration. Fast response for Berea and surrounding areas.
+    </p>
+    <section class="mt-6" aria-label="Services in Berea">
+      <h2 class="text-xl font-bold mb-2">Services in Berea</h2>
+      <ul class="list-disc pl-6 text-base text-slate-800">
+        <li>Emergency water extraction & drying</li>
+        <li>Storm damage roof tarping & leak mitigation</li>
+        <li>Roof repair / replacement support</li>
+        <li>Siding & gutter storm restoration</li>
+        <li>Insurance documentation support</li>
+      </ul>
+    </section>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a href="/request-inspection" class="inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95">
+        Request a Free Inspection
+      </a>
+      <a href={`tel:${SITE.tel}`} class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-white">
+        Call {SITE.phone}
+      </a>
+    </div>
+    <div class="mt-8">
+      <a href="/location/south-ky/index" class="text-global-blue hover:underline">Back to South KY Hub</a>
+      <span class="mx-2">|</span>
+      <a href="/service-areas" class="text-global-blue hover:underline">All Service Areas</a>
+    </div>
+  </section>
+</Layout>

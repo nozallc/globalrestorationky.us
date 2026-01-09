@@ -1,0 +1,17 @@
+---
+import { SERVICE_AREA_HUBS } from '../lib/serviceAreas';
+---
+
+<nav class="footer-nav">
+  <div class="footer-section-title">Service Areas</div>
+  <ul>
+    <li>
+      <a href="/service-areas">All Service Areas</a>
+    </li>
+    {SERVICE_AREA_HUBS.map((hub) => (
+      <li>
+        <a href={hub.href}>{hub.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>

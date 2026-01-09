@@ -1,0 +1,14 @@
+# Global Restoration LLC - robots.txt
+# Allow all crawlers to index the site
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /*.pdf$
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://www.globalrestorationky.us/sitemap.xml
+
+# Crawl delay (optional - 1 second)
+Crawl-delay: 1

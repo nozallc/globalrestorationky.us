@@ -1,0 +1,74 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { SITE, SERVICES, CITIES } from '../../lib/site';
+
+export function getStaticPaths() {
+  return SERVICES.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+
+const { service } = Astro.props;
+
+const title = `${service.name} | ${SITE.name}`;
+const description = `${service.short} Serving Lexington and surrounding Central Kentucky cities.`;
+const canonical = `${SITE.url}/services/${service.slug}`;
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <section class="section-spacing">
+    <div class="mx-auto max-w-5xl">
+      <p class="text-xs font-semibold uppercase tracking-wider text-text-muted">Service</p>
+      <h1 class="mt-2 text-4xl font-black text-navy-dark">{service.name}</h1>
+      <p class="mt-3 max-w-2xl text-lg text-text-muted">{service.short}</p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="/request-inspection" class="btn-primary inline-flex items-center justify-center">
+          Request a Free Inspection
+        </a>
+        <a href={`tel:${SITE.tel}`} class="inline-flex items-center justify-center rounded-lg border-2 border-navy px-6 py-3 text-base font-semibold text-navy hover:bg-navy/5 transition-colors">
+          Call {SITE.phone}
+        </a>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {[
+          ['What we do', 'Inspection, documentation, and restoration work performed to a clear scope.'],
+          ['Why it matters', 'Insurance claims succeed on evidence + correct scope + communication.'],
+          ['What to expect', 'We schedule an inspection, document, then help you decide next steps.'],
+        ].map(([t, d]) => (
+          <div class="card-base p-6">
+            <div class="text-lg font-bold text-navy-dark">{t}</div>
+            <p class="mt-2 text-sm text-text-muted">{d}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 card-base rounded-2xl p-8 bg-bg-muted">
+        <h2 class="text-2xl font-bold text-navy-dark">Service Areas</h2>
+        <p class="mt-2 text-base text-text-muted">Choose your city for local details.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {CITIES.map((c) => (
+            <a href={`/location/${c.slug}`} class="rounded-lg border border-border bg-white px-3 py-2 text-sm font-semibold text-navy hover:border-accent-red hover:text-accent-red transition-colors">
+              {c.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+    <!-- Service schema -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"Service",
+        "name": service.name,
+        "provider": {
+          "@type":"LocalBusiness",
+          "name": SITE.name,
+          "telephone": SITE.phone,
+          "url": SITE.url
+        },
+        "areaServed": CITIES.map(c => c.name + ", KY"),
+        "serviceType": service.name
+      })}
+    </script>
+  </section>
+</Layout>

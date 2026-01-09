@@ -1,0 +1,32 @@
+---
+export interface Props {
+  city?: string
+}
+const {
+  city = 'Lexington',
+} = Astro.props;
+---
+<section class="mt-4 mb-8" aria-label="Quick Facts">
+  <ul class="space-y-2 text-base text-slate-800">
+    <li class="flex items-start gap-3">
+      <span class="text-global-red font-bold flex-shrink-0">✓</span>
+      <span><strong>Service:</strong> 24/7 Water Mitigation & Storm Roof Restoration</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="text-global-red font-bold flex-shrink-0">✓</span>
+      <span><strong>Location:</strong> Based in {city}; Serving all of Central Kentucky</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="text-global-red font-bold flex-shrink-0">✓</span>
+      <span><strong>Response Time:</strong> 60 minutes or less for water emergencies</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="text-global-red font-bold flex-shrink-0">✓</span>
+      <span><strong>Inspections:</strong> Comprehensive damage documentation for homeowners</span>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="text-global-red font-bold flex-shrink-0">✓</span>
+      <span><strong>Credentials:</strong> Licensed, Insured, and Locally Owned</span>
+    </li>
+  </ul>
+</section>

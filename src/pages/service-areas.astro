@@ -1,0 +1,28 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { SITE } from '../lib/site';
+import { SERVICE_AREA_HUBS } from '../lib/serviceAreas';
+import ServiceAreaLinks from '../components/ServiceAreaLinks.astro';
+import ServiceAreaMap from '../components/ServiceAreaMap.astro';
+const title = `Service Areas | ${SITE.name}`;
+const description = 'We serve Lexington, Georgetown, Frankfort, Richmond, Nicholasville and surrounding Central Kentucky areas.';
+---
+
+<Layout title={title} description={description} canonical={`${SITE.url}/service-areas`}>
+  <section class="relative mx-auto max-w-6xl px-4 py-0">
+    <div class="mb-10 rounded-xl bg-brand-accent/60 shadow-card px-6 py-10 flex flex-col items-center">
+      <h1 class="text-h1 font-black text-global-blue mb-2">Service Areas</h1>
+      <p class="max-w-2xl text-base text-slate-700 mb-2">
+        Local landing pages help you find the right service fastespecially during storms.
+      </p>
+    </div>
+    <div class="mt-8 grid gap-8 lg:grid-cols-3">
+      <div class="lg:col-span-1">
+        <ServiceAreaLinks hubs={SERVICE_AREA_HUBS} />
+      </div>
+      <div class="lg:col-span-2">
+        <ServiceAreaMap hubs={SERVICE_AREA_HUBS} />
+      </div>
+    </div>
+  </section>
+</Layout>

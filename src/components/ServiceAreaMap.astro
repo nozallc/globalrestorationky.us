@@ -1,0 +1,65 @@
+---
+import type { ServiceAreaHub } from '../lib/serviceAreas';
+import { SERVICE_AREA_HUBS } from '../lib/serviceAreas';
+
+export interface Props {
+  hubs?: ServiceAreaHub[];
+}
+
+const hubs = Astro.props.hubs || SERVICE_AREA_HUBS;
+
+const HQ_ADDRESS = '616 W 3rd St, Lexington, KY 40508';
+const HQ_ADDRESS_ENCODED = encodeURIComponent(HQ_ADDRESS);
+---
+
+<aside class="sticky top-24 h-fit rounded-xl bg-white shadow-card overflow-hidden" aria-label="Service Area Map and Info">
+  <!-- HQ Card -->
+  <div class="border-b border-slate-200 p-6">
+    <div class="mb-4">
+      <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Headquarters</h3>
+      <p class="mt-2 text-base font-semibold text-global-blue">Global Restoration LLC</p>
+      <a 
+        href={`https://www.google.com/maps/search/?api=1&query=${HQ_ADDRESS_ENCODED}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-2 block text-sm text-slate-600 hover:text-global-red hover:underline transition-colors"
+      >
+        {HQ_ADDRESS}
+      </a>
+    </div>
+    
+    <!-- Direction Links -->
+    <div class="flex flex-wrap gap-2">
+      <a
+        href={`https://www.google.com/maps/dir/?api=1&destination=${HQ_ADDRESS_ENCODED}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-semibold px-3 py-2 rounded-lg bg-global-blue text-white hover:opacity-90 transition-opacity"
+      >
+        Directions (Google)
+      </a>
+      <a
+        href={`https://maps.apple.com/?q=${HQ_ADDRESS_ENCODED}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-semibold px-3 py-2 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors"
+      >
+        Directions (Apple Maps)
+      </a>
+    </div>
+  </div>
+
+  <!-- Map Embed -->
+  <div class="relative w-full overflow-hidden bg-slate-100">
+    <iframe
+      title="Global Restoration LLC Service Area Map - Centered on Lexington, Kentucky headquarters"
+      width="100%"
+      height="320"
+      style="border: 0"
+      loading="lazy"
+      allowfullscreen=""
+      referrerpolicy="no-referrer-when-downgrade"
+      src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.2176!2d-84.27466!3d38.0504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x884566d0f6f6f6f%3A0x0!2s616+W+3rd+St%2C+Lexington%2C+KY+40508!5e0!3m2!1sen!2sus!4v1704891600000`}
+    ></iframe>
+  </div>
+</aside>

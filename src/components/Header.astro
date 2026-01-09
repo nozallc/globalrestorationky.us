@@ -1,0 +1,82 @@
+---
+import { NAV_LINKS, NAV_LINKS_MOBILE, SITE } from '../lib/site';
+const ctaHref = '/request-inspection';
+---
+
+<header class="site-header">
+  <nav class="site-nav">
+    <!-- Mobile Hamburger Menu Button -->
+    <button 
+      class="mobile-menu-btn" 
+      aria-label="Toggle mobile menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Logo / Brand -->
+    <a href="/" aria-label={`${SITE.name} home`} class="site-logo-link">
+      <img src="/assets/NAME & LOGO BANNER.png" alt={SITE.name} class="site-logo" loading="lazy" width="280" height="80" />
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <div class="site-nav-links">
+      {NAV_LINKS.map((l) => (
+        <a href={l.href}>{l.label}</a>
+      ))}
+    </div>
+
+    <!-- Right Side Actions -->
+    <div class="site-nav-actions">
+      <div class="site-nav-actions-vertical">
+        <a href={ctaHref} class="site-cta">
+          Request Inspection
+        </a>
+        <a href={`tel:${SITE.tel}`} class="site-phone-desktop">
+          {SITE.phone}
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-links">
+      {NAV_LINKS_MOBILE.map((l) => (
+        <a href={l.href}>{l.label}</a>
+      ))}
+    </div>
+    <div class="mobile-menu-footer">
+      <a href={`tel:${SITE.tel}`} class="mobile-menu-phone">
+        {SITE.phone}
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      const newValue = isExpanded ? 'false' : 'true';
+      menuBtn.setAttribute('aria-expanded', newValue);
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close menu when link is clicked
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  }
+</script>
