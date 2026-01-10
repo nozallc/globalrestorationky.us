@@ -48,6 +48,10 @@ const ctaHref = '/request-inspection';
       {NAV_LINKS_MOBILE.map((l) => (
         <a href={l.href}>{l.label}</a>
       ))}
+      <!-- Request Inspection CTA in Mobile Menu -->
+      <a href={ctaHref} class="mobile-menu-cta">
+        Request Inspection
+      </a>
     </div>
     <div class="mobile-menu-footer">
       <a href={`tel:${SITE.tel}`} class="mobile-menu-phone">

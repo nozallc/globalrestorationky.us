@@ -10,7 +10,7 @@ import FooterServiceAreas from './FooterServiceAreas.astro';
       <div class="footer-column">
         <img src="/assets/NAME & LOGO BANNER.png" alt={SITE.name} class="footer-logo" loading="lazy" width="280" height="80" />
         <p class="footer-description">
-          Insurance claim roofing + 24/7 water damage restoration across Central Kentucky.
+          24/7 Roofing & Water damage restoration across Lexington & Central KY.
         </p>
         <div class="footer-contact">
           <div><a href={`tel:${SITE.tel}`}>{SITE.phone}</a></div>
@@ -42,7 +42,10 @@ import FooterServiceAreas from './FooterServiceAreas.astro';
     </div>
 
     <div class="footer-bottom">
-      © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+      <div>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</div>
+      <div class="footer-credit">
+        Site by <a href="https://www.nozallc.us" target="_blank" rel="noopener noreferrer">NOZA LLC</a>
+      </div>
     </div>
   </div>
 </footer>
