@@ -59,14 +59,14 @@ function initFloatingCTA() {
   function updateCTAVisibility() {
     // Hide if footer is in view, otherwise follow shouldShow logic
     if (footerInView) {
-      cta.style.opacity = '0';
-      cta.style.pointerEvents = 'none';
+      cta.classList.remove('visible');
+      cta.classList.add('hidden');
     } else if (shouldShow) {
-      cta.style.opacity = '1';
-      cta.style.pointerEvents = 'auto';
+      cta.classList.remove('hidden');
+      cta.classList.add('visible');
     } else {
-      cta.style.opacity = '0';
-      cta.style.pointerEvents = 'none';
+      cta.classList.remove('visible');
+      cta.classList.add('hidden');
     }
   }
 

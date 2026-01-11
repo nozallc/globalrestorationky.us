@@ -659,7 +659,19 @@
 	padding-bottom: env(safe-area-inset-bottom);
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out, display 0.3s ease-in-out;
+}
+
+.floating-cta.visible {
+	display: block;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.floating-cta.hidden {
+	display: none;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .floating-cta-button {
