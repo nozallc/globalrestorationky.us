@@ -4,6 +4,8 @@ import QuickFacts from '../components/QuickFacts.astro';
 import { SITE, SERVICES } from '../lib/site';
 import { SERVICE_AREA_HUBS } from '../lib/serviceAreas';
 import ServiceAreaLinks from '../components/ServiceAreaLinks.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../assets/home/roofer.png';
 
 const title = '24/7 Water Damage Restoration & Storm Roof Repair Lexington KY';
 const description = 'Emergency water cleanup and professional storm damage roof restoration in Lexington. Fast 24/7 response, detailed damage documentation, and local KY expertise. Schedule your priority inspection.';
@@ -14,13 +16,12 @@ const description = 'Emergency water cleanup and professional storm damage roof 
   <section class="relative h-screen min-h-[500px] flex items-center justify-center overflow-hidden">
     <!-- Hero Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-      <img 
-        src="/assets/roofer.png" 
+      <Image 
+        src={heroImage}
         alt="Professional roofer performing inspection" 
         class="w-full h-full object-cover"
-        loading="eager"
-        width="1920"
-        height="1080"
+        widths={[640, 1024, 1440, 1920]}
+        sizes="100vw"
       />
       <div class="absolute inset-0 hero-overlay"></div>
     </div>
@@ -60,7 +61,7 @@ const description = 'Emergency water cleanup and professional storm damage roof 
       </h1>
       <QuickFacts city="Lexington" />
       <p class="mt-4 mx-auto max-w-3xl text-lg leading-relaxed text-text-muted">
-        We provide the <strong>contractor's perspective for roofing and water damage</strong>, supplying clear documentation and repair scopes that homeowners can submit to their insurance carrier for Lexington, KY water damage claims.
+        We provide the <strong>contractor's perspective for roofing and water damage</strong>, supplying clear documentation and repair scopes that homeowners can submit to their insurance carrier in Lexington & Central KY.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center items-center">

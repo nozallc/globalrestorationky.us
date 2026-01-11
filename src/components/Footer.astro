@@ -8,14 +8,16 @@ import FooterServiceAreas from './FooterServiceAreas.astro';
     <div class="footer-grid">
       <!-- Company Info Column -->
       <div class="footer-column">
-        <img src="/assets/NAME & LOGO BANNER.png" alt={SITE.name} class="footer-logo" loading="lazy" width="280" height="80" />
+        <a href="/" aria-label={`${SITE.name} home`} class="footer-logo-link">
+          <img src="/assets/NAME & LOGO BANNER.png" alt={SITE.name} class="footer-logo" loading="lazy" width="280" height="80" />
+        </a>
         <p class="footer-description">
           24/7 Roofing & Water damage restoration across Lexington & Central KY.
         </p>
         <div class="footer-contact">
           <div><a href={`tel:${SITE.tel}`}>{SITE.phone}</a></div>
           <div><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
-          <div>{SITE.addressLine}</div>
+          <div class="footer-address">{SITE.addressLine}</div>
         </div>
       </div>
 

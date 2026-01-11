@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font optimization: ensure fonts display immediately with fallback */
+/* Font optimization: system fonts with proper display strategy */
 @layer base {
-  @font-face {
+  /* System fonts - no @font-face needed, using native OS fonts */
+  /* font-display: swap ensures text is visible immediately with system font fallback */
+  
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    /* Optimal font-display behavior - shows fallback immediately */
     font-display: swap;
   }
 }

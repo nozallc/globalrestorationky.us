@@ -1,0 +1,397 @@
+/**
+ * CRITICAL CSS FOR ABOVE-THE-FOLD RENDERING
+ * This CSS is inlined in the <head> to minimize render-blocking
+ * Only includes styles needed for: Header + Hero + Primary CTA
+ * 
+ * FONT STRATEGY: System fonts only
+ * - No web fonts = no render-blocking font requests
+ * - font-family: system-ui, -apple-system, sans-serif (native OS fonts)
+ * - Optimal for performance and accessibility
+ */
+
+:root {
+	/* Color Palette - Critical */
+	--color-primary-dark: #1a202c;
+	--color-primary: #2d3748;
+	--color-accent-red: #ef4444;
+	--color-accent-red-dark: #dc2626;
+	--color-white: #ffffff;
+	--color-text-light: #9ca3af;
+	--color-border-dark: #374151;
+	
+	/* Button Styling */
+	--btn-radius: 8px;
+	--btn-padding-md: 0.875rem 1.75rem;
+	--btn-font-size-sm: 0.875rem;
+	--btn-font-weight: 700;
+	
+	/* Shadows - Critical */
+	--shadow-cta: 0 6px 16px rgba(239, 68, 68, 0.4);
+	--shadow-cta-hover: 0 8px 24px rgba(239, 68, 68, 0.6);
+	--shadow-header-inset: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+	--shadow-header-outer: 0 2px 8px rgba(0, 0, 0, 0.15);
+	
+	/* Transitions */
+	--transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	
+	/* Header */
+	--header-bg-gradient: linear-gradient(180deg, rgba(62, 66, 79, 0.98) 0%, rgba(47, 51, 60, 0.98) 50%, rgba(42, 46, 55, 1) 100%);
+	--header-padding: 1rem 0;
+	--header-z-index: 1000;
+	--header-max-width: 1200px;
+	--header-container-padding: 1.5rem;
+	--header-logo-height: 90px;
+	--header-logo-brightness: 1.15;
+	
+	/* CTA Gradient */
+	--cta-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+	
+	/* Hero Overlay */
+	--hero-overlay: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.55) 100%);
+	--hero-text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Reset & Base */
+html {
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	overflow-x: hidden;
+	padding-left: env(safe-area-inset-left);
+	padding-right: env(safe-area-inset-right);
+	min-height: 100vh;
+	background-color: #f8f9fa;
+	color: #1a1a1a;
+	font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ========== SITE HEADER ========== */
+
+.site-header {
+	background: var(--header-bg-gradient);
+	color: var(--color-white);
+	padding: var(--header-padding);
+	position: sticky;
+	top: 0;
+	z-index: var(--header-z-index);
+	box-shadow: var(--shadow-header-inset), var(--shadow-header-outer);
+}
+
+.site-nav {
+	max-width: var(--header-max-width);
+	margin: 0 auto;
+	padding: var(--header-container-padding);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.site-logo-link {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	text-decoration: none;
+}
+
+.site-logo {
+	height: var(--header-logo-height);
+	width: auto;
+	filter: drop-shadow(4px 4px 12px rgba(0, 0, 0, 0.7)) brightness(var(--header-logo-brightness));
+	transition: transform var(--transition-fast), filter var(--transition-fast);
+	flex-shrink: 0;
+}
+
+.site-logo:hover {
+	transform: scale(1.08);
+	filter: drop-shadow(5px 5px 16px rgba(239, 68, 68, 0.5)) brightness(1.25);
+}
+
+.site-nav-links {
+	display: flex;
+	gap: 1.5rem;
+	align-items: center;
+	flex-grow: 1;
+	justify-content: flex-start;
+	margin-left: 2rem;
+}
+
+.site-nav-links a {
+	color: var(--color-white);
+	text-decoration: none;
+	font-weight: 500;
+	transition: opacity var(--transition-fast);
+}
+
+.site-nav-links a:hover {
+	opacity: 0.8;
+}
+
+.site-nav-actions {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-left: auto;
+}
+
+.site-cta {
+	background: var(--cta-gradient);
+	color: var(--color-white);
+	padding: var(--btn-padding-md);
+	border-radius: var(--btn-radius);
+	font-weight: var(--btn-font-weight);
+	font-size: var(--btn-font-size-sm);
+	box-shadow: var(--shadow-cta);
+	transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+}
+
+.site-cta:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--shadow-cta-hover);
+}
+
+/* Hamburger Menu Button */
+.mobile-menu-btn {
+	display: none;
+	flex-direction: column;
+	gap: 5px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.625rem;
+	margin-right: 1rem;
+	z-index: 101;
+	min-width: 48px;
+	min-height: 48px;
+	align-items: center;
+	justify-content: center;
+}
+
+.mobile-menu-btn span {
+	width: 24px;
+	height: 3px;
+	background: var(--color-white);
+	border-radius: 2px;
+	transition: all var(--transition-fast);
+	transform-origin: center;
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(1) {
+	transform: rotate(45deg) translate(9px, 9px);
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(2) {
+	opacity: 0;
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(3) {
+	transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: var(--color-primary);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 1.5rem;
+	z-index: 100;
+	max-height: calc(100vh - 90px);
+	overflow-y: auto;
+}
+
+.mobile-menu.active {
+	display: block;
+}
+
+.mobile-menu-links {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	padding-bottom: 1.5rem;
+}
+
+.mobile-menu-links a {
+	color: var(--color-white);
+	text-decoration: none;
+	font-weight: 500;
+	transition: opacity var(--transition-fast);
+	display: block;
+}
+
+.mobile-menu-links a:hover {
+	opacity: 0.8;
+}
+
+.mobile-menu-cta {
+	background: var(--cta-gradient);
+	color: var(--color-white);
+	padding: 0.875rem 1.5rem;
+	border-radius: 24px;
+	font-weight: 600;
+	font-size: 0.875rem;
+	box-shadow: var(--shadow-cta);
+	transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+	width: 100%;
+	text-align: center;
+	border: none;
+	cursor: pointer;
+}
+
+.mobile-menu-cta:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--shadow-cta-hover);
+}
+
+.mobile-menu-footer {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.mobile-menu-phone {
+	color: var(--color-white);
+	text-decoration: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	transition: opacity var(--transition-fast);
+}
+
+.mobile-menu-phone:hover {
+	opacity: 0.8;
+}
+
+.site-phone-desktop {
+	color: var(--color-white);
+	text-decoration: none;
+	font-size: 0.75rem;
+	font-weight: 500;
+	transition: opacity var(--transition-fast);
+	opacity: 0.9;
+	text-align: center;
+}
+
+.site-phone-desktop:hover {
+	opacity: 1;
+}
+
+.site-nav-actions-vertical {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* Mobile Header Adjustments */
+@media (max-width: 991px) {
+	.mobile-menu-btn {
+		display: flex;
+	}
+	
+	.site-nav-links {
+		display: none;
+	}
+	
+	.site-nav-actions {
+		margin-left: auto;
+	}
+	
+	.site-phone-desktop {
+		display: none;
+	}
+	
+	.site-nav-actions-vertical {
+		flex-direction: row;
+		align-items: center;
+		gap: 1rem;
+	}
+}
+
+/* ========== HERO & UTILITY STYLES ========== */
+
+.hero-overlay {
+	background: var(--hero-overlay);
+}
+
+.hero-text {
+	text-shadow: var(--hero-text-shadow);
+}
+
+main {
+	min-height: 60vh;
+}
+
+/* Basic button styles for primary CTA */
+.btn-primary {
+	background: var(--color-accent-red);
+	color: white;
+	border-radius: var(--btn-radius);
+	box-shadow: var(--shadow-cta);
+	transition: var(--transition-base);
+	padding: var(--btn-padding-sm);
+	font-weight: 600;
+	font-size: var(--btn-font-size-sm);
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-primary:hover {
+	background: var(--color-accent-red-dark);
+	box-shadow: var(--shadow-cta-hover);
+	transform: translateY(-2px);
+}
+
+/* Skip to content link */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.sr-only.focus\:not-sr-only:focus {
+	position: fixed;
+	left: 1rem;
+	top: 1rem;
+	z-index: 50;
+	width: auto;
+	height: auto;
+	padding: 0.5rem 0.75rem;
+	overflow: visible;
+	clip: auto;
+	white-space: normal;
+	background: white;
+	border-radius: 0.375rem;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}

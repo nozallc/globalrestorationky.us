@@ -122,14 +122,19 @@
 .site-logo {
 	height: var(--header-logo-height);
 	width: auto;
-	filter: var(--shadow-logo-normal) brightness(var(--header-logo-brightness));
+	filter: drop-shadow(4px 4px 12px rgba(255, 255, 255, 0.4)) brightness(var(--header-logo-brightness));
 	transition: transform var(--transition-fast), filter var(--transition-fast);
 	flex-shrink: 0;
 }
 
 .site-logo:hover {
 	transform: scale(var(--logo-hover-scale));
-	filter: var(--shadow-logo-hover) brightness(var(--header-logo-brightness-hover));
+	filter: drop-shadow(5px 5px 16px rgba(239, 68, 68, 0.6)) brightness(var(--header-logo-brightness-hover));
+}
+
+.site-logo:focus {
+	outline: 2px solid rgba(255, 255, 255, 0.5);
+	outline-offset: 2px;
 }
 
 .site-nav-links {
@@ -395,16 +400,35 @@
 }
 
 /* Footer logo — prevents flex-shrink from compressing logo (same distortion fix as header) */
+.footer-logo-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	border-radius: var(--btn-radius);
+	transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
 .footer-logo {
 	height: 4rem;
 	width: auto;
 	max-width: 280px;
 	margin: 0 auto 0.75rem auto;
 	border-radius: var(--btn-radius);
-	box-shadow: var(--shadow-card);
 	display: block;
 	flex-shrink: 0;
 	object-fit: contain;
+	filter: drop-shadow(4px 4px 12px rgba(255, 255, 255, 0.3));
+	transition: filter var(--transition-fast);
+}
+
+.footer-logo-link:hover .footer-logo {
+	filter: drop-shadow(5px 5px 16px rgba(239, 68, 68, 0.6));
+}
+
+.footer-logo-link:focus {
+	outline: 2px solid rgba(255, 255, 255, 0.5);
+	outline-offset: 2px;
 }
 
 .footer-title {
@@ -442,6 +466,13 @@
 
 .footer-contact div {
 	color: var(--color-text-light);
+}
+
+.footer-address {
+	color: var(--color-text-light);
+	font-weight: 600;
+	white-space: normal;
+	word-break: break-word;
 }
 
 .footer-section-title {
@@ -626,6 +657,9 @@
 	transform: translateX(-50%);
 	z-index: 40;
 	padding-bottom: env(safe-area-inset-bottom);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease-in-out;
 }
 
 .floating-cta-button {
@@ -656,6 +690,11 @@
 
 .floating-cta-button:active {
 	transform: scale(0.98);
+}
+
+.floating-cta-button:focus {
+	outline: 2px solid var(--color-accent-red);
+	outline-offset: 2px;
 }
 
 /* Only show on mobile (< 768px) */

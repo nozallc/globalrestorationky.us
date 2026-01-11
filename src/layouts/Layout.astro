@@ -3,8 +3,10 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../lib/site';
 import { generateOrganizationSchema } from '../lib/schema';
+import criticalCss from '../styles/critical.css?inline';
 import '../styles/theme.css';
 import '../styles/tailwind.css';
+import '../scripts/floating-cta.ts';
 
 
 
@@ -55,6 +57,13 @@ const organizationSchema = generateOrganizationSchema(
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITE.url}/assets/roof-banner.png`} />
+    
+    <!-- Critical above-the-fold CSS (inlined for faster rendering) -->
+    <style set:html={criticalCss} />
+    
+    <!-- Defer non-critical stylesheets -->
+    <link rel="stylesheet" href="/_astro/contact.Dn7m117j.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="/_astro/contact.Dn7m117j.css" /></noscript>
     
     <!-- Performance: Preload critical hero image to reduce LCP -->
     <link rel="preload" as="image" href="/assets/roofer.png" />
