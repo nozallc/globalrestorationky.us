@@ -711,8 +711,11 @@
 
 /* Only show on mobile (< 768px) */
 @media (max-width: 767px) {
-	.floating-cta {
+	.floating-cta.visible {
 		display: block;
+	}
+	.floating-cta.hidden {
+		display: none;
 	}
 }
 
