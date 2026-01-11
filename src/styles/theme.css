@@ -709,21 +709,13 @@
 	outline-offset: 2px;
 }
 
-/* Only show on mobile (< 768px) */
-@media (max-width: 767px) {
-	.floating-cta.visible {
-		display: block;
-	}
-	.floating-cta.hidden {
-		display: none;
-	}
+/* Show on all screen sizes when .visible class is set */
+.floating-cta.visible {
+	display: block;
 }
 
-/* Hide on desktop */
-@media (min-width: 768px) {
-	.floating-cta {
-		display: none !important;
-	}
+.floating-cta.hidden {
+	display: none;
 }
 
 /* Subtle pulse animation */
