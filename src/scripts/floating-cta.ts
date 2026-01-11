@@ -7,7 +7,7 @@
  * 3. Uses IntersectionObserver for reliable detection
  */
 
-export function initFloatingCTA() {
+function initFloatingCTA() {
   if (typeof document === 'undefined') return;
 
   const cta = document.querySelector('.floating-cta');
@@ -15,7 +15,10 @@ export function initFloatingCTA() {
   const heroSection = document.querySelector('section:first-of-type'); // Hero section on homepage
   const isHomepage = window.location.pathname === '/';
 
-  if (!cta || !footer) return;
+  if (!cta || !footer) {
+    console.warn('Floating CTA: Missing elements (cta or footer)');
+    return;
+  }
 
   let shouldShow = !isHomepage; // On non-homepage, start as potentially visible
   let footerInView = false;
@@ -71,11 +74,12 @@ export function initFloatingCTA() {
   updateCTAVisibility();
 }
 
-// Only initialize on client side
-if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+// Initialize immediately on page load
+if (typeof window !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initFloatingCTA);
   } else {
-    initFloatingCTA();
+    // DOM already ready
+    setTimeout(initFloatingCTA, 0);
   }
 }
