@@ -2,6 +2,7 @@
 import Layout from '@layouts/Layout.astro';
 import { SITE, SERVICES } from '../../lib/site';
 import { generateBreadcrumbSchema } from '../../lib/schema';
+import servicesTruck from '../../assets/services/services-truck.01.jpg';
 
 const title = `Services | ${SITE.name}`;
 const description = 'Roofing insurance claims, water damage restoration, gutters, and siding across Central Kentucky.';
@@ -16,9 +17,9 @@ const breadcrumbs = generateBreadcrumbSchema([
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
   
   <!-- Background container with image and overlay -->
-  <div class="relative min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('/src/assets/services/services-truck.01.jpg');">
-    <!-- Dark overlay for text readability (lightened for more image visibility) -->
-    <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/50 to-black/55"></div>
+  <div class="relative min-h-screen bg-cover bg-right md:bg-center bg-no-repeat" style={`background-image: url('${servicesTruck.src}');`}>
+    <!-- Dark overlay for text readability (lighter on mobile to show truck phone number better) -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/45 md:from-black/55 md:via-black/50 md:to-black/55"></div>
     
     <!-- Content section with relative positioning to sit above overlay -->
     <section class="relative z-10 mx-auto max-w-6xl px-4 py-12">

@@ -14,7 +14,7 @@ export function generateOrganizationSchema(baseUrl: string, name: string, phone:
     '@type': 'Organization',
     'name': name,
     'url': baseUrl,
-    'logo': `${baseUrl}/assets/NAME & LOGO BANNER.png`,
+    'logo': `${baseUrl}/assets/NAME & LOGO BANNER.webp`,
     'description': '24/7 Water Damage Restoration & Storm Roof Repair across Central Kentucky',
     'telephone': phone,
     'email': email,

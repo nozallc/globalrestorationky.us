@@ -48,13 +48,9 @@ export function initFloatingCTA() {
 
     heroObserver.observe(heroSection);
   } else if (!isHomepage) {
-    // On other pages: show after scrolling down a bit (80px threshold)
-    const scrollHandler = () => {
-      shouldShow = window.scrollY > 80;
-      updateCTAVisibility();
-    };
-
-    window.addEventListener('scroll', scrollHandler, { passive: true });
+    // On other pages: show immediately (not homepage, so show right away)
+    shouldShow = true;
+    updateCTAVisibility();
   }
 
   function updateCTAVisibility() {

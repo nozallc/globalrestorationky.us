@@ -1,0 +1,150 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { SITE } from '../lib/site';
+
+const title = `Roofing in Lexington, KY — Storm Damage Repair & Replacement | ${SITE.name}`;
+const description = 'Professional roof inspection, repair, and replacement in Lexington and Central Kentucky. Fast response to storm damage and active leaks. Insurance claim support available.';
+---
+
+<Layout title={title} description={description} canonical={`${SITE.url}/roofing`}>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Global Restoration LLC",
+    "image": "https://www.globalrestorationky.us/assets/NAME & LOGO BANNER.webp",
+    "description": "Professional roofing services in Lexington and Central Kentucky",
+    "url": "https://www.globalrestorationky.us/roofing",
+    "telephone": "+18883709899",
+    "areaServed": {
+      "@type": "State",
+      "name": "Kentucky"
+    },
+    "serviceType": ["Roof Inspection", "Roof Repair", "Roof Replacement", "Storm Damage Assessment"]
+  }
+  </script>
+
+  <!-- Professional Expertise Section with Background Image - Full Width -->
+  <div class="rounded-2xl shadow-lg overflow-hidden" style={`background-image: url('/assets/roofing/GlobalRestorationLLC-Roofer-nailing.jpg'); background-size: cover; background-position: center right;`}>
+    <div class="bg-gradient-to-r from-black/75 via-black/70 to-black/50 px-6 py-12 md:px-8 md:py-16">
+      <h1 class="text-3xl font-black text-white md:text-4xl">Professional Roofing You Can Trust</h1>
+      <p class="mt-3 max-w-xl text-base text-slate-100">
+        Our team has years of hands-on experience with every type of roof condition. We show up prepared, work systematically, and leave your property clean.
+      </p>
+      <div class="mt-6 space-y-3">
+        {[
+          'Certified inspections with detailed documentation',
+          'Clear explanations—no jargon, no pressure',
+          'Fair pricing and honest recommendations',
+          'Respectful of your home and property',
+          'Fast response to emergencies (24/7)',
+        ].map((item) => (
+          <div class="flex gap-3">
+            <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-1">
+              <svg class="h-4 w-4 text-global-red" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p class="text-sm text-slate-200">{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <h2 class="text-4xl font-black text-global-blue">Roofing in Lexington, KY — Storm Damage, Repair & Replacement</h2>
+    <p class="mt-3 max-w-3xl text-base text-slate-700">
+      We provide professional roof inspections, repairs, and replacements across Central Kentucky. Whether you've had storm damage, active leaks, or just need a condition assessment, we respond fast and document everything clearly—including support for insurance claims if you choose to file.
+    </p>
+
+    <!-- Core Services Section -->
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {[
+        [
+          'Fast Inspections',
+          'Same-day or next-day roof assessment with detailed photos and findings. Professional documentation available if you file a claim.'
+        ],
+        [
+          'Repair or Replace?',
+          'We help you understand the condition of your roof and decide the best path forward—repair, partial replacement, or full replacement.'
+        ],
+        [
+          'Storm Damage Ready',
+          'Active leaks, hail damage, wind damage, or tree impact—we assess the extent and coordinate restoration promptly.'
+        ],
+      ].map(([title, desc]) => (
+        <div class="rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="text-lg font-extrabold text-slate-900">{title}</div>
+          <p class="mt-2 text-sm text-slate-600">{desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA Section -->
+    <div class="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+      <div class="text-lg font-extrabold text-slate-900">Start with a documented inspection</div>
+      <p class="mt-2 text-sm text-slate-600">
+        Fast response for storm damage and active leaks. Professional documentation available if filing a claim.
+      </p>
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+        <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
+        <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call {SITE.phone}</a>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-12">
+      <h2 class="mb-6 text-2xl font-black text-global-blue">Roofing FAQ</h2>
+      <div class="space-y-4">
+        {[
+          {
+            q: 'How do I know if my roof needs repair or replacement?',
+            a: 'A professional inspection is the best way to know. We look at age, material condition, damage extent, and structural integrity. If repairs can restore functionality and safety, we recommend that. If the roof is near end-of-life or damage is extensive, replacement makes more sense. We walk you through both options.'
+          },
+          {
+            q: 'What should I do immediately after a storm damages my roof?',
+            a: 'First, ensure everyone is safe and out of harm\'s way. If there\'s active leaking inside, move valuables away from water and place buckets to catch water. Take photos for your records. Then call us (888-370-9899)—we respond fast to storm emergencies and can assess damage within hours. Document the damage before cleanup, if safe to do so.'
+          },
+          {
+            q: 'Can a roof inspection help with an insurance claim?',
+            a: 'Yes. A professional, documented inspection provides clear evidence of damage and a detailed scope of work. This is often required by insurers and helps substantiate your claim. We provide photos, measurements, and findings in a format adjusters understand. Filing a claim is your decision—we support it if you choose to.'
+          },
+          {
+            q: 'Do you work directly with insurance adjusters?',
+            a: 'We can be present during the adjuster\'s inspection to present facts and answer technical questions. However, we don\'t negotiate claims or make promises about what insurance will approve—that\'s between you and your insurer. We focus on documenting the damage professionally so your adjuster has clear information.'
+          },
+          {
+            q: 'How fast can you respond to active leaks or emergency damage?',
+            a: 'We respond 24/7 to emergencies. Active leaks are urgent—call us immediately at 888-370-9899. We aim to assess and establish temporary protection within hours, with permanent repair or replacement planned for the next available time.'
+          },
+          {
+            q: 'What areas of Kentucky do you serve?',
+            a: 'We serve Lexington and all of Central Kentucky, including Nicholasville, Georgetown, Richmond, Frankfort, Winchester, and surrounding areas. We also cover Louisville and South Kentucky regions. Call for service availability in your area.'
+          },
+          {
+            q: 'Do you offer roof maintenance programs?',
+            a: 'Yes. Regular inspections catch small issues before they become expensive problems. We recommend annual inspections, especially after storms. Call to ask about maintenance options for your property.'
+          },
+        ].map(({ q, a }) => (
+          <div class="rounded-2xl border border-slate-200 bg-white p-6">
+            <div class="text-base font-extrabold text-slate-900">{q}</div>
+            <p class="mt-2 text-sm text-slate-600">{a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="mt-12 rounded-2xl border-2 border-global-red bg-white p-6">
+      <div class="text-lg font-extrabold text-slate-900">Ready to protect your home?</div>
+      <p class="mt-2 text-sm text-slate-600">
+        Schedule a free roof inspection today. We'll assess the condition, explain what we find, and give you clear options.
+      </p>
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+        <a class="rounded-lg bg-global-red px-4 py-3 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
+        <a class="rounded-lg border border-global-red px-4 py-3 text-center text-sm font-semibold text-global-red hover:bg-slate-50" href={`tel:${SITE.tel}`}>Call 888-370-9899</a>
+      </div>
+    </div>
+  </section>
+</Layout>
