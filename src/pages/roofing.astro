@@ -10,18 +10,21 @@ const description = 'Professional roof inspection, repair, and replacement in Le
 
 <style>
   :root {
+    --roofBgX: 50%;
     --roofBgY: 22%;
   }
 
   @media (max-width: 1024px) {
     :root {
+      --roofBgX: 50%;
       --roofBgY: 28%;
     }
   }
 
   @media (max-width: 768px) {
     :root {
-      --roofBgY: 35%;
+      --roofBgX: 33%;
+      --roofBgY: 15%;
     }
   }
 
@@ -29,7 +32,7 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 50% var(--roofBgY);
+    background-position: var(--roofBgX) var(--roofBgY);
     overflow: visible;
   }
   
