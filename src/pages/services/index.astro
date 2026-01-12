@@ -1,45 +1,329 @@
 ---
 import Layout from '@layouts/Layout.astro';
-import { SITE, SERVICES } from '../../lib/site';
+import { Image } from 'astro:assets';
+import { SITE } from '../../lib/site';
 import { generateBreadcrumbSchema } from '../../lib/schema';
-import servicesTruck from '../../assets/services/services-truck.01.jpg';
+import servicesHero from '../../assets/services/services-truck.01.webp';
 
-const title = `Services | ${SITE.name}`;
-const description = 'Roofing insurance claims, water damage restoration, gutters, and siding across Central Kentucky.';
+const title = `Home Restoration Services Lexington KY | Global Restoration LLC`;
+const description = 'Full-service storm restoration in Central KY. From emergency water mitigation to roofing, siding, and gutters. Veteran-led and locally owned.';
 
 const breadcrumbs = generateBreadcrumbSchema([
   { name: 'Home', url: `${SITE.url}/` },
   { name: 'Services', url: `${SITE.url}/services` }
 ]);
+
+// Service categories for the grid
+const services = [
+  {
+    title: 'Water Damage Restoration',
+    description: 'Emergency water mitigation, extraction, and restoration. 24/7 response for flooding, burst pipes, and water emergencies.',
+    link: '/services/water-damage-restoration'
+  },
+  {
+    title: 'Roofing Services',
+    description: 'Professional roof inspection, repair, and replacement. Fast response to storm damage and active leaks.',
+    link: '/roofing'
+  },
+  {
+    title: 'Siding & Exterior',
+    description: 'Professional siding inspection, repair, and replacement. Storm damage assessment and restoration.',
+    link: '/services/siding'
+  },
+  {
+    title: 'Gutters & Drainage',
+    description: 'Gutter installation, repair, and maintenance. Seamless gutters and complete drainage solutions.',
+    link: '/services/gutters'
+  }
+];
 ---
+
+<style>
+  :root {
+    --servicesBgX: 50%;
+    --servicesBgY: 22%;
+  }
+
+  @media (max-width: 1024px) {
+    :root {
+      --servicesBgX: 50%;
+      --servicesBgY: 28%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --servicesBgX: 33%;
+      --servicesBgY: 15%;
+    }
+  }
+
+  .services-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: var(--servicesBgX) var(--servicesBgY);
+    overflow: visible;
+  }
+  
+  .services-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: visible;
+  }
+  
+  .services-bg-band > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .services-header-wrap {
+    position: relative;
+  }
+
+  .services-header-wrap > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Checklist: Calm, softer surface (proof element) */
+  .checklist-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  /* LIQUID BUBBLE WRAPPER: Header + H1/Subhead */
+  .header-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2.5rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin: 1rem auto;
+    max-width: 95%;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-bubble {
+      padding: 2.5rem 2rem;
+      border-radius: 3rem;
+    }
+  }
+
+  /* LIQUID BUBBLE WRAPPER: Mid-content (paragraph + service cards) */
+  .mid-content-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 3rem;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 1.5rem auto;
+    max-width: 95%;
+    padding: 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mid-content-bubble {
+      padding: 3rem 2.5rem;
+      border-radius: 3.5rem;
+    }
+  }
+
+  /* TYPOGRAPHY HIERARCHY */
+  /* H1: Brand blue anchor (strongest color) */
+  .header-bubble h1 {
+    color: #00007e;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Subhead: Strong white for contrast on background */
+  .header-bubble p {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* Mid-content supporting paragraph: White text on background */
+  .mid-content-bubble > p {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* SERVICE CARDS: Dark text enforcement + muted blue-gray titles */
+  .service-card {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+    color: #1e293b;
+  }
+
+  .service-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Service card titles: Muted blue-gray (desaturated, softer than brand blue) */
+  .service-card h1,
+  .service-card h2,
+  .service-card h3,
+  .service-card h4,
+  .service-card h5,
+  .service-card h6 {
+    color: #3d5064 !important;
+  }
+
+  /* Service card body text: Dark neutral */
+  .service-card p {
+    color: #475569 !important;
+  }
+
+  /* BUBBLE #2: Why Choose Global Restoration LLC (White Solid Bubble) */
+  .why-choose-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 3rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin: 1.5rem auto;
+    max-width: 95%;
+    padding: 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .why-choose-bubble {
+      padding: 3rem 2.5rem;
+      border-radius: 3.5rem;
+    }
+  }
+
+  /* Why Choose bubble headings and text */
+  .why-choose-bubble h2 {
+    color: #00007e;
+  }
+</style>
 
 <Layout title={title} description={description} canonical={`${SITE.url}/services`}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
-  
-  <!-- Background container with image and overlay -->
-  <div class="relative min-h-screen bg-cover bg-right md:bg-center bg-no-repeat" style={`background-image: url('${servicesTruck.src}');`}>
-    <!-- Dark overlay for text readability (lighter on mobile to show truck phone number better) -->
-    <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/45 md:from-black/55 md:via-black/50 md:to-black/55"></div>
-    
-    <!-- Content section with relative positioning to sit above overlay -->
-    <section class="relative z-10 mx-auto max-w-6xl px-4 py-12">
-      <h1 class="text-4xl font-black text-white drop-shadow-lg">Services</h1>
-      <p class="mt-3 max-w-2xl text-base text-gray-100 drop-shadow-md">
-        Our site is built around high-intent searches (emergency + insurance). Choose a service to see what's included and how we help.
-      </p>
 
-      <div class="mt-8 grid gap-4 md:grid-cols-2">
-        {SERVICES.map((s) => (
-          <a 
-            href={`/services/${s.slug}`} 
-            class="group rounded-2xl border-2 border-white/20 bg-white/95 backdrop-blur-sm p-6 transition-all duration-200 hover:border-white hover:bg-white hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-global-red focus:ring-offset-2"
-          >
-            <div class="text-xl font-extrabold text-slate-900 group-hover:text-global-blue">{s.name}</div>
-            <p class="mt-2 text-sm text-slate-600">{s.short}</p>
-            <div class="mt-4 text-sm font-semibold text-global-red group-hover:translate-x-1 transition-transform">Learn more →</div>
-          </a>
-        ))}
+  <!-- Services Page Background Band Wrapper -->
+  <div class="services-bg-band" style={`background-image: url('${servicesHero.src}');`}>
+    <!-- Soft Header & Hero Wrap -->
+    <div class="services-header-wrap">
+      <!-- Header Bubble: H1 + Subhead -->
+      <div class="header-bubble">
+        <!-- Consolidated Hero Section -->
+        <div class="text-center">
+          <h1 class="text-3xl font-black text-white md:text-4xl">Trusted Property Restoration Services in Lexington & Central KY</h1>
+          <p class="mt-3 mx-auto max-w-xl text-base text-slate-100">
+            From emergency water mitigation to complete home restoration. We handle every aspect of your property's recovery—fast, documented, and insurance-ready.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <section class="mx-auto max-w-6xl px-4 py-16">
+      <!-- BUBBLE #1: Our Services (Glass/Transparent Bubble) -->
+      <div class="mid-content-bubble">
+        <!-- Our Services Section with Heading -->
+        <h2 class="text-center text-2xl font-black text-white mb-8 drop-shadow-lg">Our Services</h2>
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {services.map(({ title, description, link }) => (
+            <a href={link} class="service-card rounded-2xl border border-slate-200 bg-white p-6 text-center hover:shadow-lg transition-shadow">
+              <div class="text-lg font-extrabold text-slate-900">{title}</div>
+              <p class="mt-2 text-base text-slate-600">{description}</p>
+              <div class="mt-4 inline-block text-sm font-semibold text-global-red hover:text-global-red/80">Learn more →</div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- BUBBLE #2: Why Choose Global Restoration LLC (White Solid Bubble) -->
+      <div class="why-choose-bubble">
+        <h2 class="text-center text-2xl font-black text-slate-900 mb-8">Why Choose Global Restoration LLC</h2>
+        <div class="grid gap-6 md:grid-cols-3">
+          {[
+            { title: '24/7 Emergency Response', desc: 'Water damage, storm damage, active leaks—we respond immediately. Call anytime.' },
+            { title: 'Insurance-Ready Documentation', desc: 'Professional assessments and detailed scope of work for claim support. We help you file correctly.' },
+            { title: 'Veteran-Led & Local', desc: 'Years of hands-on experience and deep roots in Central Kentucky. We care about your home.' },
+            { title: 'Premium Materials & Craftsmanship', desc: 'We use quality materials and proven techniques. Your home deserves excellence.' },
+            { title: 'Transparent Pricing', desc: 'No surprises, no hidden fees. Clear estimates and honest recommendations.' },
+            { title: 'Licensed & Certified', desc: 'Fully insured, bonded, and certified. We hold ourselves to the highest standards.' },
+          ].map(({ title, desc }) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 text-center">
+              <div class="text-base font-extrabold text-slate-900">{title}</div>
+              <p class="mt-2 text-sm text-slate-600">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      </div>
+
+      <!-- CTA Section (inside background band, sitting on top of image) -->
+      <div class="mx-auto max-w-6xl px-4 py-8">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+          <div class="text-lg font-extrabold text-slate-900">Ready to restore your home?</div>
+          <p class="mt-2 text-sm text-slate-600">
+            Request an inspection today. We respond fast for storm damage and water emergencies.
+          </p>
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+            <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
+            <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call {SITE.phone}</a>
+          </div>
+        </div>
       </div>
     </section>
   </div>
+
+  <!-- How It Works Section - Outside Background Band (clean white background) -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <h2 class="text-center text-2xl font-black text-global-blue mb-8">How It Works</h2>
+    <div class="grid gap-6 md:grid-cols-4">
+      {[
+        {
+          title: 'Inspection',
+          desc: 'We audit the roof, siding, and gutters for damage.'
+        },
+        {
+          title: 'Mitigation',
+          desc: 'We stop leaks and extract water immediately.'
+        },
+        {
+          title: 'Documentation',
+          desc: 'We create the scope of work for the restoration.'
+        },
+        {
+          title: 'Completion',
+          desc: 'We restore your home using premium materials.'
+        },
+      ].map(({ title, desc }, idx) => (
+        <div class="text-center">
+          <div class="mb-4 flex justify-center">
+            <div class="rounded-full bg-global-red/20 p-4 w-16 h-16 flex items-center justify-center">
+              <span class="text-2xl font-black text-global-red">{idx + 1}</span>
+            </div>
+          </div>
+          <div class="text-lg font-extrabold text-slate-900">{title}</div>
+          <p class="mt-2 text-sm text-slate-600">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="rounded-2xl border-2 border-global-red bg-white p-6 text-center">
+      <div class="text-lg font-extrabold text-slate-900">Ready to restore your home?</div>
+      <p class="mt-2 text-sm text-slate-600">
+        Schedule a free inspection today. We'll assess the damage, explain what we find, and give you clear options.
+      </p>
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+        <a class="rounded-lg bg-global-red px-4 py-3 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
+        <a class="rounded-lg border border-global-red px-4 py-3 text-center text-sm font-semibold text-global-red hover:bg-slate-50" href={`tel:${SITE.tel}`}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </section>
 </Layout>

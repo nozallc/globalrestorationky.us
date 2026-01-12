@@ -10,8 +10,8 @@
 function initFloatingCTA() {
   if (typeof document === 'undefined') return;
 
-  const cta = document.querySelector('.floating-cta');
-  const footer = document.querySelector('.site-footer');
+  const cta = document.querySelector('.floating-cta') as HTMLElement | null;
+  const footer = document.querySelector('.site-footer') as HTMLElement | null;
   const heroSection = document.querySelector('section:first-of-type'); // Hero section on homepage
   const isHomepage = window.location.pathname === '/';
 
@@ -19,6 +19,10 @@ function initFloatingCTA() {
     console.warn('Floating CTA: Missing elements (cta or footer)');
     return;
   }
+
+  // Type narrowing for TypeScript: we know cta and footer are not null after guard above
+  const ctaElement = cta as HTMLElement;
+  const footerElement = footer as HTMLElement;
 
   let shouldShow = !isHomepage; // On non-homepage, start as potentially visible
   let footerInView = false;
@@ -34,7 +38,7 @@ function initFloatingCTA() {
     { threshold: 0.1 }
   );
 
-  footerObserver.observe(footer);
+  footerObserver.observe(footerElement);
 
   // For homepage: observe hero section to hide CTA until hero is out of view
   if (isHomepage && heroSection) {
@@ -59,14 +63,14 @@ function initFloatingCTA() {
   function updateCTAVisibility() {
     // Hide if footer is in view, otherwise follow shouldShow logic
     if (footerInView) {
-      cta.classList.remove('visible');
-      cta.classList.add('hidden');
+      ctaElement.classList.remove('visible');
+      ctaElement.classList.add('hidden');
     } else if (shouldShow) {
-      cta.classList.remove('hidden');
-      cta.classList.add('visible');
+      ctaElement.classList.remove('hidden');
+      ctaElement.classList.add('visible');
     } else {
-      cta.classList.remove('visible');
-      cta.classList.add('hidden');
+      ctaElement.classList.remove('visible');
+      ctaElement.classList.add('hidden');
     }
   }
 

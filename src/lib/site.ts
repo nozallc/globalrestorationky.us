@@ -30,30 +30,14 @@ export const SERVICES = [
       'wind damage roof replacement',
     ],
   },
-  {
-    name: 'Water Damage Restoration (24/7)',
-    slug: 'water-damage-restoration',
-    short: 'Emergency mitigation, drying, and rebuild—start-to-finish restoration.',
-    heroKws: ['Lexington KY water damage restoration', '24/7 water mitigation'],
-  },
-  {
-    name: 'Gutters',
-    slug: 'gutter-installation',
-    short: 'Seamless gutters and storm-ready drainage solutions.',
-    heroKws: ['emergency roof and gutter repair', 'gutter replacement'],
-  },
-  {
-    name: 'Siding',
-    slug: 'siding-replacement',
-    short: 'Siding replacement and repair for storm-related and wear damage.',
-    heroKws: ['gutter and siding replacement', 'siding repair'],
-  },
 ] as const;
 
 export const NAV_LINKS = [
   { label: 'Services', href: '/services' },
   { label: 'Roofing', href: '/roofing' },
-  { label: 'Water Damage', href: '/water-damage' },
+  { label: 'Siding', href: '/services/siding' },
+  { label: 'Gutters', href: '/services/gutters' },
+  { label: 'Water Damage', href: '/services/water-damage-restoration' },
   { label: 'Service Areas', href: '/service-areas' },
   { label: 'Team', href: '/the-team' },
   { label: 'Contact', href: '/contact' },

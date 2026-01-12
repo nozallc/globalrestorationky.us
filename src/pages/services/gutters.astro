@@ -1,0 +1,322 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { SITE } from '../../lib/site';
+import guttersHero from '../../assets/gutters/gutters-01.webp';
+
+const title = `Seamless Gutter Installation Lexington KY | Foundation Protection | ${SITE.name}`;
+const description = 'Custom 6" seamless gutters and leaf guards in Lexington. Prevent foundation damage and wood rot with storm-ready drainage solutions. Free inspections.';
+---
+
+<style>
+  :root {
+    --guttersBgY: 22%;
+  }
+
+  @media (max-width: 1024px) {
+    :root {
+      --guttersBgY: 28%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --guttersBgY: 35%;
+    }
+  }
+
+  .gutters-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% var(--guttersBgY);
+    overflow: visible;
+  }
+  
+  .gutters-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: visible;
+  }
+  
+  .gutters-bg-band > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .gutters-header-wrap {
+    position: relative;
+  }
+
+  .gutters-header-wrap > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Checklist: Calm, softer surface (proof element) */
+  .checklist-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  /* LIQUID BUBBLE WRAPPER: Header + H1/Subhead */
+  .header-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2.5rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin: 1rem auto;
+    max-width: 95%;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-bubble {
+      padding: 2.5rem 2rem;
+      border-radius: 3rem;
+    }
+  }
+
+  /* LIQUID BUBBLE WRAPPER: Mid-content (paragraph + service cards) */
+  .mid-content-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 3rem;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 1.5rem auto;
+    max-width: 95%;
+    padding: 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mid-content-bubble {
+      padding: 3rem 2.5rem;
+      border-radius: 3.5rem;
+    }
+  }
+
+  /* TYPOGRAPHY HIERARCHY */
+  /* H1: Brand blue anchor (strongest color) */
+  .header-bubble h1 {
+    color: #00007e;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Subhead: Strong white for contrast on background */
+  .header-bubble p {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* Mid-content supporting paragraph: White text on background */
+  .mid-content-bubble > p {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* SERVICE CARDS: Dark text enforcement + muted blue-gray titles */
+  .service-card {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+    color: #1e293b;
+  }
+
+  .service-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Service card titles: Muted blue-gray (desaturated, softer than brand blue) */
+  .service-card h1,
+  .service-card h2,
+  .service-card h3,
+  .service-card h4,
+  .service-card h5,
+  .service-card h6 {
+    color: #3d5064 !important;
+  }
+
+  /* Service card body text: Dark neutral */
+  .service-card p {
+    color: #475569 !important;
+  }
+
+  /* Gutter Health Check List */
+  .health-check-list {
+    text-align: left;
+  }
+
+  /* FAQ Section Styling */
+  .faq-item {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+</style>
+
+<Layout title={title} description={description} canonical={`${SITE.url}/services/gutters`}>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why should I choose seamless gutters over sectional ones?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Seamless gutters are custom-built on-site to the exact dimensions of your home. This eliminates the joints where 90% of gutter leaks and wood rot occur."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can new gutters prevent my basement from leaking?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Most basement leaks are caused by water pooling at the foundation. Properly sized 6\" gutters and downspout extensions are your first line of defense."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need gutter guards in Central Kentucky?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If your home is near mature trees (common in Lexington and Paris), high-quality guards prevent clogs that cause water to back up under your shingles and rot your fascia."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Gutters Page Background Band Wrapper -->
+  <div class="gutters-bg-band" style={`background-image: url('${guttersHero.src}');`}>
+    <!-- Soft Header & Hero Wrap -->
+    <div class="gutters-header-wrap">
+      <!-- Header Bubble: H1 + Subhead -->
+      <div class="header-bubble">
+        <!-- Consolidated Hero Section -->
+        <div class="text-center">
+          <h1 class="text-3xl font-black text-white md:text-4xl">High-Capacity Seamless Gutters & Drainage for Lexington Homes</h1>
+          <p class="mt-3 mx-auto max-w-xl text-base text-slate-100">
+            Custom-built 6" seamless gutters handle Central Kentucky's heavy spring rains. Stop foundation damage and wood rot before they start.
+          </p>
+        </div>
+      </div>
+
+      <section class="mx-auto max-w-6xl px-4 py-12">
+        <!-- Gutter Health Check Card -->
+        <div class="checklist-card mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50/95 p-6 md:p-8 backdrop-blur-sm">
+          <div class="mb-4 text-center font-extrabold text-slate-900">Gutter Health Check</div>
+          <div class="health-check-list space-y-3">
+            {[
+              'Is water pooling near your foundation?',
+              'Are your gutters pulling away from the fascia?',
+              'Are there tiger stripes (overflow stains) on the gutter face?',
+            ].map((item) => (
+              <div class="flex gap-3">
+                <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-1">
+                  <svg class="h-4 w-4 text-global-red" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <p class="text-base text-slate-700 font-medium">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="mx-auto max-w-6xl px-4 py-16">
+      <!-- Mid-Content Bubble: Supporting paragraph + service cards -->
+      <div class="mid-content-bubble">
+        <!-- Supporting Content -->
+        <p class="mx-auto max-w-3xl text-center text-base text-white mb-8 leading-relaxed">
+          <span class="font-extrabold">Technical Edge:</span> We install 6-inch gutters (larger than standard 5-inch) with oversized downspouts sized for Kentucky's spring downpours. Most basement leaks start with failing gutters—proper drainage is your home's first defense.
+        </p>
+
+        <!-- Service Cards Section -->
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          {[
+            [
+              'Custom 6" Seamless Installation',
+              'On-site fabrication to exact measurements. No joints means no leaks. Zero gutter failures at connection points.'
+            ],
+            [
+              'Oversized Downspouts & Grading',
+              'Properly sized downspouts direct water away from your foundation. We extend discharge points 4-6 feet out.'
+            ],
+            [
+              'Gutter Guards & Maintenance',
+              'Leaf guards keep debris out. Seasonal inspections ensure your gutters stay clear and functional.'
+            ],
+          ].map(([title, desc]) => (
+            <div class="service-card rounded-2xl border border-slate-200 bg-white p-6 text-center">
+              <div class="text-lg font-extrabold text-slate-900">{title}</div>
+              <p class="mt-2 text-base text-slate-600">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section (inside background band, sitting on top of image) -->
+      <div class="mx-auto max-w-6xl px-4 py-8">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+          <div class="text-lg font-extrabold text-slate-900">Protect Your Foundation Now.</div>
+          <p class="mt-2 text-sm text-slate-600">
+            Free gutter inspection. We'll assess your drainage and show you where leaks could start.
+          </p>
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+            <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Get Free Gutter Inspection</a>
+            <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call 888-370-9899</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FAQ Section - Outside Background Band (clean white background) -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mt-12">
+      <h2 class="mb-6 text-center text-2xl font-black text-global-blue">Gutters FAQ</h2>
+      <div class="space-y-4">
+        {[
+          {
+            q: 'Why should I choose seamless gutters over sectional ones?',
+            a: 'Seamless gutters are custom-built on-site to the exact dimensions of your home. This eliminates the joints where 90% of gutter leaks and wood rot occur.'
+          },
+          {
+            q: 'Can new gutters prevent my basement from leaking?',
+            a: 'Yes. Most basement leaks are caused by water pooling at the foundation. Properly sized 6" gutters and downspout extensions are your first line of defense.'
+          },
+          {
+            q: 'Do I need gutter guards in Central Kentucky?',
+            a: 'If your home is near mature trees (common in Lexington and Paris), high-quality guards prevent clogs that cause water to back up under your shingles and rot your fascia.'
+          },
+        ].map(({ q, a }) => (
+          <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 text-center">
+            <div class="text-base font-extrabold text-slate-900">{q}</div>
+            <p class="mt-2 text-sm text-slate-600">{a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="mt-12 rounded-2xl border-2 border-global-red bg-white p-6 text-center">
+      <div class="text-lg font-extrabold text-slate-900">Stop basement leaks before they start.</div>
+      <p class="mt-2 text-sm text-slate-600">
+        Free inspection. We'll show you exactly where your gutters need attention.
+      </p>
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+        <a class="rounded-lg bg-global-red px-4 py-3 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Schedule Free Inspection</a>
+        <a class="rounded-lg border border-global-red px-4 py-3 text-center text-sm font-semibold text-global-red hover:bg-slate-50" href={`tel:${SITE.tel}`}>Call 888-370-9899</a>
+      </div>
+    </div>
+  </section>
+</Layout>

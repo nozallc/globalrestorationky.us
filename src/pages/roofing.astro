@@ -36,7 +36,15 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     overflow: visible;
   }
   
-  .roofing-bg-band::before {
+  .roofing-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: visible;
+  }
+
+  /* Dark scrim effect: Opt-in via hero--has-scrim class */
+  .hero--has-scrim .roofing-bg-band::before {
     content: '';
     position: absolute;
     top: 0;
@@ -53,8 +61,8 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     z-index: 1;
   }
 
-  /* Reading tunnel: STRONG localized dark veil behind H1 + subhead only */
-  .roofing-header-wrap::before {
+  /* Reading tunnel: STRONG localized dark veil behind H1 + subhead only (opt-in via hero--has-scrim) */
+  .hero--has-scrim .roofing-header-wrap::before {
     content: '';
     position: absolute;
     top: -20px;
@@ -66,7 +74,7 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     z-index: 0;
   }
 
-  .roofing-header-wrap {
+  .hero--has-scrim .roofing-header-wrap {
     position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.08) 65%, transparent 100%);
   }
@@ -193,7 +201,7 @@ const description = 'Professional roof inspection, repair, and replacement in Le
   </script>
 
   <!-- Roofing Page Background Band Wrapper -->
-  <div class="roofing-bg-band" style={`background-image: url('${roofingHero.src}');`}>
+  <div class="roofing-bg-band hero--has-scrim" style={`background-image: url('${roofingHero.src}');`}>
     <!-- Soft Header & Hero Wrap -->
     <div class="roofing-header-wrap">
       <!-- Header Bubble: H1 + Subhead -->

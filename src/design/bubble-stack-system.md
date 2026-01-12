@@ -227,6 +227,29 @@ The **Bubble Stack System** is a layout methodology that combines:
 - Supporting paragraph: `rgba(255, 255, 255, 0.95)` (near-white)
 - Subhead: `rgba(255, 255, 255, 0.95)` (near-white)
 
+### H1 Anchor Point (Header Bubble)
+
+**CSS Rule (REQUIRED on all Bubble Stack pages):**
+```css
+.header-bubble h1 {
+  color: #00007e;              /* Brand blue — appears once per page */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);  /* Lift text from dark background */
+}
+```
+
+**Implementation Rules:**
+- H1 color is **always `#00007e`** (brand blue) — no exceptions
+- This CSS rule MUST be present in the `<style>` block of every page using `.header-bubble`
+- Do NOT use inline color classes (e.g., `text-white`, `text-blue-500`) — they override correct styling
+- Text-shadow is critical for readability when H1 appears over background images
+- Applied to ALL pages using the Bubble Stack System
+
+**Why CSS Rule Over Inline Classes:**
+- CSS cascade ensures brand consistency
+- Inline classes are fragile and lead to confusion (as discovered Jan 12, 2026)
+- Rule-based approach makes intent explicit in documentation
+- Easier to audit and maintain across multiple pages
+
 ### Font-Weight Rules
 
 **Text Over Image Background (Roofing page):**
@@ -292,6 +315,16 @@ The **Bubble Stack System** is a layout methodology that combines:
 
 Visit `src/pages/roofing.astro` and replicate the structure, CSS values, and responsive logic precisely. Do not improvise variants until a design system extension is formally approved.
 
+### H1 Styling Non-Negotiable Requirement
+Every page using the Bubble Stack System MUST include this CSS rule in its `<style>` block:
+```css
+.header-bubble h1 {
+  color: #00007e;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+```
+Do NOT rely on inline color classes. CSS rules ensure brand consistency and prevent confusion.
+
 ---
 
 ## Implementation Checklist for New Pages
@@ -302,11 +335,11 @@ When applying the Bubble Stack System to a new page:
 - [ ] `.roofing-bg-band` wrapper created with full-bleed overlay
 - [ ] CSS variables for responsive background positioning defined
 - [ ] Header bubble structure (H1 + subhead) replicated
+- [ ] **H1 color rule present:** `.header-bubble h1 { color: #00007e; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }`
 - [ ] Checklist or proof card included (white surface, dark text)
 - [ ] Mid-content bubble for supporting paragraph + grouped content
 - [ ] Service/option cards styled with white background and `#3d5064` titles
 - [ ] CTA card positioned (white, action-oriented)
-- [ ] Text-shadow applied to H1 (0 2px 6px rgba(0, 0, 0, 0.3))
 - [ ] Font-weights verified (500 for background text, standard for cards)
 - [ ] Contrast checked (4.5:1 minimum for all text)
 - [ ] Mobile responsiveness tested (padding, border-radius, positioning)
