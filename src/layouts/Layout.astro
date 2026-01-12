@@ -44,7 +44,7 @@ const organizationSchema = generateOrganizationSchema(
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={robots} />
-    <link rel="icon" type="image/png" href="/assets/chat.icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />
@@ -60,13 +60,6 @@ const organizationSchema = generateOrganizationSchema(
     
     <!-- Critical above-the-fold CSS (inlined for faster rendering) -->
     <style set:html={criticalCss} />
-    
-    <!-- Defer non-critical stylesheets -->
-    <link rel="stylesheet" href="/_astro/contact.Dn7m117j.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="/_astro/contact.Dn7m117j.css" /></noscript>
-    
-    <!-- Performance: Preload critical hero image to reduce LCP -->
-    <link rel="preload" as="image" href="/assets/home/roofer.webp" />
     
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>

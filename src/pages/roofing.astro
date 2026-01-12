@@ -1,10 +1,175 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { SITE } from '../lib/site';
+import roofingHero from '../assets/roofing/GlobalRestorationLLC-Roofer-nailing-01.webp';
 
 const title = `Roofing in Lexington, KY — Storm Damage Repair & Replacement | ${SITE.name}`;
 const description = 'Professional roof inspection, repair, and replacement in Lexington and Central Kentucky. Fast response to storm damage and active leaks. Insurance claim support available.';
 ---
+
+<style>
+  :root {
+    --roofBgY: 22%;
+  }
+
+  @media (max-width: 1024px) {
+    :root {
+      --roofBgY: 28%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --roofBgY: 35%;
+    }
+  }
+
+  .roofing-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% var(--roofBgY);
+    overflow: visible;
+  }
+  
+  .roofing-bg-band::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    right: -100vw;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.35) 35%, rgba(0, 0, 0, 0.15) 65%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .roofing-bg-band > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Reading tunnel: STRONG localized dark veil behind H1 + subhead only */
+  .roofing-header-wrap::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 500px;
+    background: radial-gradient(ellipse 80% 250px at center top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .roofing-header-wrap {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.08) 65%, transparent 100%);
+  }
+
+  .roofing-header-wrap > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Checklist: Calm, softer surface (proof element) */
+  .checklist-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  /* Service cards: Slightly increased prominence (action-oriented) */
+  /* (Detailed styling moved to light-card rules below) */
+
+  /* CTA transition: REMOVED - natural transition between bubbles works better */
+
+  /* LIQUID BUBBLE WRAPPER: Header + H1/Subhead */
+  .header-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2.5rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin: 1rem auto;
+    max-width: 95%;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-bubble {
+      padding: 2.5rem 2rem;
+      border-radius: 3rem;
+    }
+  }
+
+  /* LIQUID BUBBLE WRAPPER: Mid-content (paragraph + service cards) */
+  .mid-content-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 3rem;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 1.5rem auto;
+    max-width: 95%;
+    padding: 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mid-content-bubble {
+      padding: 3rem 2.5rem;
+      border-radius: 3.5rem;
+    }
+  }
+
+  /* TYPOGRAPHY HIERARCHY */
+  /* H1: Brand blue anchor (strongest color) */
+  .header-bubble h1 {
+    color: #00007e;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Subhead: White for contrast on background */
+  .header-bubble p {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+  }
+
+  /* Mid-content supporting paragraph: White text on background */
+  .mid-content-bubble > p {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+  }
+
+  /* SERVICE CARDS: Dark text enforcement + muted blue-gray titles */
+  .service-card {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+    color: #1e293b; /* Force dark text context */
+  }
+
+  .service-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Service card titles: Muted blue-gray (desaturated, softer than brand blue) */
+  .service-card h1,
+  .service-card h2,
+  .service-card h3,
+  .service-card h4,
+  .service-card h5,
+  .service-card h6 {
+    color: #3d5064 !important;
+  }
+
+  /* Service card body text: Dark neutral */
+  .service-card p {
+    color: #475569 !important;
+  }
+</style>
 
 <Layout title={title} description={description} canonical={`${SITE.url}/roofing`}>
   <script type="application/ld+json">
@@ -24,78 +189,98 @@ const description = 'Professional roof inspection, repair, and replacement in Le
   }
   </script>
 
-  <!-- Professional Expertise Section with Background Image - Full Width -->
-  <div class="rounded-2xl shadow-lg overflow-hidden" style={`background-image: url('/assets/roofing/GlobalRestorationLLC-Roofer-nailing.jpg'); background-size: cover; background-position: center right;`}>
-    <div class="bg-gradient-to-r from-black/80 via-black/75 to-black/60 px-6 py-12 md:px-8 md:py-16">
-      <h1 class="text-3xl font-black text-white md:text-4xl">Professional Roofing You Can Trust</h1>
-      <p class="mt-3 max-w-xl text-base text-slate-100">
-        Our team has years of hands-on experience with every type of roof condition. We show up prepared, work systematically, and leave your property clean.
-      </p>
-      <div class="mt-6 space-y-3">
-        {[
-          'Certified inspections with detailed documentation',
-          'Clear explanations—no jargon, no pressure',
-          'Fair pricing and honest recommendations',
-          'Respectful of your home and property',
-          'Fast response to emergencies (24/7)',
-        ].map((item) => (
-          <div class="flex gap-3">
-            <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-1">
-              <svg class="h-4 w-4 text-global-red" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <p class="text-sm text-slate-200">{item}</p>
-          </div>
-        ))}
+  <!-- Roofing Page Background Band Wrapper -->
+  <div class="roofing-bg-band" style={`background-image: url('${roofingHero.src}');`}>
+    <!-- Soft Header & Hero Wrap -->
+    <div class="roofing-header-wrap">
+      <!-- Header Bubble: H1 + Subhead -->
+      <div class="header-bubble">
+        <!-- Consolidated Hero Section -->
+        <div class="text-center">
+          <h1 class="text-3xl font-black text-white md:text-4xl">Professional Roofing in Lexington, KY — Storm Damage, Repair & Replacement You Can Trust</h1>
+          <p class="mt-3 mx-auto max-w-xl text-base text-slate-100">
+            Our team has years of hands-on experience with every type of roof condition. We show up prepared, work systematically, and leave your property clean.
+          </p>
+        </div>
       </div>
+
+      <section class="mx-auto max-w-6xl px-4 py-12">
+        <!-- Professional Expertise Checklist Card -->
+        <div class="checklist-card mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50/95 p-6 md:p-8 backdrop-blur-sm">
+          <div class="space-y-3">
+            {[
+              'Certified inspections with detailed documentation',
+              'Clear explanations—no jargon, no pressure',
+              'Fair pricing and honest recommendations',
+              'Respectful of your home and property',
+              'Fast response to emergencies (24/7)',
+            ].map((item) => (
+              <div class="flex gap-3">
+                <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-1">
+                  <svg class="h-4 w-4 text-global-red" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <p class="text-sm text-slate-700">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
+
+    <section class="mx-auto max-w-6xl px-4 py-16">
+      <!-- Mid-Content Bubble: Supporting paragraph + service cards -->
+      <div class="mid-content-bubble">
+        <!-- Supporting Content -->
+        <p class="mx-auto max-w-3xl text-center text-base text-slate-50">
+          We provide professional roof inspections, repairs, and replacements across Central Kentucky. Whether you've had storm damage, active leaks, or just need a condition assessment, we respond fast and document everything clearly—including support for insurance claims if you choose to file.
+        </p>
+
+        <!-- Core Services Section -->
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          {[
+            [
+              'Fast Inspections',
+              'Same-day or next-day roof assessment with detailed photos and findings. Professional documentation available if you file a claim.'
+            ],
+            [
+              'Repair or Replace?',
+              'We help you understand the condition of your roof and decide the best path forward—repair, partial replacement, or full replacement.'
+            ],
+            [
+              'Storm Damage Ready',
+              'Active leaks, hail damage, wind damage, or tree impact—we assess the extent and coordinate restoration promptly.'
+            ],
+          ].map(([title, desc]) => (
+            <div class="service-card rounded-2xl border border-slate-200 bg-white p-6 text-center">
+              <div class="text-lg font-extrabold text-slate-900">{title}</div>
+              <p class="mt-2 text-sm text-slate-600">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section (inside background band, sitting on top of image) -->
+      <div class="mx-auto max-w-6xl px-4 py-8">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+          <div class="text-lg font-extrabold text-slate-900">Start with a documented inspection</div>
+          <p class="mt-2 text-sm text-slate-600">
+            Fast response for storm damage and active leaks. Professional documentation available if filing a claim.
+          </p>
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+            <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
+            <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call {SITE.phone}</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
+  <!-- FAQ Section - Outside Background Band (clean white background) -->
   <section class="mx-auto max-w-6xl px-4 py-12">
-    <h2 class="text-4xl font-black text-global-blue">Roofing in Lexington, KY — Storm Damage, Repair & Replacement</h2>
-    <p class="mt-3 max-w-3xl text-base text-slate-700">
-      We provide professional roof inspections, repairs, and replacements across Central Kentucky. Whether you've had storm damage, active leaks, or just need a condition assessment, we respond fast and document everything clearly—including support for insurance claims if you choose to file.
-    </p>
-
-    <!-- Core Services Section -->
-    <div class="mt-10 grid gap-4 md:grid-cols-3">
-      {[
-        [
-          'Fast Inspections',
-          'Same-day or next-day roof assessment with detailed photos and findings. Professional documentation available if you file a claim.'
-        ],
-        [
-          'Repair or Replace?',
-          'We help you understand the condition of your roof and decide the best path forward—repair, partial replacement, or full replacement.'
-        ],
-        [
-          'Storm Damage Ready',
-          'Active leaks, hail damage, wind damage, or tree impact—we assess the extent and coordinate restoration promptly.'
-        ],
-      ].map(([title, desc]) => (
-        <div class="rounded-2xl border border-slate-200 bg-white p-6">
-          <div class="text-lg font-extrabold text-slate-900">{title}</div>
-          <p class="mt-2 text-sm text-slate-600">{desc}</p>
-        </div>
-      ))}
-    </div>
-
-    <!-- CTA Section -->
-    <div class="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-      <div class="text-lg font-extrabold text-slate-900">Start with a documented inspection</div>
-      <p class="mt-2 text-sm text-slate-600">
-        Fast response for storm damage and active leaks. Professional documentation available if filing a claim.
-      </p>
-      <div class="mt-4 flex flex-col gap-3 sm:flex-row">
-        <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
-        <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call {SITE.phone}</a>
-      </div>
-    </div>
-
-    <!-- FAQ Section -->
     <div class="mt-12">
-      <h2 class="mb-6 text-2xl font-black text-global-blue">Roofing FAQ</h2>
+      <h2 class="mb-6 text-center text-2xl font-black text-global-blue">Roofing FAQ</h2>
       <div class="space-y-4">
         {[
           {
@@ -127,7 +312,7 @@ const description = 'Professional roof inspection, repair, and replacement in Le
             a: 'Yes. Regular inspections catch small issues before they become expensive problems. We recommend annual inspections, especially after storms. Call to ask about maintenance options for your property.'
           },
         ].map(({ q, a }) => (
-          <div class="rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 text-center">
             <div class="text-base font-extrabold text-slate-900">{q}</div>
             <p class="mt-2 text-sm text-slate-600">{a}</p>
           </div>
@@ -136,12 +321,12 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     </div>
 
     <!-- Final CTA -->
-    <div class="mt-12 rounded-2xl border-2 border-global-red bg-white p-6">
+    <div class="mt-12 rounded-2xl border-2 border-global-red bg-white p-6 text-center">
       <div class="text-lg font-extrabold text-slate-900">Ready to protect your home?</div>
       <p class="mt-2 text-sm text-slate-600">
         Schedule a free roof inspection today. We'll assess the condition, explain what we find, and give you clear options.
       </p>
-      <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
         <a class="rounded-lg bg-global-red px-4 py-3 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
         <a class="rounded-lg border border-global-red px-4 py-3 text-center text-sm font-semibold text-global-red hover:bg-slate-50" href={`tel:${SITE.tel}`}>Call 888-370-9899</a>
       </div>
