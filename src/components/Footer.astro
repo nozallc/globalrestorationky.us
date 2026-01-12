@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { SITE } from '../lib/site';
 import FooterServiceAreas from './FooterServiceAreas.astro';
+import logo from '../assets/logo.webp';
 ---
 
 <footer class="site-footer">
@@ -9,7 +11,7 @@ import FooterServiceAreas from './FooterServiceAreas.astro';
       <!-- Company Info Column -->
       <div class="footer-column">
         <a href="/" aria-label={`${SITE.name} home`} class="footer-logo-link">
-          <img src="/assets/NAME & LOGO BANNER.webp" alt={SITE.name} class="footer-logo" loading="lazy" width="280" height="80" />
+          <Image src={logo} alt={SITE.name} class="footer-logo" loading="lazy" width={280} height={80} />
         </a>
         <p class="footer-description">
           24/7 Roofing & Water damage restoration across Lexington & Central KY.

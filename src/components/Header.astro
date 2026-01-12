@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { NAV_LINKS, NAV_LINKS_MOBILE, SITE } from '../lib/site';
+import logo from '../assets/logo.webp';
 const ctaHref = '/request-inspection';
 ---
 
@@ -19,7 +21,7 @@ const ctaHref = '/request-inspection';
 
     <!-- Logo / Brand -->
     <a href="/" aria-label={`${SITE.name} home`} class="site-logo-link">
-      <img src="/assets/NAME & LOGO BANNER.webp" alt={SITE.name} class="site-logo" loading="eager" width="280" height="80" srcset="/assets/NAME & LOGO BANNER.webp 1080w" sizes="(max-width: 640px) 160px, (max-width: 1024px) 240px, 280px" />
+      <Image src={logo} alt={SITE.name} class="site-logo" loading="eager" width={280} height={80} />
     </a>
 
     <!-- Desktop Navigation Links -->
