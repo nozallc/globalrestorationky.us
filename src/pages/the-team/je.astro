@@ -1,11 +1,12 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { SITE } from '../../lib/site';
+import jePhoto from '../../assets/the-team/je-photo.webp';
 
 const name = 'Joe Espinoza';
 const role = 'Project Manager';
 const bio = '24/7 emergency roof, siding & damage repair serving Lexington and Central Kentucky.';
-const photo = '/assets/je.roofing expert.webp';
 // Swap: Joe's page downloads Odvin's vCard to match physical QR code misprint
 const vcfFile = '/vcards/oc.vcf';
 
@@ -24,13 +25,13 @@ const description = `Meet ${name}, ${role}. ${bio}`;
     <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-8">
       <!-- Profile Image -->
       <div class="mb-6">
-        <img 
-          src={photo} 
+        <Image 
+          src={jePhoto}
           alt={name}
           class="w-full max-w-sm mx-auto rounded-lg object-cover"
           loading="eager"
-          width="500"
-          height="500"
+          width={500}
+          height={500}
         />
       </div>
 

@@ -1,11 +1,12 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { SITE } from '../../lib/site';
+import ocPhoto from '../../assets/the-team/oc-photo.webp';
 
 const name = 'Odvin Caceres';
 const role = 'Operations Manager';
-const bio = '24/7 emergency roof, siding & damage repair serving Lexington and Central Kentucky.';
-const photo = '/assets/OC.roofing expert.webp';
+const bio = '24/7 emergency water mitigation, restoration & roofing serving Central Kentucky homeowners.';
 // Swap: Odvin's page downloads Joe's vCard to match physical QR code misprint
 const vcfFile = '/vcards/je.vcf';
 
@@ -24,13 +25,13 @@ const description = `Meet ${name}, ${role}. ${bio}`;
     <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-8">
       <!-- Profile Image -->
       <div class="mb-6">
-        <img 
-          src={photo} 
+        <Image 
+          src={ocPhoto}
           alt={name}
           class="w-full max-w-sm mx-auto rounded-lg object-cover"
           loading="eager"
-          width="500"
-          height="500"
+          width={500}
+          height={500}
         />
       </div>
 
