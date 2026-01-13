@@ -41,20 +41,20 @@ const services = [
 <style>
   :root {
     --servicesBgX: 50%;
-    --servicesBgY: 22%;
+    --servicesBgY: 25%;
   }
 
   @media (max-width: 1024px) {
     :root {
       --servicesBgX: 50%;
-      --servicesBgY: 28%;
+      --servicesBgY: 23%;
     }
   }
 
   @media (max-width: 768px) {
     :root {
-      --servicesBgX: 33%;
-      --servicesBgY: 15%;
+      --servicesBgX: 25%;
+      --servicesBgY: 35%;
     }
   }
 
@@ -64,13 +64,7 @@ const services = [
     background-repeat: no-repeat;
     background-position: var(--servicesBgX) var(--servicesBgY);
     overflow: visible;
-  }
-  
-  .services-bg-band {
-    position: relative;
-    background-size: cover;
-    background-repeat: no-repeat;
-    overflow: visible;
+    min-height: 900px;
   }
   
   .services-bg-band > * {
@@ -79,7 +73,8 @@ const services = [
   }
 
   .services-header-wrap {
-    position: relative;
+    padding: 0;
+    margin: 0;
   }
 
   .services-header-wrap > * {
@@ -87,19 +82,23 @@ const services = [
     z-index: 1;
   }
 
-  /* Checklist: Calm, softer surface (proof element) */
-  .checklist-card {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+  /* Remove white top band while maintaining proper bubble positioning */
+  .services-header-wrap .header-bubble {
+    margin-top: 0;
+    transform: translateY(16px);
+  }
+
+  .services-bg-band > section.mx-auto:first-of-type {
+    transform: translateY(60px);
   }
 
   /* LIQUID BUBBLE WRAPPER: Header + H1/Subhead */
   .header-bubble {
     position: relative;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.80);
+    border: none;
     border-radius: 2.5rem;
-    backdrop-filter: blur(8px);
+    backdrop-filter: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     margin: 1rem auto;
     max-width: 95%;
@@ -116,7 +115,7 @@ const services = [
   /* LIQUID BUBBLE WRAPPER: Mid-content (paragraph + service cards) */
   .mid-content-bubble {
     position: relative;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 3rem;
     backdrop-filter: blur(7px);
@@ -134,23 +133,27 @@ const services = [
   }
 
   /* TYPOGRAPHY HIERARCHY */
-  /* H1: Brand blue anchor (strongest color) */
+  /* H1: Brand blue anchor */
   .header-bubble h1 {
     color: #00007e;
-    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 
-  /* Subhead: Strong white for contrast on background */
+  /* Subhead: Black text */
   .header-bubble p {
-    color: #ffffff;
+    color: #000000;
     font-weight: 500;
   }
 
-  /* Mid-content supporting paragraph: White text on background */
+  /* Mid-content supporting paragraph: Dark text for readability */
   .mid-content-bubble > p {
-    color: #ffffff;
+    color: #1e293b;
     font-weight: 500;
+  }
+
+  /* Mid-content bubble titles: Muted blue */
+  .mid-content-bubble h2 {
+    color: #3d5064 !important;
   }
 
   /* SERVICE CARDS: Dark text enforcement + muted blue-gray titles */
@@ -180,7 +183,6 @@ const services = [
     color: #475569 !important;
   }
 
-  /* BUBBLE #2: Why Choose Global Restoration LLC (White Solid Bubble) */
   .why-choose-bubble {
     position: relative;
     background: rgba(255, 255, 255, 0.95);
@@ -199,9 +201,32 @@ const services = [
     }
   }
 
-  /* Why Choose bubble headings and text */
+  /* Why Choose bubble headings: Muted blue */
   .why-choose-bubble h2 {
+    color: #3d5064 !important;
+  }
+
+  /* Why Choose bubble text: Dark for readability */
+  .why-choose-bubble p {
+    color: #1e293b !important;
+  }
+
+  /* CTA Section: Liquid bubble styling */
+  .services-cta-section {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+  }
+
+  .services-cta-section > div:first-child {
     color: #00007e;
+    font-weight: 800;
+  }
+
+  .services-cta-section p {
+    color: #000000;
+    font-weight: 700;
   }
 </style>
 
@@ -213,11 +238,11 @@ const services = [
     <!-- Soft Header & Hero Wrap -->
     <div class="services-header-wrap">
       <!-- Header Bubble: H1 + Subhead -->
-      <div class="header-bubble">
+      <div class="header-bubble mt-5">
         <!-- Consolidated Hero Section -->
         <div class="text-center">
-          <h1 class="text-3xl font-black text-white md:text-4xl">Trusted Property Restoration Services in Lexington & Central KY</h1>
-          <p class="mt-3 mx-auto max-w-xl text-base text-slate-100">
+          <h1 class="text-3xl font-black md:text-4xl">Trusted Property Restoration Services in Lexington & Central KY</h1>
+          <p class="mt-3 mx-auto max-w-xl text-base">
             From emergency water mitigation to complete home restoration. We handle every aspect of your property's recovery—fast, documented, and insurance-ready.
           </p>
         </div>
@@ -225,48 +250,12 @@ const services = [
 
     </div>
 
-    <section class="mx-auto max-w-6xl px-4 py-16">
-      <!-- BUBBLE #1: Our Services (Glass/Transparent Bubble) -->
-      <div class="mid-content-bubble">
-        <!-- Our Services Section with Heading -->
-        <h2 class="text-center text-2xl font-black text-white mb-8 drop-shadow-lg">Our Services</h2>
-        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ title, description, link }) => (
-            <a href={link} class="service-card rounded-2xl border border-slate-200 bg-white p-6 text-center hover:shadow-lg transition-shadow">
-              <div class="text-lg font-extrabold text-slate-900">{title}</div>
-              <p class="mt-2 text-base text-slate-600">{description}</p>
-              <div class="mt-4 inline-block text-sm font-semibold text-global-red hover:text-global-red/80">Learn more →</div>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <!-- BUBBLE #2: Why Choose Global Restoration LLC (White Solid Bubble) -->
-      <div class="why-choose-bubble">
-        <h2 class="text-center text-2xl font-black text-slate-900 mb-8">Why Choose Global Restoration LLC</h2>
-        <div class="grid gap-6 md:grid-cols-3">
-          {[
-            { title: '24/7 Emergency Response', desc: 'Water damage, storm damage, active leaks—we respond immediately. Call anytime.' },
-            { title: 'Insurance-Ready Documentation', desc: 'Professional assessments and detailed scope of work for claim support. We help you file correctly.' },
-            { title: 'Veteran-Led & Local', desc: 'Years of hands-on experience and deep roots in Central Kentucky. We care about your home.' },
-            { title: 'Premium Materials & Craftsmanship', desc: 'We use quality materials and proven techniques. Your home deserves excellence.' },
-            { title: 'Transparent Pricing', desc: 'No surprises, no hidden fees. Clear estimates and honest recommendations.' },
-            { title: 'Licensed & Certified', desc: 'Fully insured, bonded, and certified. We hold ourselves to the highest standards.' },
-          ].map(({ title, desc }) => (
-            <div class="rounded-2xl border border-slate-200 bg-white p-6 text-center">
-              <div class="text-base font-extrabold text-slate-900">{title}</div>
-              <p class="mt-2 text-sm text-slate-600">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      </div>
-
-      <!-- CTA Section (inside background band, sitting on top of image) -->
-      <div class="mx-auto max-w-6xl px-4 py-8">
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+    <!-- CTA Section (inside background band, sitting on top of image) -->
+    <section class="mx-auto max-w-6xl px-4 py-8 mt-15">
+      <div class="mx-auto max-w-2xl">
+        <div class="services-cta-section rounded-2xl p-8 text-center">
           <div class="text-lg font-extrabold text-slate-900">Ready to restore your home?</div>
-          <p class="mt-2 text-sm text-slate-600">
+          <p class="mt-2 text-sm">
             Request an inspection today. We respond fast for storm damage and water emergencies.
           </p>
           <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
@@ -277,6 +266,47 @@ const services = [
       </div>
     </section>
   </div>
+
+  <!-- Our Services Section - Below Hero -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <!-- BUBBLE #1: Our Services (Glass/Transparent Bubble) -->
+    <div class="mid-content-bubble">
+      <!-- Our Services Section with Heading -->
+      <h2 class="text-center text-2xl font-black mb-8">Our Services</h2>
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {services.map(({ title, description, link }) => (
+            <a href={link} class="service-card rounded-2xl border border-slate-200 bg-white p-6 text-center hover:shadow-lg transition-shadow">
+              <div class="text-lg font-extrabold text-slate-900">{title}</div>
+              <p class="mt-2 text-base text-slate-600">{description}</p>
+              <div class="mt-4 inline-block text-sm font-semibold text-global-red hover:text-global-red/80">Learn more →</div>
+            </a>
+          ))}
+        </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section - Below Hero -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <!-- BUBBLE #2: Why Choose Global Restoration LLC (White Solid Bubble) -->
+    <div class="why-choose-bubble">
+      <h2 class="text-center text-2xl font-black mb-8">Why Choose Global Restoration LLC</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        {[
+          { title: '24/7 Emergency Response', desc: 'Water damage, storm damage, active leaks—we respond immediately. Call anytime.' },
+          { title: 'Insurance-Ready Documentation', desc: 'Professional assessments and detailed scope of work for claim support. We help you file correctly.' },
+          { title: 'Veteran-Led & Local', desc: 'Years of hands-on experience and deep roots in Central Kentucky. We care about your home.' },
+          { title: 'Premium Materials & Craftsmanship', desc: 'We use quality materials and proven techniques. Your home deserves excellence.' },
+          { title: 'Transparent Pricing', desc: 'No surprises, no hidden fees. Clear estimates and honest recommendations.' },
+          { title: 'Licensed & Certified', desc: 'Fully insured, bonded, and certified. We hold ourselves to the highest standards.' },
+        ].map(({ title, desc }) => (
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 text-center">
+            <div class="text-base font-extrabold text-slate-900">{title}</div>
+            <p class="mt-2 text-sm text-slate-600">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- How It Works Section - Outside Background Band (clean white background) -->
   <section class="mx-auto max-w-6xl px-4 py-12">
