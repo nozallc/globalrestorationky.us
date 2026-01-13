@@ -1,0 +1,8 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle will be applied via CSS -->
+  <!-- Simple chat bubble mark for bot identity -->
+  <g fill="white" opacity="1">
+    <!-- Rounded chat bubble with tail -->
+    <path d="M 6 8 C 6 7.448 6.448 7 7 7 L 25 7 C 25.552 7 26 7.448 26 8 L 26 18 C 26 18.552 25.552 19 25 19 L 10 19 L 8 22 L 9 19 L 7 19 C 6.448 19 6 18.552 6 18 L 6 8 Z"/>
+  </g>
+</svg>

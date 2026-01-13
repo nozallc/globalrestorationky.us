@@ -53,34 +53,34 @@ const description = 'Contact Global Restoration for storm damage roofing insuran
             <div class="grid gap-4 sm:grid-cols-2">
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 First name *
-                <input name="first_name" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
+                <input name="first_name" type="text" autocomplete="given-name" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
               </label>
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 Last name *
-                <input name="last_name" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
+                <input name="last_name" type="text" autocomplete="family-name" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
               </label>
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2">
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 Phone *
-                <input name="phone" type="tel" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
+                <input name="phone" type="tel" autocomplete="tel" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
               </label>
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 Email
-                <input name="email" type="email" class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
+                <input name="email" type="email" autocomplete="email" class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
               </label>
             </div>
 
             <label class="grid gap-1 text-sm font-semibold text-slate-800">
               Address *
-              <input name="address" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
+              <input name="address" type="text" autocomplete="street-address" required class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
             </label>
 
             <div class="grid gap-4 sm:grid-cols-2">
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 City *
-                <input name="city" required placeholder="Lexington, Georgetown, Richmond..." class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
+                <input name="city" type="text" autocomplete="address-level2" required placeholder="Lexington, Georgetown, Richmond..." class="rounded-lg border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-global-blue" />
               </label>
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 Issue type *
