@@ -650,7 +650,6 @@
 /* ========== MOBILE FLOATING CTA PILL ========== */
 
 .floating-cta {
-	display: none;
 	position: fixed;
 	bottom: 1.5rem;
 	left: 50%;
