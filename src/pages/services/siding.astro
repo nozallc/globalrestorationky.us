@@ -9,31 +9,11 @@ const description = 'Professional siding restoration & hail damage repair in Lex
 ---
 
 <style>
-  :root {
-    --sidingBgX: 50%;
-    --sidingBgY: 22%;
-  }
-
-  @media (max-width: 1024px) {
-    :root {
-      --sidingBgX: 50%;
-      --sidingBgY: 28%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    :root {
-      --sidingBgX: 25%;
-      --sidingBgY: 35%;
-    }
-  }
-
   .siding-bg-band {
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: var(--sidingBgX) var(--sidingBgY);
-    overflow: visible;
+    background-position: center 100%;
     min-height: 900px;
   }
   
@@ -45,11 +25,6 @@ const description = 'Professional siding restoration & hail damage repair in Lex
   .siding-header-wrap {
     padding: 0;
     margin: 0;
-  }
-
-  .siding-header-wrap > * {
-    position: relative;
-    z-index: 1;
   }
 
   .siding-header-wrap > * {
@@ -81,6 +56,12 @@ const description = 'Professional siding restoration & hail damage repair in Lex
       padding: 2.5rem 2rem;
       border-radius: 3rem;
     }
+  }
+
+  /* SIDING HEADER OVERRIDE: Remove white bar gap, reposition bubble */
+  .siding-header-wrap .header-bubble {
+    margin-top: 0;
+    transform: translateY(16px);
   }
 
   /* LIQUID BUBBLE WRAPPER: Mid-content (paragraph + service cards) */
@@ -120,6 +101,24 @@ const description = 'Professional siding restoration & hail damage repair in Lex
   .mid-content-bubble > p {
     color: #1e293b;
     font-weight: 500;
+  }
+
+  /* CTA SECTION: Liquid bubble styling (semi-transparent, frosted glass effect) */
+  .siding-cta-section {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+  }
+
+  .siding-cta-section > div:first-child {
+    color: #00007e;
+    font-weight: 800;
+  }
+
+  .siding-cta-section p {
+    color: #000000;
+    font-weight: 700;
   }
 
   /* SERVICE CARDS: Dark text enforcement + muted blue-gray titles */
@@ -209,9 +208,9 @@ const description = 'Professional siding restoration & hail damage repair in Lex
     <!-- CTA Section (inside background band, sitting on top of image) -->
     <section class="mx-auto max-w-6xl px-4 py-8 mt-15">
       <div class="mx-auto max-w-2xl">
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-8 text-center">
+        <div class="siding-cta-section rounded-2xl p-8 text-center">
           <div class="text-lg font-extrabold text-slate-900">Storm Damage? Get Your Siding Inspected.</div>
-          <p class="mt-2 text-sm text-slate-600">
+          <p class="mt-2 text-sm">
             Professional documentation for insurance claims and expert restoration with premium materials.
           </p>
           <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">

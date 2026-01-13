@@ -34,6 +34,11 @@ const services = [
     title: 'Gutters & Drainage',
     description: 'Gutter installation, repair, and maintenance. Seamless gutters and complete drainage solutions.',
     link: '/services/gutters'
+  },
+  {
+    title: 'Carrier Requesting Quote/Inspection?',
+    description: 'Documentation and a knowledgeable contractor for roofing, water damage, siding, and gutters—fast response and clear next steps.',
+    link: '/services/insurance-roofing-claims'
   }
 ];
 ---
@@ -86,10 +91,6 @@ const services = [
   .services-header-wrap .header-bubble {
     margin-top: 0;
     transform: translateY(16px);
-  }
-
-  .services-bg-band > section.mx-auto:first-of-type {
-    transform: translateY(60px);
   }
 
   /* LIQUID BUBBLE WRAPPER: Header + H1/Subhead */
@@ -273,7 +274,7 @@ const services = [
     <div class="mid-content-bubble">
       <!-- Our Services Section with Heading -->
       <h2 class="text-center text-2xl font-black mb-8">Our Services</h2>
-        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
           {services.map(({ title, description, link }) => (
             <a href={link} class="service-card rounded-2xl border border-slate-200 bg-white p-6 text-center hover:shadow-lg transition-shadow">
               <div class="text-lg font-extrabold text-slate-900">{title}</div>
@@ -297,7 +298,7 @@ const services = [
           { title: 'Veteran-Led & Local', desc: 'Years of hands-on experience and deep roots in Central Kentucky. We care about your home.' },
           { title: 'Premium Materials & Craftsmanship', desc: 'We use quality materials and proven techniques. Your home deserves excellence.' },
           { title: 'Transparent Pricing', desc: 'No surprises, no hidden fees. Clear estimates and honest recommendations.' },
-          { title: 'Licensed & Certified', desc: 'Fully insured, bonded, and certified. We hold ourselves to the highest standards.' },
+          { title: 'Licensed & Certified', desc: 'Fully insured and certified. We hold ourselves to the highest standards.' },
         ].map(({ title, desc }) => (
           <div class="rounded-2xl border border-slate-200 bg-white p-6 text-center">
             <div class="text-base font-extrabold text-slate-900">{title}</div>

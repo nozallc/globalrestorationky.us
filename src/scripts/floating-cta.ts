@@ -1,33 +1,76 @@
 /**
  * Floating CTA Controller
  * 
- * Manages visibility of floating CTA button based on:
- * 1. Homepage: Hidden until hero section scrolls out of view, hidden when footer visible
- * 2. Other pages: Visible after scroll threshold, hidden when footer visible
- * 3. Uses IntersectionObserver for reliable detection
+ * Mobile-only floating inspection request button
+ * 
+ * Behavior:
+ * - Homepage: Hidden until hero scrolls out of view, hidden when footer visible
+ * - Other pages: Hidden until user scrolls threshold amount, hidden when footer visible
+ * - Desktop (768px+): Never shows (JS + CSS double-guard)
+ * - Uses IntersectionObserver for reliable detection
  */
 
-function initFloatingCTA() {
+// State machine to prevent race conditions
+type CTAVisibilityState = 'hidden-initial' | 'visible-content' | 'hidden-footer';
+
+function initFloatingCTA(): void {
   if (typeof document === 'undefined') return;
 
-  const cta = document.querySelector('.floating-cta') as HTMLElement | null;
-  const footer = document.querySelector('.site-footer') as HTMLElement | null;
-  const heroSection = document.querySelector('section:first-of-type'); // Hero section on homepage
-  const isHomepage = window.location.pathname === '/';
-
-  if (!cta || !footer) {
-    console.warn('Floating CTA: Missing elements (cta or footer)');
+  // MOBILE-ONLY GUARD: Exit if desktop
+  const isMobile = window.innerWidth < 768;
+  if (!isMobile) {
+    console.debug('Floating CTA: Desktop detected (768px+), skipping initialization');
     return;
   }
 
-  // Type narrowing for TypeScript: we know cta and footer are not null after guard above
-  const ctaElement = cta as HTMLElement;
-  const footerElement = footer as HTMLElement;
+  const ctaElement = document.querySelector('.floating-cta') as HTMLElement | null;
+  const footerElement = document.querySelector('.site-footer') as HTMLElement | null;
+  const isHomepage = window.location.pathname === '/';
 
-  let shouldShow = !isHomepage; // On non-homepage, start as potentially visible
+  // Guard against missing elements
+  if (!ctaElement || !footerElement) {
+    console.warn('Floating CTA: Missing required elements (cta or footer)');
+    return;
+  }
+
+  // State tracking
+  let currentState: CTAVisibilityState = 'hidden-initial';
   let footerInView = false;
+  let heroOutOfView = !isHomepage; // Non-homepage starts as "hero out of view"
 
-  // IntersectionObserver for footer visibility
+  /**
+   * Determine visibility based on current state
+   */
+  function updateCTAVisibility(): void {
+    let newState: CTAVisibilityState;
+
+    if (footerInView) {
+      newState = 'hidden-footer';
+    } else if (heroOutOfView) {
+      newState = 'visible-content';
+    } else {
+      newState = 'hidden-initial';
+    }
+
+    // Only update DOM if state changed (prevent unnecessary reflows)
+    if (newState === currentState) return;
+
+    currentState = newState;
+
+    // Remove old classes, add new ones
+    ctaElement.classList.remove('visible', 'hidden');
+
+    if (currentState === 'visible-content') {
+      ctaElement.classList.add('visible');
+    } else {
+      ctaElement.classList.add('hidden');
+    }
+  }
+
+  /**
+   * Detect when footer enters/exits viewport
+   * Uses small rootMargin buffer to hide CTA before footer is fully visible
+   */
   const footerObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -35,55 +78,84 @@ function initFloatingCTA() {
         updateCTAVisibility();
       });
     },
-    { threshold: 0.1 }
+    {
+      threshold: 0.05,         // Trigger at 5% visible
+      rootMargin: '50px 0 0 0', // Trigger 50px before footer enters
+    }
   );
 
   footerObserver.observe(footerElement);
 
-  // For homepage: observe hero section to hide CTA until hero is out of view
-  if (isHomepage && heroSection) {
-    const heroObserver = new IntersectionObserver(
+  // Homepage: Detect when hero scrolls out of view
+  if (isHomepage) {
+    const heroSection = document.querySelector('[data-hero], .hero-section, section:first-of-type') as HTMLElement | null;
+
+    if (heroSection) {
+      const heroObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // Hero in view = CTA hidden; Hero out of view = CTA shown (if footer not visible)
+            heroOutOfView = !entry.isIntersecting;
+            updateCTAVisibility();
+          });
+        },
+        { threshold: 0 } // Fire as soon as hero edge leaves viewport
+      );
+
+      heroObserver.observe(heroSection);
+    } else {
+      console.warn('Floating CTA: Could not find hero section on homepage');
+    }
+  } else {
+    // Non-homepage: Wait for user to scroll threshold amount
+    // Use document as target and rootMargin to detect scroll position
+    const scrollThresholdObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Hide CTA while hero is in view
-          shouldShow = !entry.isIntersecting;
+          // Marker exits top = user scrolled past threshold
+          heroOutOfView = !entry.isIntersecting;
           updateCTAVisibility();
         });
       },
-      { threshold: 0 }
+      {
+        threshold: 0,
+        rootMargin: '300px 0px -300px 0px', // Trigger ~300px down the page
+      }
     );
 
-    heroObserver.observe(heroSection);
-  } else if (!isHomepage) {
-    // On other pages: show immediately (not homepage, so show right away)
-    shouldShow = true;
-    updateCTAVisibility();
-  }
+    // Create sentinel element to detect scroll threshold
+    const sentinel = document.createElement('div');
+    sentinel.style.height = '0';
+    sentinel.style.pointerEvents = 'none';
+    sentinel.ariaHidden = 'true';
 
-  function updateCTAVisibility() {
-    // Hide if footer is in view, otherwise follow shouldShow logic
-    if (footerInView) {
-      ctaElement.classList.remove('visible');
-      ctaElement.classList.add('hidden');
-    } else if (shouldShow) {
-      ctaElement.classList.remove('hidden');
-      ctaElement.classList.add('visible');
+    // Insert sentinel after first real section (hero equivalent)
+    const firstSection = document.querySelector('section');
+    if (firstSection?.nextElementSibling) {
+      firstSection.nextElementSibling.before(sentinel);
+    } else if (firstSection) {
+      firstSection.after(sentinel);
     } else {
-      ctaElement.classList.remove('visible');
-      ctaElement.classList.add('hidden');
+      // Fallback: insert at top of main
+      const main = document.querySelector('main');
+      if (main?.firstChild) {
+        main.insertBefore(sentinel, main.firstChild);
+      }
     }
+
+    scrollThresholdObserver.observe(sentinel);
   }
 
   // Set initial state
   updateCTAVisibility();
 }
 
-// Initialize immediately on page load
+// Initialize on page load
 if (typeof window !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initFloatingCTA);
   } else {
-    // DOM already ready
+    // DOM already ready (e.g., after navigation)
     setTimeout(initFloatingCTA, 0);
   }
 }

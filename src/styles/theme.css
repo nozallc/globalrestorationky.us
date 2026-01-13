@@ -709,15 +709,6 @@
 	outline-offset: 2px;
 }
 
-/* Show on all screen sizes when .visible class is set */
-.floating-cta.visible {
-	display: block;
-}
-
-.floating-cta.hidden {
-	display: none;
-}
-
 /* Subtle pulse animation */
 @keyframes pulse-subtle {
 	0%, 100% {
@@ -727,5 +718,13 @@
 	50% {
 		opacity: 0.95;
 		transform: scale(1.02);
+	}
+}
+
+/* MOBILE-ONLY: Hide on 768px and above */
+@media (min-width: 768px) {
+	.floating-cta {
+		display: none !important;
+		pointer-events: none !important;
 	}
 }
