@@ -63,14 +63,14 @@ const organizationSchema = generateOrganizationSchema(
     <style set:html={criticalCss} />
     
     <!-- Google Analytics 4 (Production Only) -->
-    {import.meta.env.PROD && import.meta.env.PUBLIC_GA4_ID && (
+    {import.meta.env.PROD && import.meta.env.PUBLIC_GA_MEASUREMENT_ID && (
       <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA4_ID}`}></script>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_MEASUREMENT_ID}`}></script>
         <script is:inline>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', import.meta.env.PUBLIC_GA4_ID);
+          gtag('config', import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
         </script>
       </>
     )}
