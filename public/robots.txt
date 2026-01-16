@@ -1,14 +1,63 @@
 # Global Restoration LLC - robots.txt
-# Allow all crawlers to index the site
+# SEO-optimized crawl budget allocation (Phase 3: Tiered Sitemap Strategy)
+
+# ============================================================================
+# TIER 1: PRIORITY BOTS
+# ============================================================================
+
+# Google Bot - Full access to all priority content
+User-agent: Googlebot
+Allow: /
+Disallow: /the-team/oc-vcf
+Disallow: /the-team/je-vcf
+Crawl-delay: 0
+
+# Google AdsBot - For quality score assessment
+User-agent: AdsBot-Google
+Allow: /
+Crawl-delay: 0
+
+# ============================================================================
+# TIER 2: ALL OTHER BOTS (Default rules)
+# ============================================================================
 
 User-agent: *
 Allow: /
+
+# Exclude VCard landing pages from all crawlers
+# (marketing links remain active for direct users, but hidden from organic search)
+Disallow: /the-team/oc-vcf
+Disallow: /the-team/je-vcf
+
+# Exclude administrative and utility paths
 Disallow: /admin/
+Disallow: /api/
+Disallow: /*?
 Disallow: /*.pdf$
-Disallow: /private/
 
-# Sitemap location
-Sitemap: https://www.globalrestorationky.us/sitemap.xml
-
-# Crawl delay (optional - 1 second)
+# Crawl-delay for other bots (1 second = balanced crawl)
 Crawl-delay: 1
+
+# ============================================================================
+# TIER 3: SPECIFIC BOT RULES
+# ============================================================================
+
+# Bing Bot - Slightly more aggressive
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Block AI scrapers/crawlers (optional - add as needed)
+User-agent: CCBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+# ============================================================================
+# SITEMAP
+# ============================================================================
+
+# Primary sitemap with all indexed pages (excludes noindex pages)
+Sitemap: https://www.globalrestorationky.us/sitemap-0.xml
+Sitemap: https://www.globalrestorationky.us/sitemap-index.xml
