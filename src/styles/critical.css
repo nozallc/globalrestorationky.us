@@ -306,8 +306,21 @@ body {
 
 /* Mobile Header Adjustments */
 @media (max-width: 991px) {
+	.site-nav {
+		position: relative;
+	}
+	
 	.mobile-menu-btn {
 		display: flex;
+		position: relative;
+		z-index: 101;
+	}
+	
+	.site-logo-link {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 200px;
 	}
 	
 	.site-nav-links {
@@ -315,7 +328,8 @@ body {
 	}
 	
 	.site-nav-actions {
-		margin-left: auto;
+		margin-left: 0;
+		display: none;
 	}
 	
 	.site-phone-desktop {

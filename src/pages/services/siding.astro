@@ -157,36 +157,36 @@ const description = 'Professional siding restoration & hail damage repair in Lex
 
 <Layout title={title} description={description} canonical={`${SITE.url}/services/siding`}>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I know if hail damaged my siding?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Hail damage can appear as \"bruising,\" hairline cracks, or chips. We use specialized documentation techniques to show adjusters the impact points that aren't visible to the naked eye."
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know if hail damaged my siding?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hail damage can appear as \"bruising,\" hairline cracks, or chips. We use specialized documentation techniques to show adjusters the impact points that aren't visible to the naked eye."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to replace all my siding if only one side is damaged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If your siding is no longer manufactured or cannot be matched perfectly, we provide the documentation needed for insurance to consider a \"total wrap\" for uniformity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best siding for Kentucky weather?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We recommend fiber cement (Hardie) or premium insulated vinyl, as they offer the best resistance to the high winds and temperature swings common in Central KY."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I have to replace all my siding if only one side is damaged?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "If your siding is no longer manufactured or cannot be matched perfectly, we provide the documentation needed for insurance to consider a \"total wrap\" for uniformity."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best siding for Kentucky weather?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We recommend fiber cement (Hardie) or premium insulated vinyl, as they offer the best resistance to the high winds and temperature swings common in Central KY."
-        }
-      }
-    ]
-  }
+      ]
+    })}
   </script>
 
   <!-- Siding Page Background Band Wrapper -->

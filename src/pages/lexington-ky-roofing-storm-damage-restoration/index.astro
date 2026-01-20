@@ -1,0 +1,556 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { SITE } from '../../lib/site';
+import { generateBreadcrumbSchema } from '../../lib/schema';
+import lexingtonHero from '../../assets/service-areas/regions/lexington-central-ky/lexington/Lexington-KY-hero.webp';
+
+const title = 'Professional Insurance Restoration and Roofing Services in Lexington, KY | Global Restoration LLC';
+const description = 'Expert storm damage restoration, roofing, and insurance claim assistance in Lexington, Kentucky. Navigating recovery with technical expertise and regulatory knowledge for Central Kentucky homeowners.';
+
+const breadcrumbs = generateBreadcrumbSchema([
+  { name: 'Home', url: `${SITE.url}/` },
+  { name: 'Service Areas', url: `${SITE.url}/service-areas` },
+  { name: 'Lexington Insurance Restoration', url: `${SITE.url}/lexington-ky-roofing-storm-damage-restoration` }
+]);
+---
+
+<style>
+  :root {
+    --lexingtonBgX: 50%;
+    --lexingtonBgY: 30%;
+  }
+
+  @media (max-width: 1024px) {
+    :root {
+      --lexingtonBgX: 50%;
+      --lexingtonBgY: 35%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --lexingtonBgX: 50%;
+      --lexingtonBgY: 40%;
+    }
+  }
+
+  .lexington-bg-band {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: var(--lexingtonBgX) var(--lexingtonBgY);
+    overflow: visible;
+    min-height: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lexington-bg-band > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .lexington-header-wrap {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .lexington-header-wrap > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.80);
+    border: none;
+    border-radius: 2.5rem;
+    backdrop-filter: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin: 0 auto;
+    max-width: 95%;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-bubble {
+      padding: 2.5rem 2rem;
+      border-radius: 3rem;
+    }
+  }
+
+  .header-bubble h1 {
+    color: #00007e;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .header-bubble p {
+    color: #000000;
+    font-weight: 500;
+  }
+
+  .mid-content-bubble {
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 3rem;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 1.5rem auto;
+    max-width: 95%;
+    padding: 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mid-content-bubble {
+      padding: 3rem 2.5rem;
+      border-radius: 3.5rem;
+    }
+  }
+
+  .mid-content-bubble > p {
+    color: #1e293b;
+    font-weight: 500;
+  }
+
+  .mid-content-bubble ul li {
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .mid-content-bubble strong {
+    color: #00007e;
+    font-weight: 700;
+  }
+
+  .cta-bubble {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+  }
+
+  .cta-bubble > div:first-child {
+    color: #00007e;
+    font-weight: 800;
+  }
+
+  .cta-bubble p {
+    color: #000000;
+    font-weight: 700;
+  }
+
+  .content-section {
+    margin-top: 3rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .content-section {
+      padding: 0 2rem;
+    }
+  }
+
+  .section-heading {
+    color: #00007e;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .section-body {
+    color: #1e293b;
+    line-height: 1.8;
+  }
+
+  .section-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  /* SERVICE CARD STACKS: Enhanced styling with hover elevation */
+  .service-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #1e293b;
+  }
+
+  .service-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .service-card h1,
+  .service-card h2,
+  .service-card h3,
+  .service-card h4,
+  .service-card h5,
+  .service-card h6 {
+    color: #00007e !important;
+  }
+
+  .service-card p {
+    color: #475569 !important;
+  }
+
+  /* FAQ ITEM STYLING: Card with subtle lift */
+  .faq-item {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .faq-item h3 {
+    color: #00007e;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .faq-item p {
+    color: #1e293b;
+    line-height: 1.8;
+  }
+
+  .damage-list {
+    list-style: disc;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .damage-list li {
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .process-step {
+    margin-bottom: 2rem;
+  }
+
+  .process-step h3 {
+    color: #00007e;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .process-step p {
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .faq-section {
+    margin-top: 3rem;
+  }
+
+  .city-list {
+    color: #1e293b;
+    columns: 2;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .city-list {
+      columns: 1;
+    }
+  }
+
+  .city-list li {
+    margin-bottom: 0.5rem;
+  }
+</style>
+
+<Layout title={title} description={description} canonical={`${SITE.url}/lexington-ky-roofing-storm-damage-restoration`}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
+
+  <!-- HERO SECTION -->
+  <div class="lexington-bg-band" style={`background-image: url('${lexingtonHero.src}');`}>
+    <div class="lexington-header-wrap">
+      <div class="header-bubble">
+        <div class="text-center">
+          <h1 class="text-3xl font-black md:text-4xl">Professional Insurance Restoration and Roofing Services in Lexington, KY</h1>
+          <p class="mt-3 mx-auto max-w-xl text-base">Navigating Storm Recovery and Claims in Central Kentucky</p>
+        </div>
+      </div>
+      <div class="mx-auto max-w-2xl w-full px-4">
+        <div class="cta-bubble rounded-2xl p-8 text-center">
+          <div class="text-lg font-extrabold text-slate-900">Secure professional documentation for your claim</div>
+          <p class="mt-2 text-sm">
+            Technical inspection, detailed damage assessment, and insurance-ready reporting for Central Kentucky homeowners.
+          </p>
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+            <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Free Inspection</a>
+            <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call {SITE.phone}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRODUCTORY AUTHORITY SECTION -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mid-content-bubble">
+      <p class="text-lg leading-relaxed">
+        When severe weather strikes the Bluegrass, the resulting property damage creates immediate financial and structural risk. Navigating the recovery process in Lexington requires more than just a repair crew; it demands a deep understanding of Kentucky insurance regulations, carrier-specific workflows, and the technical documentation necessary to validate a claim.
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPERT ROOFING & STORM DAMAGE SERVICES -->
+  <section class="mx-auto max-w-6xl content-section">
+    <h2 class="section-heading">Expert Roofing & Storm Damage Services in Lexington, KY</h2>
+    <div class="section-body">
+      <p>
+        Roofing failures in Central Kentucky are often the result of the region's volatile weather cycles, where rapid temperature swings and high-velocity wind gusts put extreme stress on roofing systems. We provide comprehensive solutions including <a href="/roofing" class="text-global-blue font-semibold hover:underline">precision roof repair, full roof replacement, and 24/7 emergency tarping</a> to secure your home immediately following a storm.
+      </p>
+      <p class="mb-6 font-semibold text-global-blue">
+        Storms in the Lexington area cause specific failures that generic contractors often overlook:
+      </p>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <h3 class="text-base font-bold text-global-blue mb-2">Thermal Shock & Shingle Brittleness</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Central Kentucky's freezing winters and humid summers cause asphalt shingles to expand and contract rapidly, leading to seal failure and "blow-offs" during typical spring wind events.
+          </p>
+        </div>
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <h3 class="text-base font-bold text-global-blue mb-2">Microburst Uplift</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            High-intensity wind gusts common in Fayette County can create pressure differentials that lift shingles without tearing them, breaking the adhesive bond and allowing "invisible" leaks that lead to structural rot.
+          </p>
+        </div>
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <h3 class="text-base font-bold text-global-blue mb-2">Gutter and Flashing Vulnerabilities</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Heavy rain events often overwhelm standard gutter systems, forcing water back under the roof's edge and damaging the fascia and soffit, which are critical components of a successful insurance claim.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HAIL, WIND, AND WATER DAMAGE RESTORATION -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mid-content-bubble">
+      <h2 class="text-2xl font-bold text-global-blue mb-6">Hail, Wind, and Water Damage Restoration</h2>
+      <p class="mb-6 text-base leading-relaxed">
+        Restoring a home after a Central Kentucky storm requires specialized knowledge of how different materials respond to environmental impact. While hail damage to shingles might appear cosmetic, it often represents a functional failure of the roof's shedding capability.
+      </p>
+      <div class="space-y-4">
+        <div class="rounded-2xl border border-slate-200 bg-white/80 p-6 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-2">Hail Damage vs. Siding and Shingles</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Hail impact creates "bruises" on shingles that knock away protective granules, exposing the underlying bitumen to UV degradation. On vinyl siding, hail often leaves hairline cracks or "stars" that are only visible under specific lighting conditions but compromise the home's weather barrier.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white/80 p-6 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-2">Invisible Wind Damage</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            High winds can cause shingles to "crease" at the top of the tab. While the roof may look intact from the ground, these creases mean the shingle has lost its structural integrity and will fail during the next rain event.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white/80 p-6 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-2">Water Damage Escalation</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            If water intrusion from a roof leak or pipe burst is not mitigated within 24 to 48 hours, "Class 1" clean water damage quickly escalates to "Class 3" (black water) due to bacterial growth and mold, significantly increasing restoration costs and health risks. Our <a href="/services/water-damage-restoration" class="text-global-blue font-semibold hover:underline">emergency water damage mitigation services</a> are available 24/7 to prevent this escalation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNS OF HIDDEN STORM DAMAGE -->
+  <section class="mx-auto max-w-6xl content-section">
+    <h2 class="section-heading">Signs of Hidden Storm Damage</h2>
+    <div class="section-body">
+      <p class="mb-6">
+        Many homeowners discover storm damage weeks after a weather event, when secondary problems like mold growth or structural rot become apparent. The following indicators suggest you may have unidentified damage requiring professional inspection:
+      </p>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <div class="flex gap-3 items-start mb-3">
+            <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-2">
+              <svg class="h-5 w-5 text-global-red" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p class="text-sm font-semibold text-slate-900">Granule accumulation in gutters or at downspout exits</p>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <div class="flex gap-3 items-start mb-3">
+            <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-2">
+              <svg class="h-5 w-5 text-global-red" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p class="text-sm font-semibold text-slate-900">Dented soft metals, including roof vents, valleys, and furnace caps</p>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <div class="flex gap-3 items-start mb-3">
+            <div class="mt-1 flex-shrink-0 rounded-full bg-global-red/20 p-2">
+              <svg class="h-5 w-5 text-global-red" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p class="text-sm font-semibold text-slate-900">Discolored drywall, ceiling stains, or soft spots indicating interior water damage</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSURANCE CLAIM ASSISTANCE & 4-STEP PROCESS -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mid-content-bubble">
+      <h2 class="text-2xl font-bold text-global-blue mb-6">Insurance Claim Assistance & Our 4-Step Restoration Process</h2>
+      <p class="mb-8 text-base leading-relaxed">
+        Our expertise spans both the technical assessment of storm damage and the regulatory landscape governing insurance recovery in Kentucky. We handle the entire claims process on your behalf, working with your insurance carrier to ensure comprehensive coverage and accurate damage documentation. Our process is designed to maximize your recovery while minimizing your stress.
+      </p>
+      
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full bg-global-red/20 mb-4">
+            <span class="text-lg font-bold text-global-red">1</span>
+          </div>
+          <h4 class="font-bold text-global-blue mb-3">Inspection & Documentation</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            We perform a comprehensive technical survey of the property, using high-resolution photo evidence, moisture meters, and thermal imaging to identify both visible and hidden storm-related failures. Our documentation meets all insurance carrier requirements and professional standards, including compliance with Xactimate software formatting for adjuster compatibility.
+          </p>
+        </div>
+
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full bg-global-red/20 mb-4">
+            <span class="text-lg font-bold text-global-red">2</span>
+          </div>
+          <h4 class="font-bold text-global-blue mb-3">Insurance Coordination</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Our team reviews the damage with your insurance carrier to reach a consensus on the scope of loss, ensuring all required repairs are included in the initial estimate. We navigate Kentucky's "Uniform Appearance" regulation (806 KAR 12:095) and leverage the Kentucky Department of Insurance Advisory Opinion 2023-08 to maximize your coverage eligibility.
+          </p>
+        </div>
+
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full bg-global-red/20 mb-4">
+            <span class="text-lg font-bold text-global-red">3</span>
+          </div>
+          <h4 class="font-bold text-global-blue mb-3">Repair or Replacement</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Once the claim is approved, our certified crews execute the restoration using premium materials like GAF Master Elite shingles to restore your home's structural integrity and curb appeal. We fulfill our "duty to mitigate" by preventing secondary damage through rapid response and proper mitigation protocols.
+          </p>
+        </div>
+
+        <div class="service-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full bg-global-red/20 mb-4">
+            <span class="text-lg font-bold text-global-red">4</span>
+          </div>
+          <h4 class="font-bold text-global-blue mb-3">Final Walkthrough & Warranty</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            We conduct a detailed post-installation review and moisture check to ensure every component meets our standards and provide you with a 10-year workmanship warranty for long-term peace of mind. Your final out-of-pocket expense is limited to your insurance deductible, with Replacement Cost Value (RCV) coverage absorbing the full restoration cost.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVING LEXINGTON & SURROUNDING COMMUNITIES -->
+  <section class="mx-auto max-w-6xl content-section">
+    <h2 class="section-heading">Serving Lexington & Surrounding Communities</h2>
+    <div class="section-body">
+      <p>
+        We regularly assist homeowners throughout Lexington and nearby communities who experience sudden storm damage. Our response teams are deeply familiar with the unique building codes and weather patterns of Central Kentucky, providing rapid-response mitigation from Fayette County to the surrounding Bluegrass region.
+      </p>
+      <p class="font-semibold text-global-blue mb-3">We serve the following neighborhoods and cities:</p>
+      <p class="font-semibold">Lexington Neighborhoods:</p>
+      <ul class="city-list mb-6">
+        <li>Beaumont</li>
+        <li>Chevy Chase</li>
+        <li>Masterson Station</li>
+        <li>Hamburg</li>
+        <li>Willow Oak</li>
+        <li>Firebrook</li>
+      </ul>
+      <p class="font-semibold">Surrounding Cities:</p>
+      <ul class="city-list">
+        <li><a href="/location/lexington/georgetown" class="text-global-blue hover:underline">Georgetown</a></li>
+        <li><a href="/location/nicholasville" class="text-global-blue hover:underline">Nicholasville</a></li>
+        <li><a href="/location/lexington/versailles" class="text-global-blue hover:underline">Versailles</a></li>
+        <li><a href="/location/richmond" class="text-global-blue hover:underline">Richmond</a></li>
+        <li>Winchester</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FREQUENTLY ASKED QUESTIONS -->
+  <section class="mx-auto max-w-6xl content-section faq-section">
+    <h2 class="section-heading">Frequently Asked Questions About Storm Damage in Lexington, KY</h2>
+    
+    <div class="space-y-4">
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">Does Kentucky insurance cover a full roof replacement if only a few shingles are missing?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Yes, under Kentucky's "Uniform Appearance" regulation (806 KAR 12:095), if the replacement shingles do not reasonably match the existing roof in color, quality, and size, the insurer must replace the entire roof area. This interpretation was solidified by the Kentucky Department of Insurance Advisory Opinion 2023-08, which explicitly rejects the "line of sight" rule and mandates a uniform appearance for both interior and exterior losses.
+        </p>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">How long do I have to file a storm damage claim in Lexington?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          In Kentucky, most homeowner policies require storm damage claims to be filed within one year of the date of the event. However, specific timelines vary by carrier (such as State Farm or Kentucky Farm Bureau), and waiting too long can lead to a denial if the insurer determines that secondary damage, like rot or mold, was caused by a failure to mitigate the loss promptly.
+        </p>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">What should I do immediately if I have a major roof leak after a Lexington storm?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Immediately document the damage with photos and videos, then call for emergency mitigation to prevent further structural loss. Per most Kentucky insurance policies, homeowners have a "duty to mitigate," meaning you must take reasonable steps, such as emergency tarping or water extraction, to prevent the damage from worsening; failure to do so can give the insurer grounds to deny the claim.
+        </p>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">How do I know if my Lexington roof needs a full replacement instead of just a repair?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          A professional inspection will evaluate the age of the roof, the extent of granule loss, and the "repairability" of the shingles. If the shingles are brittle due to age or if the damage covers more than one slope, a full replacement is often technically and legally required to ensure the roof meets Kentucky's uniform appearance standards and current building codes.
+        </p>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">What will a storm damage roof replacement cost me out-of-pocket?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          For a covered storm damage claim, your primary out-of-pocket expense is typically limited to your insurance deductible. We work directly with your insurer's "Replacement Cost Value" (RCV) estimate to ensure the full cost of labor and materials is covered, meaning you receive a brand-new roof for the price of your policy's deductible, which in Lexington usually ranges from $500 to $2,500.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mx-auto max-w-2xl">
+      <div class="cta-bubble rounded-2xl p-8 text-center">
+        <div class="text-lg font-extrabold text-slate-900">Ready to move forward with your claim?</div>
+        <p class="mt-2 text-sm">
+          Contact us today for a detailed damage assessment and insurance claim preparation.
+        </p>
+        <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
+          <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
+          <a class="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-white" href={`tel:${SITE.tel}`}>Call Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

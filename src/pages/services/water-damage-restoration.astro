@@ -177,36 +177,36 @@ const description = 'Emergency water damage cleanup & flood restoration in Lexin
 
 <Layout title={title} description={description} canonical={`${SITE.url}/services/water-damage-restoration`}>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How quickly can you respond to water damage in Lexington?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We offer a 60-minute emergency response time for all active flooding calls in Lexington, Nicholasville, and Georgetown."
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How quickly can you respond to water damage in Lexington?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer a 60-minute emergency response time for all active flooding calls in Lexington, Nicholasville, and Georgetown."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does homeowners insurance cover a flooded basement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most policies cover sudden water damage (like a burst pipe). We provide the specific moisture logs and documentation your adjuster needs to confirm the scope of repairs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the first thing I should do if my house is flooding?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shut off your main water valve immediately, turn off electricity to the affected areas, and call 888-370-9899 for emergency extraction."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "Does homeowners insurance cover a flooded basement?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Most policies cover sudden water damage (like a burst pipe). We provide the specific moisture logs and documentation your adjuster needs to confirm the scope of repairs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the first thing I should do if my house is flooding?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Shut off your main water valve immediately, turn off electricity to the affected areas, and call 888-370-9899 for emergency extraction."
-        }
-      }
-    ]
-  }
+      ]
+    })}
   </script>
 
   <!-- Water Damage Page Background Band Wrapper -->

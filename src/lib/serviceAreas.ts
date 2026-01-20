@@ -19,7 +19,7 @@ export const SERVICE_AREA_HUBS: ServiceAreaHub[] = [
   {
     key: 'lexington',
     label: 'Lexington & Central KY',
-    href: '/location/lexington',
+    href: '/lexington-ky-roofing-storm-damage-restoration',
     cities: [
       { label: 'Nicholasville', href: '/location/nicholasville', hub: 'lexington' },
       { label: 'Georgetown', href: '/location/georgetown', hub: 'lexington' },

@@ -191,27 +191,27 @@ const description = 'Professional roof inspection, repair, and replacement in Le
 
 <Layout title={title} description={description} canonical={`${SITE.url}/roofing`}>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Global Restoration LLC",
-    "image": "https://www.globalrestorationky.us/assets/NAME & LOGO BANNER.webp",
-    "description": "Professional roofing services in Lexington and Central Kentucky",
-    "url": "https://www.globalrestorationky.us/roofing",
-    "telephone": "+18883709899",
-    "areaServed": {
-      "@type": "State",
-      "name": "Kentucky"
-    },
-    "serviceType": ["Roof Inspection", "Roof Repair", "Roof Replacement", "Storm Damage Assessment"]
-  }
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Global Restoration LLC",
+      "image": "https://www.globalrestorationky.us/assets/NAME & LOGO BANNER.webp",
+      "description": "Professional roofing services in Lexington and Central Kentucky",
+      "url": "https://www.globalrestorationky.us/roofing",
+      "telephone": "+18883709899",
+      "areaServed": {
+        "@type": "State",
+        "name": "Kentucky"
+      },
+      "serviceType": ["Roof Inspection", "Roof Repair", "Roof Replacement", "Storm Damage Assessment"]
+    })}
   </script>
 
   <!-- Roofing Page Background Band Wrapper -->
   <div class="roofing-bg-band" style={`background-image: url('${roofingHero.src}');`}>
     <!-- Center logo mark overlay -->
     <div class="hero-logo-overlay" aria-hidden="true">
-      <Image src={logo} alt="" width={200} height={200} />
+      <Image src={logo} alt="" width={200} height={200} loading="lazy" />
     </div>
 
     <!-- Soft Header & Hero Wrap -->

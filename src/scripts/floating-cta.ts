@@ -1,37 +1,31 @@
 /**
- * Floating CTA Controller
- * 
- * Mobile-only floating inspection request button
+ * Floating CTA Controller (ALL DEVICES)
  * 
  * Behavior:
- * - Homepage: Hidden until hero scrolls out of view, hidden when footer visible
- * - Other pages: Hidden until user scrolls threshold amount, hidden when footer visible
- * - Desktop (768px+): Never shows (JS + CSS double-guard)
- * - Uses IntersectionObserver for reliable detection
+ * - Hidden until hero scrolls out of view
+ * - Hidden when footer enters viewport
+ * - Uses IntersectionObserver for efficient detection
+ * - Staged initialization for Lighthouse performance
+ * - Works on all pages and all devices
  */
 
-// State machine to prevent race conditions
 type CTAVisibilityState = 'hidden-initial' | 'visible-content' | 'hidden-footer';
 
+let isInitialized = false;
+
 function initFloatingCTA(): void {
-  if (typeof document === 'undefined') return;
+  if (typeof document === 'undefined' || isInitialized) return;
+  isInitialized = true;
 
-  // MOBILE-ONLY GUARD: Exit if desktop
-  const isMobile = window.innerWidth < 768;
-  if (!isMobile) {
-    console.debug('Floating CTA: Desktop detected (768px+), skipping initialization');
-    return;
-  }
-
+  // Cache DOM references once (prevents repeated queries in loops)
   const ctaElement = document.querySelector('.floating-cta') as HTMLElement | null;
   const footerElement = document.querySelector('.site-footer') as HTMLElement | null;
-  const isHomepage = window.location.pathname === '/';
 
-  // Guard against missing elements
   if (!ctaElement || !footerElement) {
-    console.warn('Floating CTA: Missing required elements (cta or footer)');
     return;
   }
+
+  const isHomepage = window.location.pathname === '/';
 
   // State tracking
   let currentState: CTAVisibilityState = 'hidden-initial';
@@ -88,59 +82,60 @@ function initFloatingCTA(): void {
 
   // Homepage: Detect when hero scrolls out of view
   if (isHomepage) {
-    const heroSection = document.querySelector('[data-hero], .hero-section, section:first-of-type') as HTMLElement | null;
+    // Improved hero detection: try multiple selectors matching actual page structures
+    const heroSection = document.querySelector(
+      '#hero, [data-hero], .hero, .hero-band, .hero-wrap, .hero-section, .home-services-bubble, section:first-of-type'
+    ) as HTMLElement | null;
 
     if (heroSection) {
       const heroObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            // Hero in view = CTA hidden; Hero out of view = CTA shown (if footer not visible)
             heroOutOfView = !entry.isIntersecting;
             updateCTAVisibility();
           });
         },
-        { threshold: 0 } // Fire as soon as hero edge leaves viewport
+        { threshold: 0 }
       );
 
       heroObserver.observe(heroSection);
     } else {
-      console.warn('Floating CTA: Could not find hero section on homepage');
+      // Fallback: treat as "hero passed" to allow pill to show
+      heroOutOfView = true;
     }
   } else {
-    // Non-homepage: Wait for user to scroll threshold amount
-    // Use document as target and rootMargin to detect scroll position
+    // Non-homepage: Detect when user scrolls past ~300px threshold using sentinel
     const scrollThresholdObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Marker exits top = user scrolled past threshold
           heroOutOfView = !entry.isIntersecting;
           updateCTAVisibility();
         });
       },
       {
         threshold: 0,
-        rootMargin: '300px 0px -300px 0px', // Trigger ~300px down the page
+        rootMargin: '300px 0px -300px 0px',
       }
     );
 
-    // Create sentinel element to detect scroll threshold
+    // Create sentinel element with improved insertion logic
     const sentinel = document.createElement('div');
     sentinel.style.height = '0';
     sentinel.style.pointerEvents = 'none';
     sentinel.ariaHidden = 'true';
 
-    // Insert sentinel after first real section (hero equivalent)
-    const firstSection = document.querySelector('section');
+    const main = document.querySelector('main');
+    const firstSection = main?.querySelector('section');
+    
     if (firstSection?.nextElementSibling) {
       firstSection.nextElementSibling.before(sentinel);
     } else if (firstSection) {
       firstSection.after(sentinel);
+    } else if (main?.firstChild) {
+      main.insertBefore(sentinel, main.firstChild);
     } else {
-      // Fallback: insert at top of main
-      const main = document.querySelector('main');
-      if (main?.firstChild) {
-        main.insertBefore(sentinel, main.firstChild);
-      }
+      // Ultimate fallback: insert at document body start
+      document.body.insertBefore(sentinel, document.body.firstChild);
     }
 
     scrollThresholdObserver.observe(sentinel);
@@ -150,12 +145,67 @@ function initFloatingCTA(): void {
   updateCTAVisibility();
 }
 
-// Initialize on page load
+/**
+ * Staged initialization for Lighthouse performance:
+ * 1. Use requestIdleCallback to init after page settles (timeout: 1500ms)
+ * 2. Also trigger on first user interaction for responsiveness
+ * 3. One-time listeners that self-remove after first trigger
+ */
+function scheduleFloatingCTAInit(): void {
+  if (typeof window === 'undefined') return;
+
+  let initTriggered = false;
+
+  // Approach 1: requestIdleCallback (when browser is idle)
+  if ('requestIdleCallback' in window) {
+    (window.requestIdleCallback as any)(
+      () => {
+        if (!initTriggered) {
+          initTriggered = true;
+          initFloatingCTA();
+          removeInteractionListeners();
+        }
+      },
+      { timeout: 1500 }
+    );
+  } else {
+    // Fallback: setTimeout for browsers without requestIdleCallback
+    setTimeout(() => {
+      if (!initTriggered) {
+        initTriggered = true;
+        initFloatingCTA();
+        removeInteractionListeners();
+      }
+    }, 800);
+  }
+
+  // Approach 2: First user interaction (pointerdown, keydown, or scroll)
+  // This ensures pill works even if requestIdleCallback is delayed
+  function onFirstInteraction() {
+    if (!initTriggered) {
+      initTriggered = true;
+      initFloatingCTA();
+      removeInteractionListeners();
+    }
+  }
+
+  function removeInteractionListeners() {
+    document.removeEventListener('pointerdown', onFirstInteraction, true);
+    document.removeEventListener('keydown', onFirstInteraction, true);
+    window.removeEventListener('scroll', onFirstInteraction, true);
+  }
+
+  // Add one-time listeners (capture phase for pointerdown, passive for scroll)
+  document.addEventListener('pointerdown', onFirstInteraction, { capture: true, once: true });
+  document.addEventListener('keydown', onFirstInteraction, { once: true });
+  window.addEventListener('scroll', onFirstInteraction, { passive: true, once: true });
+}
+
+// Schedule initialization
 if (typeof window !== 'undefined') {
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initFloatingCTA);
+    document.addEventListener('DOMContentLoaded', scheduleFloatingCTAInit);
   } else {
-    // DOM already ready (e.g., after navigation)
-    setTimeout(initFloatingCTA, 0);
+    scheduleFloatingCTAInit();
   }
 }

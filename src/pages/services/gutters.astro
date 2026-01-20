@@ -177,36 +177,36 @@ const description = 'Custom 6" seamless gutters and leaf guards in Lexington. Pr
 
 <Layout title={title} description={description} canonical={`${SITE.url}/services/gutters`}>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Why should I choose seamless gutters over sectional ones?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Seamless gutters are custom-built on-site to the exact dimensions of your home. This eliminates the joints where 90% of gutter leaks and wood rot occur."
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why should I choose seamless gutters over sectional ones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Seamless gutters are custom-built on-site to the exact dimensions of your home. This eliminates the joints where 90% of gutter leaks and wood rot occur."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can new gutters prevent my basement from leaking?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Most basement leaks are caused by water pooling at the foundation. Properly sized 6\" gutters and downspout extensions are your first line of defense."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need gutter guards in Central Kentucky?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If your home is near mature trees (common in Lexington and Paris), high-quality guards prevent clogs that cause water to back up under your shingles and rot your fascia."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "Can new gutters prevent my basement from leaking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Most basement leaks are caused by water pooling at the foundation. Properly sized 6\" gutters and downspout extensions are your first line of defense."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need gutter guards in Central Kentucky?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "If your home is near mature trees (common in Lexington and Paris), high-quality guards prevent clogs that cause water to back up under your shingles and rot your fascia."
-        }
-      }
-    ]
-  }
+      ]
+    })}
   </script>
 
   <!-- Gutters Page Background Band Wrapper -->
