@@ -170,6 +170,25 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     color: #475569 !important;
   }
 
+  /* FAQ ITEM STYLING: Card with subtle lift */
+  .faq-item {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-item h3 {
+    color: #00007e;
+    font-weight: 700;
+  }
+
+  .faq-item p {
+    color: #475569;
+    line-height: 1.6;
+  }
+
   /* CTA Section: Liquid bubble styling */
   .roofing-cta-section {
     background: rgba(255, 255, 255, 0.18);
@@ -196,14 +215,106 @@ const description = 'Professional roof inspection, repair, and replacement in Le
       "@type": "LocalBusiness",
       "name": "Global Restoration LLC",
       "image": "https://www.globalrestorationky.us/assets/NAME & LOGO BANNER.webp",
-      "description": "Professional roofing services in Lexington and Central Kentucky",
+      "description": "Professional roof repair, replacement, and storm damage restoration in Lexington and Central Kentucky",
       "url": "https://www.globalrestorationky.us/roofing",
       "telephone": "+18883709899",
-      "areaServed": {
-        "@type": "State",
-        "name": "Kentucky"
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lexington",
+        "addressRegion": "KY",
+        "postalCode": "40507",
+        "addressCountry": "US"
       },
-      "serviceType": ["Roof Inspection", "Roof Repair", "Roof Replacement", "Storm Damage Assessment"]
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Lexington, KY"
+        },
+        {
+          "@type": "City",
+          "name": "Richmond, KY"
+        },
+        {
+          "@type": "City",
+          "name": "Georgetown, KY"
+        },
+        {
+          "@type": "City",
+          "name": "Nicholasville, KY"
+        }
+      ],
+      "serviceType": [
+        "Roof Inspection",
+        "Roof Repair",
+        "Roof Replacement",
+        "Storm Damage Assessment",
+        "Contractor Assessment for Insurance Claims"
+      ]
+    })}
+  </script>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know if my roof needs repair or replacement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A professional inspection is the best way to know. We look at age, material condition, damage extent, and structural integrity. If repairs can restore functionality and safety, we recommend that. If the roof is near end-of-life or damage is extensive, replacement makes more sense. We walk you through both options."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do immediately after a storm damages my roof?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "First, ensure everyone is safe and out of harm's way. If there's active leaking inside, move valuables away from water and place buckets to catch water. Take photos for your records. Then call us (888-370-9899)—we respond fast to storm emergencies and can assess damage within hours. Document the damage before cleanup, if safe to do so."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a roof inspection help with an insurance claim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Insurance companies often require professional contractor assessment and documentation before processing roof damage claims. Our inspection, measurements, and detailed scope give adjusters the information they need to evaluate your damage fairly. A thorough inspection protects you by creating a clear record that adjusters can review independently. We provide measurements, photos, and professional assessment in formats carriers expect to see."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work directly with insurance adjusters?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we often schedule inspections when adjusters are present and coordinate our findings with their assessment. We explain our work, answer technical questions, and provide detailed documentation on-site. Our job is to give adjusters clear, accurate information about what we found. We don't negotiate coverage or make promises about claim decisions—that's between you, your adjuster, and your carrier."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How fast can you respond to active leaks or emergency damage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We respond 24/7 to emergencies. Active leaks are urgent—call us immediately at 888-370-9899. We aim to assess and establish temporary protection within hours, with permanent repair or replacement planned for the next available time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How soon do I need to file a roof damage claim with my insurance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Homeowners should file insurance claims as soon as possible after storm damage occurs—most policies have no formal deadline, but insurers expect prompt notice. Delaying weeks or months can complicate coverage decisions if the damage worsens or is questioned. Kentucky doesn't enforce a strict statutory deadline for homeowners to report roof damage, but your insurance contract likely requires prompt or timely notice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What affects the cost of a roof inspection or replacement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Roof replacement cost depends on roof size, material type, complexity, and local labor rates—typical replacements in Kentucky range from $8,000 to $25,000+. Inspections cost less and help determine whether repair or replacement is necessary. A professional roof inspection typically costs $250–$500 but can save thousands by catching problems early or by providing accurate documentation for insurance claims."
+          }
+        }
+      ]
     })}
   </script>
 
@@ -234,7 +345,7 @@ const description = 'Professional roof inspection, repair, and replacement in Le
         <div class="roofing-cta-section rounded-2xl p-8 text-center">
           <div class="text-lg font-extrabold text-slate-900">Start with a documented inspection</div>
           <p class="mt-2 text-sm">
-            Fast response for storm damage and active leaks. Professional documentation available if filing a claim.
+            Fast response for storm damage and active leaks. Professional contractor assessment and documentation available for insurance claims.
           </p>
           <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
             <a class="rounded-lg bg-global-red px-4 py-2.5 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Request Inspection</a>
@@ -278,7 +389,7 @@ const description = 'Professional roof inspection, repair, and replacement in Le
       
       <!-- Supporting Content -->
       <p class="mx-auto max-w-3xl text-center text-base text-slate-50">
-        We provide professional roof inspections, repairs, and replacements across Central Kentucky. Whether you've had storm damage, active leaks, or just need a condition assessment, we respond fast and document everything clearly—including support for insurance claims if you choose to file.
+        We provide professional roof inspections, repairs, and replacements across Central Kentucky. Whether you've had storm damage, active leaks, or just need a condition assessment, we respond fast and create detailed documentation. Our professional assessment and contractor quotes are designed to support insurance claims and give adjusters the information they need to make thorough decisions.
       </p>
 
       <!-- Core Services Section -->
@@ -306,47 +417,73 @@ const description = 'Professional roof inspection, repair, and replacement in Le
     </div>
   </section>
 
-
-    <div class="mt-12">
-      <h2 class="mb-6 text-center text-2xl font-black text-global-blue">Roofing FAQ</h2>
-      <div class="space-y-4">
-        {[
-          {
-            q: 'How do I know if my roof needs repair or replacement?',
-            a: 'A professional inspection is the best way to know. We look at age, material condition, damage extent, and structural integrity. If repairs can restore functionality and safety, we recommend that. If the roof is near end-of-life or damage is extensive, replacement makes more sense. We walk you through both options.'
-          },
-          {
-            q: 'What should I do immediately after a storm damages my roof?',
-            a: 'First, ensure everyone is safe and out of harm\'s way. If there\'s active leaking inside, move valuables away from water and place buckets to catch water. Take photos for your records. Then call us (888-370-9899)—we respond fast to storm emergencies and can assess damage within hours. Document the damage before cleanup, if safe to do so.'
-          },
-          {
-            q: 'Can a roof inspection help with an insurance claim?',
-            a: 'Yes. A professional, documented inspection provides clear evidence of damage and a detailed scope of work. This is often required by insurers and helps substantiate your claim. We provide photos, measurements, and findings in a format adjusters understand. Filing a claim is your decision—we support it if you choose to.'
-          },
-          {
-            q: 'Do you work directly with insurance adjusters?',
-            a: 'We can be present during the adjuster\'s inspection to present facts and answer technical questions. However, we don\'t negotiate claims or make promises about what insurance will approve—that\'s between you and your insurer. We focus on documenting the damage professionally so your adjuster has clear information.'
-          },
-          {
-            q: 'How fast can you respond to active leaks or emergency damage?',
-            a: 'We respond 24/7 to emergencies. Active leaks are urgent—call us immediately at 888-370-9899. We aim to assess and establish temporary protection within hours, with permanent repair or replacement planned for the next available time.'
-          },
-          {
-            q: 'What areas of Kentucky do you serve?',
-            a: 'We serve Lexington and all of Central Kentucky, including Nicholasville, Georgetown, Richmond, Frankfort, Winchester, and surrounding areas. We also cover Louisville and South Kentucky regions. Call for service availability in your area.'
-          },
-          {
-            q: 'Do you offer roof maintenance programs?',
-            a: 'Yes. Regular inspections catch small issues before they become expensive problems. We recommend annual inspections, especially after storms. Call to ask about maintenance options for your property.'
-          },
-        ].map(({ q, a }) => (
-          <div class="rounded-2xl border border-slate-200 bg-white p-6 text-center">
-            <div class="text-base font-extrabold text-slate-900">{q}</div>
-            <p class="mt-2 text-sm text-slate-600">{a}</p>
-          </div>
-        ))}
-      </div>
+  <!-- Storm Recovery Resource -->
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <div class="mx-auto max-w-3xl rounded-xl bg-blue-50 border border-blue-200 p-6 text-center">
+      <p class="text-sm text-slate-700"><strong>Looking for comprehensive Lexington roofing guidance?</strong> <a href="/lexington-ky-roofing-storm-damage-restoration" class="text-global-red font-semibold hover:underline">Our authority guide covers storm recovery, insurance claims, and contractor assessment strategies</a> in detail.</p>
     </div>
+  </section>
+
+    <!-- ROOFING FAQ SECTION -->
+    <section class="mx-auto max-w-6xl content-section faq-section">
+      <h2 class="mb-8 text-center text-2xl font-black text-global-blue">Roofing FAQ</h2>
+      <div class="space-y-4">
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">How do I know if my roof needs repair or replacement?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            A professional inspection is the best way to know. We look at age, material condition, damage extent, and structural integrity. If repairs can restore functionality and safety, we recommend that. If the roof is near end-of-life or damage is extensive, replacement makes more sense. We walk you through both options.
+          </p>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">What should I do immediately after a storm damages my roof?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            First, ensure everyone is safe and out of harm's way. If there's active leaking inside, move valuables away from water and place buckets to catch water. Take photos for your records. Then call us (888-370-9899)—we respond fast to storm emergencies and can assess damage within hours. Document the damage before cleanup, if safe to do so.
+          </p>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">Can a roof inspection help with an insurance claim?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Yes. Insurance companies often require professional contractor assessment and documentation before processing roof damage claims. Our inspection, measurements, and detailed scope give adjusters the information they need to evaluate your damage fairly. A thorough inspection protects you by creating a clear record that adjusters can review independently. We provide measurements, photos, and professional assessment in formats carriers expect to see.
+          </p>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">Do you work directly with insurance adjusters?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Yes, we often schedule inspections when adjusters are present and coordinate our findings with their assessment. We explain our work, answer technical questions, and provide detailed documentation on-site. Our job is to give adjusters clear, accurate information about what we found. We don't negotiate coverage or make promises about claim decisions—that's between you, your adjuster, and your carrier.
+          </p>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">How fast can you respond to active leaks or emergency damage?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            We respond 24/7 to emergencies. Active leaks are urgent—call us immediately at 888-370-9899. We aim to assess and establish temporary protection within hours, with permanent repair or replacement planned for the next available time.
+          </p>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">How soon do I need to file a roof damage claim with my insurance?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Homeowners should file insurance claims as soon as possible after storm damage occurs—most policies have no formal deadline, but insurers expect prompt notice. Delaying weeks or months can complicate coverage decisions if the damage worsens or is questioned. Kentucky doesn't enforce a strict statutory deadline for homeowners to report roof damage, but your insurance contract likely requires prompt or timely notice.
+          </p>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 class="text-base font-bold text-global-blue mb-3">What affects the cost of a roof inspection or replacement?</h3>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Roof replacement cost depends on roof size, material type, complexity, and local labor rates—typical replacements in Kentucky range from $8,000 to $25,000+. Inspections cost less and help determine whether repair or replacement is necessary. A professional roof inspection typically costs $250–$500 but can save thousands by catching problems early or by providing accurate documentation for insurance claims.
+          </p>
+        </div>
+      </div>
+      
+      <div class="mt-8 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+        <p class="text-xs text-slate-600">
+          <strong>Note:</strong> The FAQs above reflect common roofing practices and insurance claim processes in Kentucky. Coverage decisions are made by your insurance carrier based on your specific policy. We recommend reviewing these questions with your insurance company to understand how they apply to your situation.
+        </p>
+      </div>
+    </section>
 
     <!-- Final CTA -->
     <div class="mt-12 rounded-2xl border-2 border-global-red bg-white p-6 text-center">

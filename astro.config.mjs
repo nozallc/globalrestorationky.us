@@ -24,12 +24,13 @@ export default defineConfig({
         return true;
       },
       serialize: (item) => {
-        // Priority 1.0 (Daily): Critical conversion pages
+        // Priority 1.0 (Daily): Critical conversion pages + pillar authority page
         if (
           item.url === 'https://www.globalrestorationky.us/' ||
           item.url.includes('/water-damage-restoration') ||
           item.url.includes('/roofing') ||
-          item.url.includes('/request-inspection')
+          item.url.includes('/request-inspection') ||
+          item.url.includes('/lexington-ky-roofing-storm-damage-restoration')
         ) {
           return {
             ...item,

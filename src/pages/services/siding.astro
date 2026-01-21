@@ -5,7 +5,7 @@ import { SITE } from '../../lib/site';
 import sidingHero from '../../assets/siding/siding-01.webp';
 
 const title = `Siding Replacement & Repair Lexington KY | Storm Damage Experts | ${SITE.name}`;
-const description = 'Professional siding restoration & hail damage repair in Lexington. Vinyl, Hardie, & LP SmartSide. We provide documented siding inspections for insurance.';
+const description = 'Professional siding restoration & hail damage repair in Lexington. Vinyl, Hardie, & LP SmartSide. We provide contractor assessment and documentation that insurance companies use for accurate hail damage claims.';
 ---
 
 <style>
@@ -150,8 +150,25 @@ const description = 'Professional siding restoration & hail damage repair in Lex
 
   /* FAQ Section Styling */
   .faq-item {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .faq-item h3 {
+    color: #00007e;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .faq-item p {
+    color: #1e293b;
+    line-height: 1.8;
   }
 </style>
 
@@ -199,7 +216,7 @@ const description = 'Professional siding restoration & hail damage repair in Lex
         <div class="text-center">
           <h1 class="text-3xl font-black md:text-4xl">Expert Siding Restoration & Storm Damage Repair in Central KY</h1>
           <p class="mt-3 mx-auto max-w-xl text-base">
-            Hail, wind, and age damage your siding. We document every impact point and work with insurance to restore your home's protection and appearance.
+            Hail, wind, and age damage your siding. We provide detailed documentation and contractor assessment—exactly what insurance adjusters need to evaluate hail damage claims. We'll work with your insurance company to ensure repairs restore both protection and appearance.
           </p>
         </div>
       </div>
@@ -251,7 +268,7 @@ const description = 'Professional siding restoration & hail damage repair in Lex
     <div class="mid-content-bubble">
       <!-- Supporting Content -->
       <p class="mx-auto max-w-3xl text-center text-base mb-8 leading-relaxed">
-        <span class="font-extrabold">Documentation Edge:</span> Hail "bruises" vinyl; specialized lighting reveals cracks & impact points adjusters often miss. We photograph and document every issue so your insurance claim reflects the true scope of damage.
+        <span class="font-extrabold">Documentation Edge:</span> Hail "bruises" vinyl; specialized lighting reveals cracks & impact points adjusters often miss. We photograph and document every issue so insurance companies have the clear evidence they need to make fair coverage decisions. <a href="/lexington-ky-roofing-storm-damage-restoration" class="text-global-red font-semibold hover:underline">For Lexington-specific storm damage recovery guidance</a>, see our comprehensive authority guide.
       </p>
 
       <!-- Service Cards Section -->
@@ -280,37 +297,42 @@ const description = 'Professional siding restoration & hail damage repair in Lex
   </section>
 
   <!-- FAQ Section - Outside Background Band (clean white background) -->
-  <section class="mx-auto max-w-6xl px-4 py-12">
-    <div class="mt-12">
-      <h2 class="mb-6 text-center text-2xl font-black text-global-blue">Siding FAQ</h2>
-      <div class="space-y-4">
-        {[
-          {
-            q: 'How do I know if hail damaged my siding?',
-            a: 'Hail damage can appear as "bruising," hairline cracks, or chips. We use specialized documentation techniques to show adjusters the impact points that aren\'t visible to the naked eye.'
-          },
-          {
-            q: 'Do I have to replace all my siding if only one side is damaged?',
-            a: 'If your siding is no longer manufactured or cannot be matched perfectly, we provide the documentation needed for insurance to consider a "total wrap" for uniformity.'
-          },
-          {
-            q: 'What is the best siding for Kentucky weather?',
-            a: 'We recommend fiber cement (Hardie) or premium insulated vinyl, as they offer the best resistance to the high winds and temperature swings common in Central KY.'
-          },
-        ].map(({ q, a }) => (
-          <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 text-center">
-            <div class="text-base font-extrabold text-slate-900">{q}</div>
-            <p class="mt-2 text-sm text-slate-600">{a}</p>
-          </div>
-        ))}
+  <section class="mx-auto max-w-6xl content-section faq-section">
+    <h2 class="mb-8 text-center text-2xl font-black text-global-blue">Siding FAQ</h2>
+    <div class="space-y-4">
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">How do I know if hail damaged my siding?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Hail damage can appear as "bruising," hairline cracks, or chips. We use specialized documentation techniques to show adjusters the impact points that aren't visible to the naked eye.
+        </p>
       </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">Do I have to replace all my siding if only one side is damaged?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          If your siding is no longer manufactured or cannot be matched perfectly, Kentucky's uniform appearance regulations often support full siding replacement. We provide the documentation and contractor assessment your insurance company needs to evaluate whether full replacement is appropriate under your policy.
+        </p>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">What is the best siding for Kentucky weather?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          We recommend fiber cement (Hardie) or premium insulated vinyl, as they offer the best resistance to the high winds and temperature swings common in Central KY.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+      <p class="text-xs text-slate-600">
+        <strong>Note:</strong> The FAQs above reflect common siding practices and insurance claim processes in Kentucky. Coverage decisions are made by your insurance carrier based on your specific policy. We recommend reviewing these questions with your insurance company to understand how they apply to your situation.
+      </p>
     </div>
 
     <!-- Final CTA -->
     <div class="mt-12 rounded-2xl border-2 border-global-red bg-white p-6 text-center">
       <div class="text-lg font-extrabold text-slate-900">Ready to restore your siding?</div>
       <p class="mt-2 text-sm text-slate-600">
-        Get a professional inspection with insurance-ready documentation. We handle the details so your claim is solid.
+        Get a professional contractor assessment with detailed documentation. Insurance adjusters rely on expert contractor input—we'll ensure yours is thorough and accurate.
       </p>
       <div class="mt-4 flex flex-col gap-3 sm:flex-row justify-center">
         <a class="rounded-lg bg-global-red px-4 py-3 text-center text-sm font-semibold text-white hover:opacity-95" href="/request-inspection">Schedule Inspection</a>

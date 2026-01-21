@@ -170,8 +170,25 @@ const description = 'Emergency water damage cleanup & flood restoration in Lexin
 
   /* FAQ Section Styling */
   .faq-item {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .faq-item h3 {
+    color: #00007e;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .faq-item p {
+    color: #1e293b;
+    line-height: 1.8;
   }
 </style>
 
@@ -270,7 +287,8 @@ const description = 'Emergency water damage cleanup & flood restoration in Lexin
     <div class="mid-content-bubble">
       <!-- Supporting Content -->
       <p class="mx-auto max-w-3xl text-center text-base leading-relaxed">
-        Water damage doesn't wait. We specialize in fast emergency mitigation, complete structural drying, and professional documentation that insurance companies understand. From burst pipes to basement floods, we stop the damage and restore your home.
+        Water damage doesn't wait. We specialize in fast emergency mitigation, complete structural drying, and professional documentation that insurance companies understand. From burst pipes to basement floods, we stop the damage and restore your home. <a href="/lexington-ky-roofing-storm-damage-restoration" class="text-global-red font-semibold hover:underline">Discover our comprehensive Lexington storm recovery guide</a> for holistic restoration strategies.
+      </p>
       </p>
 
       <!-- The Process Section (4-Step Bubble Stack) -->
@@ -306,30 +324,35 @@ const description = 'Emergency water damage cleanup & flood restoration in Lexin
   </section>
 
   <!-- FAQ Section - Outside Background Band (clean white background) -->
-  <section class="mx-auto max-w-6xl px-4 py-12">
-    <div class="mt-12">
-      <h2 class="mb-6 text-center text-2xl font-black text-global-blue">Water Damage FAQ</h2>
-      <div class="space-y-4">
-        {[
-          {
-            q: 'How quickly can you respond to water damage in Lexington?',
-            a: 'We offer a 60-minute emergency response time for all active flooding calls in Lexington, Nicholasville, and Georgetown.'
-          },
-          {
-            q: 'Does homeowners insurance cover a flooded basement?',
-            a: 'Most policies cover sudden water damage (like a burst pipe). We provide the specific moisture logs and documentation your adjuster needs to confirm the scope of repairs.'
-          },
-          {
-            q: 'What is the first thing I should do if my house is flooding?',
-            a: 'Shut off your main water valve immediately, turn off electricity to the affected areas, and call 888-370-9899 for emergency extraction.'
-          },
-        ].map(({ q, a }) => (
-          <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 text-center">
-            <div class="text-base font-extrabold text-slate-900">{q}</div>
-            <p class="mt-2 text-sm text-slate-600">{a}</p>
-          </div>
-        ))}
+  <section class="mx-auto max-w-6xl content-section faq-section">
+    <h2 class="mb-8 text-center text-2xl font-black text-global-blue">Water Damage FAQ</h2>
+    <div class="space-y-4">
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">How quickly can you respond to water damage in Lexington?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          We offer a 60-minute emergency response time for all active flooding calls in Lexington, Nicholasville, and Georgetown.
+        </p>
       </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">Does homeowners insurance cover a flooded basement?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Most policies cover sudden water damage (like a burst pipe). We provide the specific moisture logs and documentation your adjuster needs to confirm the scope of repairs.
+        </p>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-base font-bold text-global-blue mb-3">What is the first thing I should do if my house is flooding?</h3>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          Shut off your main water valve immediately, turn off electricity to the affected areas, and call 888-370-9899 for emergency extraction.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+      <p class="text-xs text-slate-600">
+        <strong>Note:</strong> Water damage requires immediate action to prevent secondary damage like mold and structural deterioration. Coverage decisions are made by your insurance carrier based on your specific policy. Contact your insurance company and our emergency team right away when water damage occurs.
+      </p>
     </div>
 
     <!-- Final CTA -->
