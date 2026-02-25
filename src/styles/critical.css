@@ -323,6 +323,12 @@ body {
 		max-width: 200px;
 	}
 	
+	.site-logo {
+		height: auto;
+		max-width: 100%;
+		object-fit: contain;
+	}
+	
 	.site-nav-links {
 		display: none;
 	}

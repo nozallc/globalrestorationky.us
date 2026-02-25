@@ -1,0 +1,16 @@
+---
+// Floating CTA Component - Loads and attaches the controller script
+---
+
+<!-- Mobile Floating CTA Pill -->
+<div class="floating-cta hidden" role="region" aria-label="Quick request inspection button">
+  <a href="/request-inspection" class="floating-cta-button" aria-label="Request Inspection">
+    Request Inspection
+  </a>
+</div>
+
+<!-- Floating CTA Controller Script - Uses dynamic import for proper bundling -->
+<script>
+  // Dynamically import the floating-cta module
+  import('../scripts/floating-cta.ts');
+</script>

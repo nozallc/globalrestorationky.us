@@ -9,19 +9,44 @@
  * - Works on all pages and all devices
  */
 
+console.log('[floating-cta] Script module loaded - execution proof', { href: location.href });
+
 type CTAVisibilityState = 'hidden-initial' | 'visible-content' | 'hidden-footer';
 
 let isInitialized = false;
 
 function initFloatingCTA(): void {
-  if (typeof document === 'undefined' || isInitialized) return;
+  console.log('[floating-cta] initFloatingCTA() called');
+  if (typeof document === 'undefined' || isInitialized) {
+    console.log('[floating-cta] Early return: document undefined or already initialized');
+    return;
+  }
   isInitialized = true;
 
   // Cache DOM references once (prevents repeated queries in loops)
   const ctaElement = document.querySelector('.floating-cta') as HTMLElement | null;
   const footerElement = document.querySelector('.site-footer') as HTMLElement | null;
 
+  console.log('[floating-cta] element query result:', { 
+    ctaElement,
+    ctaElementClasses: ctaElement?.className,
+    footerElement,
+  });
+  if (ctaElement) {
+    const computed = window.getComputedStyle(ctaElement);
+    console.log('[floating-cta-debug] Computed styles:', { 
+      display: computed.display, 
+      opacity: computed.opacity, 
+      visibility: computed.visibility, 
+      position: computed.position,
+      bottom: computed.bottom,
+      zIndex: computed.zIndex,
+      pointerEvents: computed.pointerEvents
+    });
+  }
+
   if (!ctaElement || !footerElement) {
+    console.log('[floating-cta] Missing required elements, aborting');
     return;
   }
 
@@ -50,14 +75,25 @@ function initFloatingCTA(): void {
     if (newState === currentState) return;
 
     currentState = newState;
+    console.log('[floating-cta] state changed to:', newState);
 
     // Remove old classes, add new ones
     ctaElement.classList.remove('visible', 'hidden');
 
     if (currentState === 'visible-content') {
       ctaElement.classList.add('visible');
+      console.log('[floating-cta] SHOW: added .visible class', {
+        newClasses: ctaElement.className,
+        computedDisplay: window.getComputedStyle(ctaElement).display,
+        computedOpacity: window.getComputedStyle(ctaElement).opacity,
+      });
     } else {
       ctaElement.classList.add('hidden');
+      console.log('[floating-cta] HIDE: added .hidden class', {
+        newClasses: ctaElement.className,
+        computedDisplay: window.getComputedStyle(ctaElement).display,
+        computedOpacity: window.getComputedStyle(ctaElement).opacity,
+      });
     }
   }
 
@@ -68,6 +104,10 @@ function initFloatingCTA(): void {
   const footerObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
+        console.log('[floating-cta] footerObserver fired:', { 
+          isIntersecting: entry.isIntersecting,
+          boundingClientRect: entry.boundingClientRect.top,
+        });
         footerInView = entry.isIntersecting;
         updateCTAVisibility();
       });
@@ -87,10 +127,18 @@ function initFloatingCTA(): void {
       '#hero, [data-hero], .hero, .hero-band, .hero-wrap, .hero-section, .home-services-bubble, section:first-of-type'
     ) as HTMLElement | null;
 
+    console.log('[floating-cta] Homepage detected. Hero section found:', !!heroSection, {
+      selector: heroSection?.className,
+    });
+
     if (heroSection) {
       const heroObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
+            console.log('[floating-cta] heroObserver fired:', { 
+              isIntersecting: entry.isIntersecting,
+              willToggleVisibility: entry.isIntersecting !== heroOutOfView,
+            });
             heroOutOfView = !entry.isIntersecting;
             updateCTAVisibility();
           });
@@ -101,6 +149,7 @@ function initFloatingCTA(): void {
       heroObserver.observe(heroSection);
     } else {
       // Fallback: treat as "hero passed" to allow pill to show
+      console.log('[floating-cta] No hero section found, setting heroOutOfView=true (fallback)');
       heroOutOfView = true;
     }
   } else {
@@ -114,7 +163,7 @@ function initFloatingCTA(): void {
       },
       {
         threshold: 0,
-        rootMargin: '300px 0px -300px 0px',
+        // Sentinel is already positioned at ~300px mark, so no rootMargin needed
       }
     );
 
@@ -142,6 +191,12 @@ function initFloatingCTA(): void {
   }
 
   // Set initial state
+  console.log('[floating-cta] Initial state setup:', {
+    isHomepage,
+    heroOutOfView,
+    footerInView,
+    willShow: !footerInView && heroOutOfView,
+  });
   updateCTAVisibility();
 }
 
@@ -154,12 +209,16 @@ function initFloatingCTA(): void {
 function scheduleFloatingCTAInit(): void {
   if (typeof window === 'undefined') return;
 
+  console.log('[floating-cta] scheduleFloatingCTAInit started');
+
   let initTriggered = false;
 
   // Approach 1: requestIdleCallback (when browser is idle)
   if ('requestIdleCallback' in window) {
+    console.log('[floating-cta] requestIdleCallback available, scheduling init');
     (window.requestIdleCallback as any)(
       () => {
+        console.log('[floating-cta] requestIdleCallback fired');
         if (!initTriggered) {
           initTriggered = true;
           initFloatingCTA();
@@ -169,8 +228,10 @@ function scheduleFloatingCTAInit(): void {
       { timeout: 1500 }
     );
   } else {
+    console.log('[floating-cta] requestIdleCallback NOT available, using setTimeout');
     // Fallback: setTimeout for browsers without requestIdleCallback
     setTimeout(() => {
+      console.log('[floating-cta] setTimeout fired');
       if (!initTriggered) {
         initTriggered = true;
         initFloatingCTA();
@@ -182,6 +243,7 @@ function scheduleFloatingCTAInit(): void {
   // Approach 2: First user interaction (pointerdown, keydown, or scroll)
   // This ensures pill works even if requestIdleCallback is delayed
   function onFirstInteraction() {
+    console.log('[floating-cta] First user interaction detected, triggering init');
     if (!initTriggered) {
       initTriggered = true;
       initFloatingCTA();

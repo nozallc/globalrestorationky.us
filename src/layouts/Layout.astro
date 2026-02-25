@@ -1,13 +1,13 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FloatingCTA from '../components/FloatingCTA.astro';
 import ChatWidget from '../components/ChatWidget.astro';
 import { SITE } from '../lib/site';
 import { generateOrganizationSchema } from '../lib/schema';
 import criticalCss from '../styles/critical.css?inline';
 import '../styles/theme.css';
 import '../styles/tailwind.css';
-import '../scripts/floating-cta.ts';
 
 
 
@@ -86,13 +86,7 @@ const organizationSchema = generateOrganizationSchema(
       <slot />
     </main>
     <Footer />
-    <!-- Mobile Floating CTA Pill -->
-    <div class="floating-cta hidden" role="region" aria-label="Quick request inspection button">
-      <a href="/request-inspection" class="floating-cta-button" aria-label="Request Inspection">
-        Request Inspection
-      </a>
-    </div>
-    <!-- Chat Widget -->
+    <FloatingCTA />
     <ChatWidget />
   </body>
 </html>

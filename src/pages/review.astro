@@ -1,0 +1,437 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { SITE } from '../lib/site';
+
+const title = 'Share Your Feedback & Leave a Review - Global Restoration KY';
+const description = 'Help us improve by sharing your feedback. Leave a public review on Google or Facebook, or send us private feedback to help us serve you better.';
+---
+
+<Layout title={title} description={description} canonical={`${SITE.url}/review`}>
+  <!-- HERO SECTION -->
+  <section class="relative h-96 flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy-dark via-navy to-blue-900">
+    <!-- Subtle Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, currentColor 0.5px, transparent 0.5px); background-size: 20px 20px;"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 mx-auto max-w-3xl px-4 text-center text-black">
+      <p class="mb-4 inline-flex items-center gap-2 rounded-full bg-gray-800 backdrop-blur-sm px-4 py-2 text-sm font-semibold text-white border border-gray-700">
+        <span class="h-2 w-2 rounded-full bg-yellow-300"></span>
+        Your Feedback Matters
+      </p>
+      <h1 class="text-5xl sm:text-6xl font-black tracking-tight mb-6 text-black">
+        Help Us Improve
+      </h1>
+      <p class="text-xl text-gray-900 mb-8 max-w-2xl mx-auto">
+        Whether you had a great experience or think we can do better, we genuinely value your honest feedback. Help other homeowners and help us grow.
+      </p>
+    </div>
+  </section>
+
+  <!-- REVIEW SECTION -->
+  <section class="bg-white section-spacing">
+    <div class="mx-auto max-w-2xl px-4">
+      <!-- Rating Prompt -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-navy-dark mb-2">How was your experience?</h2>
+        <p class="text-text-muted text-lg">Rate your experience with Global Restoration</p>
+      </div>
+
+      <!-- Star Rating Component -->
+      <div class="flex justify-center mb-12" id="star-rating-container">
+        <div class="flex gap-4 sm:gap-6">
+          {[1, 2, 3, 4, 5].map((rating) => (
+            <button
+              class={`star-button group`}
+              data-rating={rating}
+              aria-label={`Rate ${rating} out of 5 stars`}
+              type="button"
+              tabindex={rating === 1 ? 0 : -1}
+            >
+              <svg
+                class="w-12 h-12 sm:w-16 sm:h-16 transition-all duration-200 star-icon"
+                data-rating={rating}
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="0.5"
+              >
+                <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- High Rating Response (4-5 stars) -->
+      <div id="high-rating-response" class="hidden animate-fade-in">
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-8 mb-8 text-center">
+          <div class="mb-4">
+            <svg class="w-16 h-16 mx-auto text-green-500" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-navy-dark mb-3" id="high-rating-title">Thank you for the love!</h3>
+          <p class="text-text-muted text-lg mb-6" id="high-rating-message">
+            Your positive feedback means everything to us. We're sending you to Google to leave a quick review 🙏
+          </p>
+        </div>
+      </div>
+
+      <!-- Low Rating Response (1-3 stars) -->
+      <div id="low-rating-response" class="hidden animate-fade-in">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl p-8 mb-8 text-center">
+          <div class="mb-4">
+            <svg class="w-16 h-16 mx-auto text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-navy-dark mb-3">We're sorry to hear that.</h3>
+          <p class="text-text-muted text-lg mb-6">
+            Your feedback is incredibly valuable to us and helps us improve our service. We'd love to know more about your experience so we can do better.
+          </p>
+
+          <!-- Error Message (inside modal) -->
+          <div id="feedback-error-message" class="hidden mb-4 text-left">
+            <div class="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-300 rounded-lg p-4">
+              <h4 class="text-sm font-bold text-red-700 mb-1">Error:</h4>
+              <p class="text-sm text-red-600" id="feedback-error-text">Something went wrong. Please try again.</p>
+            </div>
+          </div>
+
+          <!-- Feedback Form -->
+          <form id="feedback-form" class="bg-white rounded-lg p-6 border border-blue-200 mb-6">
+            <div class="mb-4 text-left">
+              <label for="feedback-name" class="block text-sm font-semibold text-navy-dark mb-2">
+                Full Name *
+              </label>
+              <input
+                id="feedback-name"
+                name="name"
+                type="text"
+                required
+                placeholder="Your name"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+
+            <div class="mb-4 text-left">
+              <label for="feedback-email" class="block text-sm font-semibold text-navy-dark mb-2">
+                Email (optional)
+              </label>
+              <input
+                id="feedback-email"
+                name="email"
+                type="email"
+                placeholder="your@email.com"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+
+            <div class="mb-4 text-left">
+              <label for="feedback-message" class="block text-sm font-semibold text-navy-dark mb-2">
+                Tell us what happened (required):
+              </label>
+              <textarea
+                id="feedback-message"
+                name="message"
+                rows="5"
+                required
+                placeholder="We'd love to hear your thoughts so we can improve..."
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Turnstile Widget -->
+            <div class="cf-turnstile mb-4" data-sitekey="0x4AAAAAAChrIccbKnyIJgRI" data-theme="light"></div>
+
+            <button
+              type="submit"
+              id="feedback-submit-btn"
+              class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Submit Feedback
+            </button>
+          </form>
+
+          <!-- Privacy Note -->
+          <p class="text-xs text-text-muted bg-gray-100 rounded-lg p-3 mt-6">
+            ✓ Your feedback is private and will not be shared publicly. It helps our team understand how we can improve and serve you better.
+          </p>
+        </div>
+      </div>
+
+      <!-- Neutral State (before rating) -->
+      <div id="neutral-state" class="text-center text-text-muted">
+        <p class="text-lg">👆 Click a star above to get started.</p>
+      </div>
+
+      <!-- Success Message (after submission) -->
+      <div id="success-message" class="hidden animate-fade-in">
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-8 text-center">
+          <div class="mb-4">
+            <svg class="w-16 h-16 mx-auto text-green-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-navy-dark mb-3">Thank you!</h3>
+          <p class="text-text-muted text-lg mb-6">
+            Your feedback has been received. We truly appreciate you taking the time to help us improve our service. Your input helps us serve our community better.
+          </p>
+          <button
+            onclick="location.reload()"
+            class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-all duration-200"
+          >
+            Share More Feedback
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  :root {
+    --navy-dark: #1a202c;
+    --navy: #2d3748;
+    --text-muted: #4b5563;
+    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .star-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--transition-base);
+    color: #d1d5db;
+    transform: scale(1);
+  }
+
+  .star-button:hover,
+  .star-button:focus {
+    color: #fbbf24;
+    transform: scale(1.2);
+    outline: none;
+  }
+
+  .star-button.active {
+    color: #fbbf24;
+  }
+
+  /* Reverse selection: highlight stars up to and including clicked star */
+  .star-rating-wrapper {
+    display: flex;
+    gap: 1rem;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
+  }
+
+  textarea:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  button:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  a:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  // Load Turnstile script
+  const turnstileScript = document.createElement('script');
+  turnstileScript.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  turnstileScript.async = true;
+  turnstileScript.defer = true;
+  document.head.appendChild(turnstileScript);
+
+  // Star Rating Interaction Handler
+  const starButtons = document.querySelectorAll('.star-button');
+  const highRatingResponse = document.getElementById('high-rating-response');
+  const lowRatingResponse = document.getElementById('low-rating-response');
+  const neutralState = document.getElementById('neutral-state');
+  const successMessage = document.getElementById('success-message');
+  const feedbackForm = document.getElementById('feedback-form');
+  const feedbackErrorMessage = document.getElementById('feedback-error-message');
+  const feedbackErrorText = document.getElementById('feedback-error-text');
+  const feedbackSubmitBtn = document.getElementById('feedback-submit-btn');
+
+  let currentRating = 0;
+  let redirectTimeout = null;
+
+  function cancelPendingRedirect() {
+    if (redirectTimeout) {
+      clearTimeout(redirectTimeout);
+      redirectTimeout = null;
+    }
+  }
+
+  function updateStarDisplay(rating: number) {
+    starButtons.forEach((btn, index) => {
+      if (index < rating) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function showResponse(rating: number) {
+    // Cancel any pending redirect when user interacts with stars
+    cancelPendingRedirect();
+    
+    currentRating = rating;
+
+    // Hide all responses
+    neutralState.classList.add('hidden');
+    highRatingResponse.classList.add('hidden');
+    lowRatingResponse.classList.add('hidden');
+    successMessage.classList.add('hidden');
+
+    // Show appropriate response
+    if (rating >= 4) {
+      highRatingResponse.classList.remove('hidden');
+      // Notify backend of positive review, then redirect to Google
+      (async () => {
+        try {
+          await fetch('/api/forms/review-positive', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ rating: rating, timestamp: new Date().toISOString() }),
+          });
+        } catch (err) {
+          console.error('Error sending positive review notification:', err);
+        }
+        // Redirect to Google after notification sent
+        redirectTimeout = setTimeout(() => {
+          window.location.href = 'https://g.page/r/CSiNXUBNYgf3EBM/review';
+        }, 1000);
+      })();
+    } else if (rating >= 1) {
+      lowRatingResponse.classList.remove('hidden');
+      // Reset form
+      feedbackForm.reset();
+    }
+  }
+
+  // Add click and keyboard handlers to stars
+  starButtons.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      const rating = parseInt(btn.getAttribute('data-rating') || '0', 10);
+      updateStarDisplay(rating);
+      showResponse(rating);
+    });
+
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const rating = parseInt(btn.getAttribute('data-rating') || '0', 10);
+        updateStarDisplay(rating);
+        showResponse(rating);
+      }
+    });
+  });
+
+  // Form submission handler
+  if (feedbackForm) {
+    feedbackForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = (document.getElementById('feedback-name') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('feedback-email') as HTMLInputElement).value.trim();
+      const message = (document.getElementById('feedback-message') as HTMLTextAreaElement).value.trim();
+
+      // Hide error message
+      feedbackErrorMessage.classList.add('hidden');
+      feedbackSubmitBtn.disabled = true;
+
+      // Validate name
+      if (!name) {
+        feedbackErrorText.textContent = 'Please enter your full name.';
+        feedbackErrorMessage.classList.remove('hidden');
+        feedbackSubmitBtn.disabled = false;
+        return;
+      }
+
+      // Validate message
+      if (!message) {
+        feedbackErrorText.textContent = 'Please enter your feedback message.';
+        feedbackErrorMessage.classList.remove('hidden');
+        feedbackSubmitBtn.disabled = false;
+        return;
+      }
+
+      // Validate email format if provided
+      if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        feedbackErrorText.textContent = 'Please enter a valid email address.';
+        feedbackErrorMessage.classList.remove('hidden');
+        feedbackSubmitBtn.disabled = false;
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/forms/feedback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            rating: currentRating,
+            name: name,
+            email: email || null,
+            message: message,
+            'cf-turnstile-response': (window as any).turnstile?.getResponse?.() || '',
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          lowRatingResponse.classList.add('hidden');
+          successMessage.classList.remove('hidden');
+          feedbackForm.reset();
+          if ((window as any).turnstile) {
+            (window as any).turnstile.reset();
+          }
+        } else {
+          feedbackErrorText.textContent = data.error || 'Failed to submit feedback. Please try again.';
+          feedbackErrorMessage.classList.remove('hidden');
+          if ((window as any).turnstile) {
+            (window as any).turnstile.reset();
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        feedbackErrorText.textContent = 'Network error. Please check your connection and try again.';
+        feedbackErrorMessage.classList.remove('hidden');
+        if ((window as any).turnstile) {
+          (window as any).turnstile.reset();
+        }
+      } finally {
+        feedbackSubmitBtn.disabled = false;
+      }
+    });
+  }
+</script>

@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { NAV_LINKS, NAV_LINKS_MOBILE, SITE } from '../lib/site';
+import { NAV_LINKS, NAV_LINKS_MOBILE, CONTACT_SUBMENU, SITE } from '../lib/site';
 import logo from '../assets/logo.webp';
 const ctaHref = '/request-inspection';
 ---
@@ -27,7 +27,23 @@ const ctaHref = '/request-inspection';
     <!-- Desktop Navigation Links -->
     <div class="site-nav-links">
       {NAV_LINKS.map((l) => (
-        <a href={l.href}>{l.label}</a>
+        l.label === 'Contact' ? (
+          <div class="nav-dropdown">
+            <a href={l.href} class="nav-dropdown-link">{l.label}</a>
+            <button class="nav-dropdown-trigger" aria-label="Open Contact submenu">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 10 13 14 9"></polyline>
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              {CONTACT_SUBMENU.map((item) => (
+                <a href={item.href}>{item.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={l.href}>{l.label}</a>
+        )
       ))}
     </div>
 
@@ -48,7 +64,23 @@ const ctaHref = '/request-inspection';
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-links">
       {NAV_LINKS_MOBILE.map((l) => (
-        <a href={l.href}>{l.label}</a>
+        l.label === 'Contact' ? (
+          <div class="mobile-nav-dropdown">
+            <a href={l.href} class="mobile-nav-dropdown-link">{l.label}</a>
+            <button class="mobile-nav-dropdown-trigger" aria-label="Open Contact submenu">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 10 13 14 9"></polyline>
+              </svg>
+            </button>
+            <div class="mobile-nav-dropdown-menu">
+              {CONTACT_SUBMENU.map((item) => (
+                <a href={item.href}>{item.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={l.href}>{l.label}</a>
+        )
       ))}
       <!-- Request Inspection CTA in Mobile Menu -->
       <a href={ctaHref} class="mobile-menu-cta">
@@ -85,4 +117,40 @@ const ctaHref = '/request-inspection';
       });
     });
   }
+
+  // Mobile dropdown toggle (button only, not the link)
+  const mobileDropdownTriggers = document.querySelectorAll('.mobile-nav-dropdown-trigger');
+  mobileDropdownTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = trigger.closest('.mobile-nav-dropdown');
+      dropdown.classList.toggle('active');
+    });
+  });
+
+  // Desktop dropdown toggle (button only, not the link)
+  const dropdownTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+  
+  dropdownTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = trigger.closest('.nav-dropdown');
+      dropdown.classList.toggle('active');
+    });
+  });
+  
+  // Close dropdown when item clicked
+  const dropdownItems = document.querySelectorAll('.nav-dropdown-menu a');
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('active'));
+    });
+  });
+
+  // Close desktop dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('active'));
+    }
+  });
 </script>

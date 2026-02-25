@@ -48,8 +48,29 @@ const description = 'Contact Global Restoration for storm damage assessment, roo
           <div class="text-lg font-extrabold text-slate-900">Inspection Request Form</div>
           <p class="mt-2 text-sm text-slate-600">Fields marked * are required.</p>
 
-          <!-- Formspree -->
-          <form class="mt-6 grid gap-4" action="https://formspree.io/f/mjkpryoz" method="POST">
+          <!-- Success Message (hidden by default) -->
+          <div id="form-success-message" class="hidden mt-6 animate-fade-in">
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
+              <div class="mb-4">
+                <svg class="w-12 h-12 mx-auto text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-green-700 mb-2">Thank you!</h3>
+              <p class="text-sm text-green-600" id="success-message-text">Your inquiry has been received. We will follow up with you shortly.</p>
+            </div>
+          </div>
+
+          <!-- Error Message (hidden by default) -->
+          <div id="form-error-message" class="hidden mt-6">
+            <div class="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-300 rounded-xl p-6 text-center">
+              <h3 class="text-lg font-bold text-red-700 mb-2">Oops!</h3>
+              <p class="text-sm text-red-600" id="error-message-text">Something went wrong. Please try again.</p>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form id="contact-form" class="mt-6 grid gap-4">
             <div class="grid gap-4 sm:grid-cols-2">
               <label class="grid gap-1 text-sm font-semibold text-slate-800">
                 First name *
@@ -115,8 +136,14 @@ const description = 'Contact Global Restoration for storm damage assessment, roo
             <!-- Honeypot -->
             <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-            <button type="submit"
-              class="mt-2 inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-global-blue">
+            <!-- Hidden source field -->
+            <input type="hidden" name="source_page" value="contact" />
+
+            <!-- Turnstile Widget -->
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAChrIccbKnyIJgRI" data-theme="light"></div>
+
+            <button type="submit" id="submit-btn"
+              class="mt-2 inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-global-blue disabled:opacity-50 disabled:cursor-not-allowed">
               Submit Request
             </button>
 
@@ -158,3 +185,103 @@ const description = 'Contact Global Restoration for storm damage assessment, roo
     </div>
   </section>
 </Layout>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
+  }
+</style>
+
+<script>
+  // Load Turnstile script
+  const turnstileScript = document.createElement('script');
+  turnstileScript.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  turnstileScript.async = true;
+  turnstileScript.defer = true;
+  document.head.appendChild(turnstileScript);
+
+  // Handle form submission
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successMsg = document.getElementById('form-success-message') as HTMLDivElement;
+  const errorMsg = document.getElementById('form-error-message') as HTMLDivElement;
+  const errorText = document.getElementById('error-message-text') as HTMLParagraphElement;
+  const successText = document.getElementById('success-message-text') as HTMLParagraphElement;
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Hide previous messages
+      successMsg.classList.add('hidden');
+      errorMsg.classList.add('hidden');
+
+      // Disable submit button
+      submitBtn.disabled = true;
+
+      try {
+        // Get form data
+        const formData = new FormData(form);
+
+        // Send to endpoint
+        const response = await fetch('/api/forms/contact', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Show success message
+          successText.textContent = data.message || 'Your inquiry has been received. We will follow up with you shortly.';
+          successMsg.classList.remove('hidden');
+
+          // Clear form
+          form.reset();
+
+          // Reset Turnstile
+          if (window.turnstile) {
+            (window.turnstile as any).reset();
+          }
+
+          // Auto-hide success after 5 seconds and re-enable button
+          setTimeout(() => {
+            successMsg.classList.add('hidden');
+            submitBtn.disabled = false;
+          }, 5000);
+        } else {
+          // Show error
+          errorText.textContent = data.error || 'Something went wrong. Please try again.';
+          errorMsg.classList.remove('hidden');
+          submitBtn.disabled = false;
+
+          // Reset Turnstile on error
+          if (window.turnstile) {
+            (window.turnstile as any).reset();
+          }
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        errorText.textContent = 'Network error. Please check your connection and try again.';
+        errorMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+
+        // Reset Turnstile on error
+        if (window.turnstile) {
+          (window.turnstile as any).reset();
+        }
+      }
+    });
+  }
+</script>

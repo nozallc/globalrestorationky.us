@@ -43,6 +43,10 @@ export const NAV_LINKS = [
   { label: 'Contact', href: '/contact' },
 ] as const;
 
+export const CONTACT_SUBMENU = [
+  { label: 'Reviews', href: '/review' },
+] as const;
+
 export const NAV_LINKS_MOBILE = [
   { label: 'Home', href: '/' },
   ...NAV_LINKS,
