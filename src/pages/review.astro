@@ -93,16 +93,11 @@ const description = 'Help us improve by sharing your feedback. Leave a public re
             Your feedback is incredibly valuable to us and helps us improve our service. We'd love to know more about your experience so we can do better.
           </p>
 
-          <!-- Error Message (inside modal) -->
-          <div id="feedback-error-message" class="hidden mb-4 text-left">
-            <div class="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-300 rounded-lg p-4">
-              <h4 class="text-sm font-bold text-red-700 mb-1">Error:</h4>
-              <p class="text-sm text-red-600" id="feedback-error-text">Something went wrong. Please try again.</p>
-            </div>
-          </div>
-
           <!-- Feedback Form -->
-          <form id="feedback-form" class="bg-white rounded-lg p-6 border border-blue-200 mb-6">
+          <form action="https://formspree.io/f/xzdaoqkp" method="POST" class="bg-white rounded-lg p-6 border border-blue-200 mb-6">
+            <input type="hidden" name="form_source" value="review_low_rating" />
+            <input type="hidden" name="page_url" value="/review" />
+            <input type="hidden" id="feedback-rating" name="rating" value="" />
             <div class="mb-4 text-left">
               <label for="feedback-name" class="block text-sm font-semibold text-navy-dark mb-2">
                 Full Name *
@@ -144,13 +139,11 @@ const description = 'Help us improve by sharing your feedback. Leave a public re
               ></textarea>
             </div>
 
-            <!-- Turnstile Widget -->
-            <div class="cf-turnstile mb-4" data-sitekey="0x4AAAAAAChrIccbKnyIJgRI" data-theme="light"></div>
+
 
             <button
               type="submit"
-              id="feedback-submit-btn"
-              class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             >
               Submit Feedback
             </button>
@@ -260,13 +253,6 @@ const description = 'Help us improve by sharing your feedback. Leave a public re
 </style>
 
 <script>
-  // Load Turnstile script
-  const turnstileScript = document.createElement('script');
-  turnstileScript.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-  turnstileScript.async = true;
-  turnstileScript.defer = true;
-  document.head.appendChild(turnstileScript);
-
   // Star Rating Interaction Handler
   const starButtons = document.querySelectorAll('.star-button');
   const highRatingResponse = document.getElementById('high-rating-response');
@@ -274,9 +260,7 @@ const description = 'Help us improve by sharing your feedback. Leave a public re
   const neutralState = document.getElementById('neutral-state');
   const successMessage = document.getElementById('success-message');
   const feedbackForm = document.getElementById('feedback-form');
-  const feedbackErrorMessage = document.getElementById('feedback-error-message');
-  const feedbackErrorText = document.getElementById('feedback-error-text');
-  const feedbackSubmitBtn = document.getElementById('feedback-submit-btn');
+  const feedbackRatingInput = document.getElementById('feedback-rating') as HTMLInputElement;
 
   let currentRating = 0;
   let redirectTimeout = null;
@@ -313,26 +297,16 @@ const description = 'Help us improve by sharing your feedback. Leave a public re
     // Show appropriate response
     if (rating >= 4) {
       highRatingResponse.classList.remove('hidden');
-      // Notify backend of positive review, then redirect to Google
-      (async () => {
-        try {
-          await fetch('/api/forms/review-positive', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ rating: rating, timestamp: new Date().toISOString() }),
-          });
-        } catch (err) {
-          console.error('Error sending positive review notification:', err);
-        }
-        // Redirect to Google after notification sent
-        redirectTimeout = setTimeout(() => {
-          window.location.href = 'https://g.page/r/CSiNXUBNYgf3EBM/review';
-        }, 1000);
-      })();
+      // Redirect to Google after a short delay
+      redirectTimeout = setTimeout(() => {
+        window.location.href = 'https://g.page/r/CSiNXUBNYgf3EBM/review';
+      }, 1000);
     } else if (rating >= 1) {
       lowRatingResponse.classList.remove('hidden');
+      feedbackRatingInput.value = rating.toString();
       // Reset form
       feedbackForm.reset();
+      feedbackRatingInput.value = rating.toString();
     }
   }
 
@@ -353,85 +327,4 @@ const description = 'Help us improve by sharing your feedback. Leave a public re
       }
     });
   });
-
-  // Form submission handler
-  if (feedbackForm) {
-    feedbackForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const name = (document.getElementById('feedback-name') as HTMLInputElement).value.trim();
-      const email = (document.getElementById('feedback-email') as HTMLInputElement).value.trim();
-      const message = (document.getElementById('feedback-message') as HTMLTextAreaElement).value.trim();
-
-      // Hide error message
-      feedbackErrorMessage.classList.add('hidden');
-      feedbackSubmitBtn.disabled = true;
-
-      // Validate name
-      if (!name) {
-        feedbackErrorText.textContent = 'Please enter your full name.';
-        feedbackErrorMessage.classList.remove('hidden');
-        feedbackSubmitBtn.disabled = false;
-        return;
-      }
-
-      // Validate message
-      if (!message) {
-        feedbackErrorText.textContent = 'Please enter your feedback message.';
-        feedbackErrorMessage.classList.remove('hidden');
-        feedbackSubmitBtn.disabled = false;
-        return;
-      }
-
-      // Validate email format if provided
-      if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-        feedbackErrorText.textContent = 'Please enter a valid email address.';
-        feedbackErrorMessage.classList.remove('hidden');
-        feedbackSubmitBtn.disabled = false;
-        return;
-      }
-
-      try {
-        const response = await fetch('/api/forms/feedback', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            rating: currentRating,
-            name: name,
-            email: email || null,
-            message: message,
-            'cf-turnstile-response': (window as any).turnstile?.getResponse?.() || '',
-          }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-          lowRatingResponse.classList.add('hidden');
-          successMessage.classList.remove('hidden');
-          feedbackForm.reset();
-          if ((window as any).turnstile) {
-            (window as any).turnstile.reset();
-          }
-        } else {
-          feedbackErrorText.textContent = data.error || 'Failed to submit feedback. Please try again.';
-          feedbackErrorMessage.classList.remove('hidden');
-          if ((window as any).turnstile) {
-            (window as any).turnstile.reset();
-          }
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        feedbackErrorText.textContent = 'Network error. Please check your connection and try again.';
-        feedbackErrorMessage.classList.remove('hidden');
-        if ((window as any).turnstile) {
-          (window as any).turnstile.reset();
-        }
-      } finally {
-        feedbackSubmitBtn.disabled = false;
-      }
-    });
-  }
 </script>
