@@ -198,7 +198,39 @@ function initFloatingCTA(): void {
     willShow: !footerInView && heroOutOfView,
   });
   updateCTAVisibility();
+  
+  // Mark initialization as complete (allows fallback to skip)
+  markInitializationComplete();
 }
+
+/**
+ * FALLBACK SAFETY MECHANISM:
+ * If initialization hasn't completed in 2 seconds, force-show the CTA.
+ * This ensures visibility even if all else fails, and helps diagnose CSS issues.
+ */
+let initializationCompleted = false;
+function markInitializationComplete(): void {
+  initializationCompleted = true;
+  console.log('[floating-cta] Initialization marked complete');
+}
+
+// Aggressive fallback: force-show CTA after 2 seconds if not initialized
+setTimeout(() => {
+  if (!initializationCompleted && typeof document !== 'undefined') {
+    const ctaEl = document.querySelector('.floating-cta') as HTMLElement | null;
+    if (ctaEl) {
+      console.log('[floating-cta] SAFETY FALLBACK TRIGGERED: Force-showing CTA after 2s timeout');
+      ctaEl.classList.remove('hidden');
+      ctaEl.classList.add('visible');
+      console.log('[floating-cta] Forced classes:', ctaEl.className);
+      console.log('[floating-cta] Computed style after force:', {
+        display: window.getComputedStyle(ctaEl).display,
+        opacity: window.getComputedStyle(ctaEl).opacity,
+        pointerEvents: window.getComputedStyle(ctaEl).pointerEvents,
+      });
+    }
+  }
+}, 2000);
 
 /**
  * Staged initialization for Lighthouse performance:

@@ -1,21 +1,57 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import { SITE } from '../../lib/site';
-const title = `JE vCard | ${SITE.name}`;
+const title = `OC vCard | ${SITE.name}`;
 const description = 'Download contact card.';
 ---
 
 <Layout title={title} description={description} canonical={`${SITE.url}/the-team/je-vcf`} noindex={true}>
+  <meta name="robots" content="noindex, nofollow" />
+  
   <section class="mx-auto max-w-3xl px-4 py-16">
-    <h1 class="text-3xl font-black text-global-blue">Download vCard</h1>
-    <p class="mt-3 text-sm text-slate-600">If your download doesn't start, use the button below.</p>
+    <h1 class="text-3xl font-black text-global-blue">Downloading vCard...</h1>
+    <p class="mt-3 text-sm text-slate-600">If your download doesn't start, use the link below.</p>
     <div class="mt-6">
       <a class="inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-         href="/the-team/je.vcf" download>
-        Download JE vCard
+         href="/the-team/oc.vcf" download>
+        Download OC vCard Directly
       </a>
     </div>
 
-    <meta http-equiv="refresh" content="0; url=/the-team/je.vcf" />
+    <noscript>
+      <div class="mt-8 p-4 border border-slate-300 rounded-lg bg-slate-100">
+        <p class="text-sm text-slate-700 mb-4">JavaScript is disabled. Please use one of these links:</p>
+        <ul class="space-y-3">
+          <li>
+            <a href="/the-team/oc.vcf" download class="inline-flex items-center justify-center rounded-lg bg-global-red px-4 py-2 text-sm font-semibold text-white hover:opacity-95">
+              Download OC vCard
+            </a>
+          </li>
+          <li>
+            <a href="/the-team/oc" class="inline-flex items-center justify-center rounded-lg border-2 border-global-blue px-4 py-2 text-sm font-semibold text-global-blue hover:bg-blue-50">
+              View OC Profile
+            </a>
+          </li>
+        </ul>
+      </div>
+    </noscript>
   </section>
+
+  <script>
+    // QR Scan Route: Download OC vCard and redirect to OC profile
+    (function() {
+      // Step 1: Trigger download immediately
+      const downloadLink = document.createElement('a');
+      downloadLink.href = '/the-team/oc.vcf';
+      downloadLink.download = '';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
+      
+      // Step 2: Redirect to profile page after delay to allow download to start
+      setTimeout(() => {
+        window.location.replace('/the-team/oc');
+      }, 150);
+    })();
+  </script>
 </Layout>
