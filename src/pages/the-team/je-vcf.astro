@@ -13,7 +13,7 @@ const description = 'Download contact card.';
     <p class="mt-3 text-sm text-slate-600">If your download doesn't start, use the link below.</p>
     <div class="mt-6">
       <a class="inline-flex items-center justify-center rounded-lg bg-global-red px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-         href="/the-team/oc.vcf" download>
+         href="/vcards/oc.vcf" download>
         Download OC vCard Directly
       </a>
     </div>
@@ -23,7 +23,7 @@ const description = 'Download contact card.';
         <p class="text-sm text-slate-700 mb-4">JavaScript is disabled. Please use one of these links:</p>
         <ul class="space-y-3">
           <li>
-            <a href="/the-team/oc.vcf" download class="inline-flex items-center justify-center rounded-lg bg-global-red px-4 py-2 text-sm font-semibold text-white hover:opacity-95">
+            <a href="/vcards/oc.vcf" download class="inline-flex items-center justify-center rounded-lg bg-global-red px-4 py-2 text-sm font-semibold text-white hover:opacity-95">
               Download OC vCard
             </a>
           </li>
@@ -42,7 +42,7 @@ const description = 'Download contact card.';
     (function() {
       // Step 1: Trigger download immediately
       const downloadLink = document.createElement('a');
-      downloadLink.href = '/the-team/oc.vcf';
+      downloadLink.href = '/vcards/oc.vcf';
       downloadLink.download = '';
       document.body.appendChild(downloadLink);
       downloadLink.click();
