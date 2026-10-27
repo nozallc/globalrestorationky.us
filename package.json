@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:siding": "node scripts/build-siding.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

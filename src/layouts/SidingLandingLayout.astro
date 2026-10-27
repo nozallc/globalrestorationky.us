@@ -1,0 +1,154 @@
+---
+/**
+ * Minimal layout for the siding landing page.
+ * Deliberately does NOT use Layout.astro: no site navigation, footer links, chatbot or
+ * floating inspection CTA, and its canonical/robots/schema are specific to this page.
+ */
+import { Image } from 'astro:assets';
+import CallButton from '../components/siding-landing/CallButton.astro';
+import { LANDING } from '../lib/siding-landing';
+import logo from '../assets/logo.webp';
+import '../styles/tailwind.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  indexable: boolean;
+  ogImage?: string;
+  jsonLd?: object[];
+}
+
+const { title, description, canonical, indexable, ogImage, jsonLd = [] } = Astro.props as Props;
+
+const robots = indexable ? 'index, follow, max-image-preview:large' : 'noindex, nofollow';
+const analytics = {
+  ga4: LANDING.ga4Id,
+  ads: LANDING.adsId,
+  adsCallLabel: LANDING.adsCallLabel,
+  adsFormLabel: LANDING.adsFormLabel,
+};
+const trackingEnabled = import.meta.env.PROD && Boolean(analytics.ga4 || analytics.ads);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#00007e" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={robots} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={LANDING.business} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+
+    <!--
+      Attribution + analytics (tiny, no dependencies).
+      - Captures UTM / click-id parameters once per session for the lead form.
+      - Defines gtag and queues events; gtag.js itself is fetched only after the page has
+        loaded, so it never competes with LCP. Skipped entirely when no ID is configured.
+      - Call clicks are reported as `call_button_click` (an intent signal, NOT a completed call).
+    -->
+    <script is:inline define:vars={{ analytics, trackingEnabled }}>
+      (function () {
+        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'];
+        var STORE = 'gr_siding_attr';
+        function read() { try { return JSON.parse(sessionStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
+        function write(o) { try { sessionStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
+
+        var attr = read();
+        var params = new URLSearchParams(location.search);
+        var fresh = false;
+        KEYS.forEach(function (k) { var v = params.get(k); if (v) { attr[k] = v.slice(0, 200); fresh = true; } });
+        if (!attr.landing_url) { attr.landing_url = location.origin + location.pathname; fresh = true; }
+        if (!('referrer' in attr)) { attr.referrer = (document.referrer || '').slice(0, 300); fresh = true; }
+        if (fresh) write(attr);
+        window.grAttribution = function () { return read(); };
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+
+        window.grTrack = function (name, data, adsLabel) {
+          if (!trackingEnabled) return;
+          gtag('event', name, Object.assign({ transport_type: 'beacon' }, data || {}));
+          if (analytics.ads && adsLabel) {
+            gtag('event', 'conversion', { send_to: analytics.ads + '/' + adsLabel });
+          }
+        };
+
+        if (trackingEnabled) {
+          gtag('js', new Date());
+          if (analytics.ga4) gtag('config', analytics.ga4);
+          if (analytics.ads) gtag('config', analytics.ads);
+          var load = function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(analytics.ga4 || analytics.ads);
+            document.head.appendChild(s);
+          };
+          var onLoad = function () { 'requestIdleCallback' in window ? requestIdleCallback(load, { timeout: 3000 }) : setTimeout(load, 1500); };
+          document.readyState === 'complete' ? onLoad() : window.addEventListener('load', onLoad);
+        }
+
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[data-call-cta]');
+          if (!a) return;
+          window.grTrack('call_button_click', { placement: a.getAttribute('data-call-cta') }, analytics.adsCallLabel);
+        });
+      })();
+    </script>
+  </head>
+
+  <body class="bg-white pb-[calc(4.75rem+env(safe-area-inset-bottom))] text-slate-900 md:pb-0">
+    <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:shadow" href="#main">
+      Skip to content
+    </a>
+
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5">
+        <a href="/" aria-label={`${LANDING.business} – siding estimates`} class="shrink-0">
+          <Image src={logo} alt={LANDING.business} width={216} height={60} loading="eager" class="h-11 w-auto sm:h-14" />
+        </a>
+        <CallButton placement="header" class="!min-h-[48px] !px-3 !py-2 !text-base sm:!px-6 sm:!text-lg" />
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="bg-global-blue px-4 py-8 text-center text-sm text-white">
+      <p class="font-bold">{LANDING.business}</p>
+      <p class="mt-1">{LANDING.address}</p>
+      <p class="mt-1">
+        <a href={LANDING.telHref} data-call-cta="footer" class="inline-flex min-h-[44px] items-center font-semibold underline underline-offset-2">{LANDING.phoneDisplay}</a>
+      </p>
+      <p class="mt-3 text-xs text-white/80">&copy; {new Date().getFullYear()} {LANDING.business}. Residential siding installation, replacement and repair in Lexington and Central Kentucky.</p>
+    </footer>
+
+    <!-- Sticky mobile call bar: plain fixed CSS, always visible below md, no JS dependency. -->
+    <div class="sticky-call fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-3 pt-2 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden" style="padding-bottom: calc(0.5rem + env(safe-area-inset-bottom))">
+      <CallButton placement="sticky-mobile" class="w-full" />
+    </div>
+
+    <style is:global>
+      /* Hide the sticky bar while the estimate form is being filled so it never covers fields. */
+      body:has(#estimate-form:focus-within) .sticky-call { display: none; }
+      html { scroll-padding-top: 1rem; }
+    </style>
+  </body>
+</html>

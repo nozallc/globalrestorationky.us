@@ -1,0 +1,72 @@
+---
+/**
+ * NOZA-managed HighLevel (LeadConnector) chat widget. Reusable on any page:
+ *   <HighLevelChatWidget />
+ *
+ * Loading strategy (keeps it off the critical path):
+ *  - nothing is fetched until the page has fully loaded, AND
+ *  - the loader then starts on the first user interaction (scroll, touch, key, mouse)
+ *    or after `delay` ms, whichever comes first.
+ * A page-level guard prevents a second instance if the component is included twice.
+ *
+ * `mobileBottomOffset` (CSS length, e.g. "5.5rem"): on viewports below 768px, lifts the
+ * widget bubble/greeting by that amount so it does not cover a fixed bottom bar such as the
+ * landing page's sticky call button. The widget renders in an open shadow root, so the
+ * override is injected there once it exists. Omit to leave the widget where HighLevel puts it.
+ */
+interface Props {
+  widgetId?: string;
+  delay?: number;
+  mobileBottomOffset?: string;
+}
+
+const { widgetId = '69e99e40e6b8eef3b3a97f37', delay = 4000, mobileBottomOffset = '' } = Astro.props;
+---
+
+<script is:inline define:vars={{ widgetId, delay, mobileBottomOffset }}>
+  (function () {
+    if (window.__ghlChatRequested) return;
+    window.__ghlChatRequested = true;
+
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      ['scroll', 'touchstart', 'mousemove', 'keydown', 'pointerdown'].forEach(function (t) {
+        window.removeEventListener(t, start);
+      });
+      if (document.querySelector('script[data-widget-id="' + widgetId + '"]')) return;
+      var s = document.createElement('script');
+      s.src = 'https://widgets.leadconnectorhq.com/loader.js';
+      s.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+      s.setAttribute('data-widget-id', widgetId);
+      s.async = true;
+      document.body.appendChild(s);
+      if (mobileBottomOffset) liftOnMobile();
+    }
+
+    function liftOnMobile() {
+      var tries = 0;
+      var timer = setInterval(function () {
+        var host = document.querySelector('chat-widget');
+        var root = host && host.shadowRoot;
+        if (root && root.getElementById('lc_text-widget')) {
+          clearInterval(timer);
+          var st = document.createElement('style');
+          st.textContent = '@media (max-width: 767px){#lc_text-widget,#lc_text-widget--btn{bottom:calc(' + mobileBottomOffset + ' + env(safe-area-inset-bottom)) !important}}';
+          root.appendChild(st);
+        } else if (++tries > 100) {
+          clearInterval(timer);
+        }
+      }, 200);
+    }
+
+    function arm() {
+      ['scroll', 'touchstart', 'mousemove', 'keydown', 'pointerdown'].forEach(function (t) {
+        window.addEventListener(t, start, { once: true, passive: true });
+      });
+      setTimeout(start, delay);
+    }
+    document.readyState === 'complete' ? arm() : window.addEventListener('load', arm);
+  })();
+</script>

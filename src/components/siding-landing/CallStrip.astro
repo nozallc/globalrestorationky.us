@@ -1,0 +1,16 @@
+---
+/** Compact call prompt placed after content sections. */
+import CallButton from './CallButton.astro';
+
+interface Props {
+  placement: string;
+  text: string;
+}
+
+const { placement, text } = Astro.props;
+---
+
+<div class="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-4 rounded-2xl bg-brand-accent px-5 py-6 text-center sm:flex-row sm:justify-between sm:text-left">
+  <p class="text-lg font-bold text-global-blue">{text}</p>
+  <CallButton placement={placement} />
+</div>
