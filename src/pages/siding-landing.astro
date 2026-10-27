@@ -9,6 +9,7 @@ import SidingLandingLayout from '../layouts/SidingLandingLayout.astro';
 import CallButton from '../components/siding-landing/CallButton.astro';
 import CallStrip from '../components/siding-landing/CallStrip.astro';
 import HighLevelChatWidget from '../components/HighLevelChatWidget.astro';
+import HighLevelForm from '../components/HighLevelForm.astro';
 import { LANDING, IS_SIDING_BUILD, SERVICE_AREAS, FAQS } from '../lib/siding-landing';
 import heroImage from '../assets/siding/siding-01.webp';
 
@@ -19,8 +20,6 @@ const description =
 const canonical = `${LANDING.url}/`;
 const og = await getImage({ src: heroImage, width: 1200, format: 'webp' });
 const ogImage = new URL(og.src, LANDING.url).toString();
-
-const formEnabled = LANDING.leadEndpoint !== '';
 
 const business = {
   '@type': 'HomeAndConstructionBusiness',
@@ -92,16 +91,6 @@ const steps = [
   ['Review your options', 'We go over materials and give you an estimate.'],
   ['Installation', 'Once you approve the work, we schedule and install your siding.'],
 ] as const;
-
-const projectTypes = [
-  'Full siding replacement',
-  'New siding installation',
-  'Siding repair',
-  'Not sure yet',
-];
-
-const inputClass =
-  'mt-1 block min-h-[48px] w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 text-base text-slate-900 focus:border-global-blue focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-global-blue';
 ---
 
 <SidingLandingLayout
@@ -278,122 +267,12 @@ const inputClass =
         <CallButton placement="final-cta" variant="solid" />
       </div>
 
-      {formEnabled ? (
-        <div class="mt-8 rounded-2xl bg-white p-5 text-slate-900 sm:p-7">
-          <h3 class="text-xl font-extrabold text-global-blue">Or request an estimate online</h3>
-          <form id="estimate-form" class="mt-4 space-y-4" method="post" novalidate data-endpoint={LANDING.leadEndpoint}>
-            <div>
-              <label for="f-name" class="block font-semibold">Full name</label>
-              <input id="f-name" name="full_name" type="text" autocomplete="name" required maxlength="100" class={inputClass} />
-            </div>
-            <div>
-              <label for="f-phone" class="block font-semibold">Phone number</label>
-              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="25" class={inputClass} />
-            </div>
-            <div>
-              <label for="f-city" class="block font-semibold">City or ZIP code</label>
-              <input id="f-city" name="city_or_zip" type="text" autocomplete="postal-code" required maxlength="60" class={inputClass} />
-            </div>
-            <div>
-              <label for="f-type" class="block font-semibold">Type of siding project</label>
-              <select id="f-type" name="project_type" required class={inputClass}>
-                <option value="">Select one…</option>
-                {projectTypes.map((p) => <option value={p}>{p}</option>)}
-              </select>
-            </div>
-            <div>
-              <label for="f-details" class="block font-semibold">Details <span class="font-normal text-slate-600">(optional)</span></label>
-              <textarea id="f-details" name="message" rows="3" maxlength="1000" class={inputClass}></textarea>
-            </div>
-            <!-- Honeypot: hidden from people and assistive tech; bots fill it. -->
-            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
-              <label for="f-website">Leave this field empty</label>
-              <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
-            </div>
-            <p class="text-sm text-slate-600">By submitting, you agree that {LANDING.business} may contact you about your estimate request.</p>
-            <button type="submit" class="inline-flex min-h-[52px] w-full items-center justify-center rounded-lg bg-[#dc2626] px-6 py-3 text-lg font-extrabold text-white hover:bg-[#b91c1c] disabled:opacity-60 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
-              Request My Siding Estimate
-            </button>
-            <div id="form-status" role="status" aria-live="polite" class="text-base font-semibold"></div>
-          </form>
-        </div>
-      ) : (
-        <p class="mt-8 rounded-xl bg-white/10 p-4 text-center text-base">
-          To request a siding estimate, call us at <a href={LANDING.telHref} data-call-cta="final-cta-text" class="font-extrabold underline">{LANDING.phoneDisplay}</a>.
-        </p>
-      )}
+      <div class="mt-8 rounded-2xl bg-white p-3 text-slate-900 sm:p-5">
+        <h3 class="px-2 pt-2 text-xl font-extrabold text-global-blue">Or request an estimate online</h3>
+        <HighLevelForm />
+      </div>
     </div>
   </section>
 
-  {formEnabled && (
-    <script is:inline define:vars={{ tel: LANDING.telHref, display: LANDING.phoneDisplay, adsFormLabel: LANDING.adsFormLabel }}>
-      (function () {
-        var form = document.getElementById('estimate-form');
-        if (!form) return;
-        var status = document.getElementById('form-status');
-        var button = form.querySelector('button[type="submit"]');
-        var sent = false;
-        var phoneLink = '<a class="underline" href="' + tel + '">' + display + '</a>';
-
-        function say(html, ok) {
-          status.innerHTML = html;
-          status.style.color = ok ? '#047857' : '#b91c1c';
-        }
-
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (sent) return;
-          var f = form.elements;
-          var phoneDigits = f.phone.value.replace(/\D/g, '');
-          if (!f.full_name.value.trim() || phoneDigits.length < 10 || !f.city_or_zip.value.trim() || !f.project_type.value) {
-            say('Please enter your name, a 10-digit phone number, your city or ZIP, and the project type.', false);
-            return;
-          }
-          // Spam: a filled honeypot means a bot. Show success but send nothing.
-          if (f.website.value) {
-            say('Thanks! We received your request.', true);
-            sent = true;
-            return;
-          }
-
-          var attr = window.grAttribution ? window.grAttribution() : {};
-          var payload = {
-            full_name: f.full_name.value.trim(),
-            phone: f.phone.value.trim(),
-            city_or_zip: f.city_or_zip.value.trim(),
-            project_type: f.project_type.value,
-            message: f.message.value.trim(),
-            lead_source: 'siding-landing',
-            page_url: location.origin + location.pathname,
-            submitted_at: new Date().toISOString()
-          };
-          Object.keys(attr).forEach(function (k) { payload[k] = attr[k]; });
-
-          button.disabled = true;
-          say('Sending…', true);
-          var ctrl = new AbortController();
-          var timer = setTimeout(function () { ctrl.abort(); }, 12000);
-
-          fetch(form.getAttribute('data-endpoint'), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-            signal: ctrl.signal
-          }).then(function (res) {
-            clearTimeout(timer);
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            sent = true;
-            say('Thank you! We received your request and will contact you soon.', true);
-            form.reset();
-            if (window.grTrack) window.grTrack('generate_lead', { form_id: 'siding-estimate' }, adsFormLabel);
-          }).catch(function () {
-            clearTimeout(timer);
-            button.disabled = false;
-            say('Sorry, we could not send your request. Please try again or call us at ' + phoneLink + '.', false);
-          });
-        });
-      })();
-    </script>
-  )}
-  <HighLevelChatWidget mobileBottomOffset="5.25rem" />
+  <HighLevelChatWidget mobileBottomOffset="5.25rem" hideGreetingOnMobile hideOnMobileWhileVisible="#estimate" />
 </SidingLandingLayout>

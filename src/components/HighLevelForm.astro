@@ -1,0 +1,79 @@
+---
+/**
+ * Official HighLevel (NOZA) inline form embed. Reusable:
+ *   <HighLevelForm />                       (siding landing page form)
+ *   <HighLevelForm formId="..." formName="..." />
+ *
+ * The iframe attributes are HighLevel's own embed code. Additions: `loading="lazy"`
+ * (the form is below the fold) and a wrapper that reserves space to limit layout shift.
+ * `form_embed.js` (HighLevel's loader, which also sizes the iframe to the form and passes
+ * UTM parameters into it) is injected once, shortly before the form scrolls into view.
+ *
+ * Submissions are recorded by HighLevel; this component sends no analytics event of its own.
+ * The wrapper id `estimate-form` is used by the landing layout to hide the sticky call bar
+ * while the form has focus.
+ */
+interface Props {
+  formId?: string;
+  formName?: string;
+  /** Space reserved before HighLevel reports the real height (px). */
+  minHeight?: number;
+}
+
+const {
+  formId = 'wlD5c84wGVUOv3Y1xuMH',
+  formName = 'Request Free Inspection',
+  minHeight = 640,
+} = Astro.props;
+
+const src = `https://api.noza.app/widget/form/${formId}`;
+const iframeId = `inline-${formId}`;
+const layout = "{'id':'INLINE'}";
+---
+
+<div id="estimate-form" class="ghl-form-wrap" style={`min-height:${minHeight}px`}>
+  <iframe
+    src={src}
+    style="width:100%;height:100%;border:none;border-radius:8px"
+    id={iframeId}
+    data-layout={layout}
+    data-trigger-type="alwaysShow"
+    data-trigger-value=""
+    data-activation-type="alwaysActivated"
+    data-activation-value=""
+    data-deactivation-type="neverDeactivate"
+    data-deactivation-value=""
+    data-form-name={formName}
+    data-height="1512"
+    data-layout-iframe-id={iframeId}
+    data-form-id={formId}
+    data-cookie-consent="true"
+    data-cookie-consent-provider="auto"
+    title={formName}
+    loading="lazy"
+  ></iframe>
+</div>
+
+<script is:inline>
+  (function () {
+    if (window.__ghlFormEmbedRequested) return;
+    window.__ghlFormEmbedRequested = true;
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://api.noza.app/js/form_embed.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+    var wrap = document.getElementById('estimate-form');
+    if (wrap && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries, obs) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { obs.disconnect(); load(); }
+      }, { rootMargin: '800px 0px' }).observe(wrap);
+    } else {
+      window.addEventListener('load', load);
+    }
+  })();
+</script>

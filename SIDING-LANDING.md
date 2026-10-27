@@ -6,6 +6,7 @@ One-page, navigation-free siding lead-gen page for Global Restoration LLC, built
 - Config (phone, URL, endpoint, service areas, FAQ): `src/lib/siding-landing.ts`
 - GA4 ID (central, reusable): `src/lib/analytics.ts`
 - HighLevel chat widget (reusable component): `src/components/HighLevelChatWidget.astro`
+- HighLevel lead form embed (reusable component): `src/components/HighLevelForm.astro`
 
 ## Builds
 
@@ -19,15 +20,13 @@ Builds regenerate tracked files in `.astro/`; run `git checkout -- .astro` after
 ## Cloudflare Pages (siding.noza.app)
 
 Build command `npm run build:siding`, output directory `dist-siding`, Node 20+.
-Environment variables are listed in `.env.siding.example`. Nothing is required to build;
-without `PUBLIC_LEAD_ENDPOINT` the online form is not rendered (call-only page).
+Environment variables are listed in `.env.siding.example`; none are required to build.
 
 ## Before launch: owner confirmation needed
 
-- Lead form endpoint (HighLevel webhook) and that it accepts cross-origin JSON (CORS). Form stays hidden until set.
+- HighLevel form "Request Free Inspection" (id `wlD5c84wGVUOv3Y1xuMH`) is a generic storm/roofing inspection form. Its SMS-consent text names **JSR Roofing & Construction LLC**, not Global Restoration LLC; its "What needs addressed?" list includes Roofing, Gutters and Structural Damage; it is titled "Free". Fix these in HighLevel (the page embeds it as-is).
+- The form sends no event to the site. `generate_lead` is intentionally not implemented; HighLevel submission records are the source of truth (a thank-you redirect to a site URL would allow reliable tracking later).
 - Dedicated call-tracking number (`PUBLIC_LANDING_PHONE`). Until then the page uses 888-370-9899.
-- Contact-consent wording under the form must match the real follow-up (calls, texts, email). If HighLevel will send SMS, explicit SMS consent language is required.
-- No privacy policy page exists yet.
 - Claims copied from the existing site that need confirmation: materials (vinyl, James Hardie, LP SmartSide), "locally owned", address 616 W 3rd St, the county list.
 - Not claimed anywhere (add only if true): reviews, warranties, financing, discounts, licensing, free estimates, response-time guarantees.
 

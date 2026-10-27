@@ -44,13 +44,10 @@ export const LANDING = {
   /** Real company number, used in structured data so NAP stays consistent when a tracking number is on the page. */
   schemaTel: SITE.tel,
   url: LANDING_URL,
-  /** HighLevel (or other) lead endpoint. Empty = online form is NOT rendered. */
-  leadEndpoint: (env.PUBLIC_LEAD_ENDPOINT || '').trim(),
   // Central ID (src/lib/analytics.ts). Deliberately NOT PUBLIC_GA_MEASUREMENT_ID, which the legacy site layout uses.
   ga4Id: (env.PUBLIC_LANDING_GA4_ID || GA4_MEASUREMENT_ID).trim(),
   adsId: (env.PUBLIC_GOOGLE_ADS_ID || '').trim(),
   adsCallLabel: (env.PUBLIC_GOOGLE_ADS_CALL_LABEL || '').trim(),
-  adsFormLabel: (env.PUBLIC_GOOGLE_ADS_FORM_LABEL || '').trim(),
 } as const;
 
 /** County -> principal city, as supplied by the owner. */

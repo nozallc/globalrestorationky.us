@@ -26,7 +26,6 @@ const analytics = {
   ga4: LANDING.ga4Id,
   ads: LANDING.adsId,
   adsCallLabel: LANDING.adsCallLabel,
-  adsFormLabel: LANDING.adsFormLabel,
 };
 const trackingEnabled = import.meta.env.PROD && Boolean(analytics.ga4 || analytics.ads);
 ---
@@ -56,28 +55,14 @@ const trackingEnabled = import.meta.env.PROD && Boolean(analytics.ga4 || analyti
     {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
 
     <!--
-      Attribution + analytics (tiny, no dependencies).
-      - Captures UTM / click-id parameters once per session for the lead form.
+      Analytics (tiny, no dependencies).
       - Defines gtag and queues events; gtag.js itself is fetched only after the page has
         loaded, so it never competes with LCP. Skipped entirely when no ID is configured.
       - Call clicks are reported as `call_button_click` (an intent signal, NOT a completed call).
+      - No form-submission event is sent from the site: submissions are recorded by HighLevel.
     -->
     <script is:inline define:vars={{ analytics, trackingEnabled }}>
       (function () {
-        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'];
-        var STORE = 'gr_siding_attr';
-        function read() { try { return JSON.parse(sessionStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
-        function write(o) { try { sessionStorage.setItem(STORE, JSON.stringify(o)); } catch (e) {} }
-
-        var attr = read();
-        var params = new URLSearchParams(location.search);
-        var fresh = false;
-        KEYS.forEach(function (k) { var v = params.get(k); if (v) { attr[k] = v.slice(0, 200); fresh = true; } });
-        if (!attr.landing_url) { attr.landing_url = location.origin + location.pathname; fresh = true; }
-        if (!('referrer' in attr)) { attr.referrer = (document.referrer || '').slice(0, 300); fresh = true; }
-        if (fresh) write(attr);
-        window.grAttribution = function () { return read(); };
-
         window.dataLayer = window.dataLayer || [];
         function gtag() { window.dataLayer.push(arguments); }
         window.gtag = gtag;
