@@ -24,7 +24,7 @@ Environment variables are listed in `.env.siding.example`; none are required to 
 
 ## Before launch: owner confirmation needed
 
-- HighLevel form "Request Free Inspection" (id `wlD5c84wGVUOv3Y1xuMH`) is a generic storm/roofing inspection form. Its SMS-consent text names **JSR Roofing & Construction LLC**, not Global Restoration LLC; its "What needs addressed?" list includes Roofing, Gutters and Structural Damage; it is titled "Free". Fix these in HighLevel (the page embeds it as-is).
+- HighLevel form "Request Free Siding Estimate" (id `wlD5c84wGVUOv3Y1xuMH`): business name and consent text were corrected in HighLevel by the owner. Re-check the live form text before running ads. The page embeds the form as-is (always visible; no delayed-display settings).
 - The form sends no event to the site. `generate_lead` is intentionally not implemented; HighLevel submission records are the source of truth (a thank-you redirect to a site URL would allow reliable tracking later).
 - Dedicated call-tracking number (`PUBLIC_LANDING_PHONE`). Until then the page uses 888-370-9899.
 - Claims copied from the existing site that need confirmation: materials (vinyl, James Hardie, LP SmartSide), "locally owned", address 616 W 3rd St, the county list.
